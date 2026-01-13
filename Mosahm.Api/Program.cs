@@ -9,6 +9,7 @@ builder.Services
     .AddApiServices()
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration)
+    .AddAuthenticationServices(builder.Configuration)
     .AddSwaggerDocumentation();
 
 var app = builder.Build();

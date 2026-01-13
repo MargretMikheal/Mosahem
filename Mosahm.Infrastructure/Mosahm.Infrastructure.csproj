@@ -10,12 +10,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mosahm.Application\Mosahm.Application.csproj" />
     <ProjectReference Include="..\Mosahm.Domain\Mosahm.Domain.csproj" />
+    <ProjectReference Include="..\Mosahm.Presistance\Mosahm.Presistence.csproj" />
   </ItemGroup>
 
 </Project>
