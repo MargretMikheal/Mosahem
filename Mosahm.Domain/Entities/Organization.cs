@@ -1,4 +1,5 @@
 ﻿using Mosahm.Domain.Common.Localization;
+using Mosahm.Domain.Entities.Identity;
 using Mosahm.Domain.Enums;
 
 namespace Mosahm.Domain.Entities
@@ -10,13 +11,12 @@ namespace Mosahm.Domain.Entities
         public string LicenseUrl { get; set; }
         public string? VerificationComment { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
-        public int VolunteersCount { get; set; }
-        public int OpportunitiesCount { get; set; }
         #endregion
         #region Navigations
         public Guid UserId { get; set; }
+        public MosahmUser User { get; set; }
         public ICollection<Address> Address { get; set; }
-        public ICollection<VolunteerFollowOrganization>? VolunteerFollowOrganizations { get; set; }
+        public ICollection<OrganizationFollwer>? OrganizationFollwers { get; set; }
         public ICollection<OrganizationField> OrganizationFields { get; set; }
         public ICollection<Opportunity>? Opportunities { get; set; }
         #endregion

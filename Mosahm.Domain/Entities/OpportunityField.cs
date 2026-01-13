@@ -1,10 +1,11 @@
 ﻿namespace Mosahm.Domain.Entities
 {
-    public class VolunteerLikeOpportunity
+    public class OpportunityField
     {
-        public Guid VolunteerId { get; set; }
-        public Volunteer Volunteer { get; set; }
         public Guid OpportunityId { get; set; }
         public Opportunity Opportunity { get; set; }
+
+        public Guid FieldId { get; set; }
+        public Field Field { get; set; }
     }
 }

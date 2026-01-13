@@ -9,8 +9,7 @@ namespace Mosahm.Domain.Entities
         public string Category { get; set; }
         #region Navigations
         public ICollection<VolunteerSkill>? VolunteerSkills { get; set; }
-        public ICollection<OpportunityRequireSkill>? OpportunityRequireSkills { get; set; }
-        public ICollection<OpportunityProvideSkill>? OpportunityProvideSkills { get; set; }
+        public ICollection<OpportunitySkill>? OpportunitySkills { get; set; }
         #endregion
     }
 }

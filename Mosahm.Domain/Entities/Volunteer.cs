@@ -1,4 +1,5 @@
 ﻿using Mosahm.Domain.Common.Localization;
+using Mosahm.Domain.Entities.Identity;
 using Mosahm.Domain.Enums;
 
 namespace Mosahm.Domain.Entities
@@ -16,15 +17,16 @@ namespace Mosahm.Domain.Entities
         #endregion
         #region Navigations
         public Guid UserId { get; set; }
+        public MosahmUser User { get; set; }
         public Address? Address { get; set; }
         public ICollection<VolunteerSkill> VolunteerSkills { get; set; }
         public ICollection<VolunteerField> VolunteerFields { get; set; }
-        public ICollection<VolunteerApplyOpportunity>? VolunteerApplyOpportunities { get; set; }
-        public ICollection<VolunteerSaveOpportunity>? VolunteerSaveOpportunities { get; set; }
-        public ICollection<VolunteerLikeOpportunity>? VolunteerLikeOpportunities { get; set; }
-        public ICollection<VolunteerCommentOpportunity>? VolunteerCommentOpportunities { get; set; }
-        public ICollection<VolunteerFollowOrganization>? VolunteerFollowOrganizations { get; set; }
-        public ICollection<VolunteerAnswerQuestion>? VolunteerAnswerQuestions { get; set; }
+        public ICollection<OpportunityApplication>? VolunteerApplyOpportunities { get; set; }
+        public ICollection<OpportunitySave>? VolunteerSaveOpportunities { get; set; }
+        public ICollection<OpportunityLike>? VolunteerLikeOpportunities { get; set; }
+        public ICollection<OpportunityComment>? VolunteerCommentOpportunities { get; set; }
+        public ICollection<OrganizationFollwer>? VolunteerFollowOrganizations { get; set; }
+        public ICollection<QuestionAnswer>? QuestionAnswers { get; set; }
         #endregion
     }
 }

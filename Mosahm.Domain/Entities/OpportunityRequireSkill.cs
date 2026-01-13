@@ -1,10 +1,12 @@
-﻿namespace Mosahm.Domain.Entities
+﻿using Mosahm.Domain.Enums;
+
+namespace Mosahm.Domain.Entities
 {
-    public class OpportunityRequireSkill
+    public class OpportunityRequireSkill : OpportunitySkill
     {
-        public Guid OpportunityId { get; set; }
-        public Opportunity Opportunity { get; set; }
-        public Guid SkillId { get; set; }
-        public Skill Skill { get; set; }
+        public OpportunityRequireSkill()
+        {
+            SkillType = OpportunitySkillType.Require;
+        }
     }
 }

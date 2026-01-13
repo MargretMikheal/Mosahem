@@ -1,4 +1,4 @@
-﻿namespace Mosahm.Identity.Settings
+﻿namespace Mosahm.Application.Settings
 {
     public class JwtSettings
     {

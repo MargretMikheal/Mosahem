@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mosahm.Identity.Services
+namespace Mosahm.Application.Interfaces
 {
-    public class AuthService:IAuthService
+    public interface IAuthService
     {
     }
 }

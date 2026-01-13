@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mosahm.Application\Mosahm.Application.csproj" />
-    <ProjectReference Include="..\Mosahm.Identity\Mosahm.Identity.csproj" />
     <ProjectReference Include="..\Mosahm.Infrastructure\Mosahm.Infrastructure.csproj" />
     <ProjectReference Include="..\Mosahm.Presentation\Mosahm.Presentation.csproj" />
     <ProjectReference Include="..\Mosahm.Presistance\Mosahm.Presistence.csproj" />

@@ -9,7 +9,7 @@ namespace Mosahm.Domain.Entities
         #region Navigations
         public ICollection<VolunteerField>? VolunteerFields { get; set; }
         public ICollection<OrganizationField>? OrganizationFields { get; set; }
-        public ICollection<Opportunity>? Opportunities { get; set; }
+        public ICollection<OpportunityField>? OpportunityFields { get; set; }
         #endregion
     }
 }

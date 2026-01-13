@@ -12,7 +12,7 @@ namespace Mosahm.Domain.Entities
         public bool IsRequired { get; set; }
         public Guid OpportunityId { get; set; }
         public Opportunity Opportunity { get; set; }
-        public ICollection<VolunteerAnswerQuestion>? VolunteerAnswerQuestions { get; set; }
+        public ICollection<QuestionAnswer>? QuestionAnswers { get; set; }
 
     }
 }

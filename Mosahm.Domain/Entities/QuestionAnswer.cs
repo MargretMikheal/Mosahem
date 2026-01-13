@@ -2,7 +2,7 @@
 
 namespace Mosahm.Domain.Entities
 {
-    public class VolunteerAnswerQuestion : BaseEntity
+    public class QuestionAnswer : BaseEntity
     {
         public Guid VolunteerId { get; set; }
         public Volunteer Volunteer { get; set; }

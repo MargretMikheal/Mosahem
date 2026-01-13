@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Mosahm.Identity.Enums;
+using Mosahm.Domain.Enums;
 
 namespace Mosahm.Identity.Models
 {

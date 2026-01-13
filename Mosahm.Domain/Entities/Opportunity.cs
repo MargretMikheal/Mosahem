@@ -3,7 +3,7 @@ using Mosahm.Domain.Enums;
 
 namespace Mosahm.Domain.Entities
 {
-    public class Opportunity : GeneralLocalizableEntity
+    public class Opportunity : BaseEntity
     {
         #region Properties
         public string Title { get; set; }
@@ -17,22 +17,18 @@ namespace Mosahm.Domain.Entities
         public DateTime EndDate { get; set; }
         public int Vacancies { get; set; }
         public int ApplicantsCount { get; set; }
-        public int LikesCount { get; set; }
-        public int CommentsCount { get; set; }
         #endregion
         #region Navigations
         public Guid OrganizationId { get; set; }
         public Organization Organization { get; set; }
-        public Guid? FieldId { get; set; }
-        public Field? Field { get; set; }
         public ICollection<Address>? Address { get; set; }
-        public ICollection<VolunteerCommentOpportunity>? VolunteerCommentOpportunities { get; set; }
-        public ICollection<VolunteerLikeOpportunity>? VolunteerLikeOpportunities { get; set; }
-        public ICollection<VolunteerSaveOpportunity>? VolunteerSaveOpportunities { get; set; }
-        public ICollection<VolunteerApplyOpportunity>? VolunteerApplyOpportunities { get; set; }
-        public ICollection<OpportunityRequireSkill>? OpportunityRequireSkills { get; set; }
-        public ICollection<OpportunityProvideSkill>? OpportunityProvideSkills { get; set; }
+        public ICollection<OpportunityComment>? OpportunityComments { get; set; }
+        public ICollection<OpportunityLike>? OpportunityLikes { get; set; }
+        public ICollection<OpportunitySave>? OpportunitySaves { get; set; }
+        public ICollection<OpportunityApplication>? OpportunityApplications { get; set; }
+        public ICollection<OpportunitySkill>? OpportunitySkill { get; set; }
         public ICollection<Question>? Questions { get; set; }
+        public ICollection<OpportunityField>? OpportunityFields { get; set; }
         #endregion
     }
 }

@@ -3,7 +3,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Mosahm.Domain.Entities
 {
-    public class Governate : GeneralLocalizableEntity
+    public class Governorate : GeneralLocalizableEntity
     {
         public string NameAr { get; set; }
         public string NameEn { get; set; }

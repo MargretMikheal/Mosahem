@@ -1,6 +1,6 @@
 ﻿namespace Mosahm.Domain.Entities
 {
-    public class VolunteerFollowOrganization
+    public class OrganizationFollwer
     {
         public Guid VolunteerId { get; set; }
         public Volunteer Volunteer { get; set; }

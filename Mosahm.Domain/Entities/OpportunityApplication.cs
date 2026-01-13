@@ -3,7 +3,7 @@ using Mosahm.Domain.Enums;
 
 namespace Mosahm.Domain.Entities
 {
-    public class VolunteerApplyOpportunity : GeneralLocalizableEntity
+    public class OpportunityApplication : BaseEntity
     {
         public Guid VolunteerId { get; set; }
         public Volunteer Volunteer { get; set; }

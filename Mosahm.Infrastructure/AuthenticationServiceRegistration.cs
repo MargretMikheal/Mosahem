@@ -1,55 +1,37 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Mosahm.Identity.Services;
-using Mosahm.Identity.Settings;
+using Mosahm.Application.Settings;
+using Mosahm.Application.Interfaces; 
+using Mosahm.Infrastructure.Services; 
 using System.Reflection;
 using System.Text;
 
-namespace Mosahm.Identity
+namespace Mosahm.Infrastructure
 {
-    public static class DependencyInjection
+    public static class AuthenticationServiceRegistration
     {
-        public static IServiceCollection AddIdentityServices(
+        public static IServiceCollection AddAuthenticationServices(
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            
+            // JWT settings
             services.Configure<JwtSettings>(
                 configuration.GetSection("JwtSettings"));
 
-            
-            //services.AddDbContext<MosahmIdentityDbContext>(options =>
-            //    options.UseSqlServer(
-            //        configuration.GetConnectionString("IdentityConnection")));
-
-            
-            //services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            //{
-            //    options.Password.RequiredLength = 8;
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireUppercase = false;
-            //    options.User.RequireUniqueEmail = true;
-            //})
-            //.AddEntityFrameworkStores<MosahmIdentityDbContext>()
-            //.AddDefaultTokenProviders();
-
-            
+            // Auth services
             services.AddScoped<IAuthService, AuthService>();
-            //services.AddScoped<IUserService, UserService>();
 
-            
+            // API behavior
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            
+            // JWT authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
