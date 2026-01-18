@@ -13,7 +13,7 @@ namespace Mosahm.Presentation.Bases
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppControllerBase : ControllerBase
+    public class MosahmControllerBase : ControllerBase
     {
         private IMediator _mediatorInstance;
         protected IMediator _mediator => _mediatorInstance ??= HttpContext.RequestServices.GetService<IMediator>();

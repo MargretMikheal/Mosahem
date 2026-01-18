@@ -46,11 +46,13 @@ namespace Mosahm.Persistence.Repositories
 
         public virtual async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var deletedRows = await _dbSet
-                .Where(x => x.Id == id)
-                .ExecuteDeleteAsync(cancellationToken);
+            var entity = await _dbSet.FindAsync(new object[] { id }, cancellationToken);
 
-            return deletedRows > 0;
+            if (entity == null) return false;
+
+            _dbSet.Remove(entity);
+
+            return true;
         }
         #endregion
 

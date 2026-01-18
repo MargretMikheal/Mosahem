@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+    <PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
+    <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.1" />
@@ -17,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mosahm.Application\Mosahm.Application.csproj" />
     <ProjectReference Include="..\Mosahm.Domain\Mosahm.Domain.csproj" />
-    <ProjectReference Include="..\Mosahm.Presistance\Mosahm.Presistence.csproj" />
+    <ProjectReference Include="..\Mosahm.Presistance\Mosahm.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
