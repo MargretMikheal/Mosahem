@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Mosahm.Domain.Entities.Profiles;
 using Mosahm.Domain.Enums;
 
 namespace Mosahm.Domain.Entities.Identity

@@ -4,5 +4,5 @@
   <Project Path="Mosahm.Domain/Mosahm.Domain.csproj" />
   <Project Path="Mosahm.Infrastructure/Mosahm.Infrastructure.csproj" />
   <Project Path="Mosahm.Presentation/Mosahm.Presentation.csproj" />
-  <Project Path="Mosahm.Presistance/Mosahm.Presistence.csproj" />
+  <Project Path="Mosahm.Presistance/Mosahm.Persistence.csproj" />
 </Solution>

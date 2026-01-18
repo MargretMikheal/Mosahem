@@ -1,4 +1,7 @@
-﻿namespace Mosahm.Domain.Entities
+﻿using Mosahm.Domain.Entities.MasterData;
+using Mosahm.Domain.Entities.Profiles;
+
+namespace Mosahm.Domain.Entities
 {
     public class VolunteerField
     {
