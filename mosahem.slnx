@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Mosahem.Api/Mosahem.Api.csproj" />
+  <Project Path="Mosahem.Application/Mosahem.Application.csproj" />
+  <Project Path="Mosahem.Domain/Mosahem.Domain.csproj" />
+  <Project Path="Mosahem.Infrastructure/Mosahem.Infrastructure.csproj" />
+  <Project Path="Mosahem.Presentation/Mosahem.Presentation.csproj" />
+  <Project Path="Mosahem.Presistance/Mosahem.Persistence.csproj" />
+</Solution>
