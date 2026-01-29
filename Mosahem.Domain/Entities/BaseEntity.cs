@@ -1,4 +1,4 @@
-﻿namespace mosahem.Domain.Entities
+﻿namespace Mosahem.Domain.Entities
 {
     public class BaseEntity
     {

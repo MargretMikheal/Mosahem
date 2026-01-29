@@ -25,6 +25,7 @@
             public const string MaxLength = "MaxLength";
             public const string OutOfRange = "OutOfRange";
             public const string DuplicateEntry = "DuplicateEntry";
+            public const string NotFound = "NotFound";
         }
 
         public static class Auth

@@ -1,15 +1,17 @@
 ﻿using Amazon.S3;
 using FluentEmail.Smtp;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mosahem.Application.Interfaces;
 using mosahem.Application.Settings;
 using mosahem.Infrastructure.Services;
-using mosahem.Persistence;
 using Mosahem.Application.Interfaces;
+using Mosahem.Application.Interfaces.Security;
 using Mosahem.Application.Settings;
 using Mosahem.Infrastructure.Services;
+using Mosahem.Infrastructure.Services.Security;
 using System.Net;
 using System.Net.Mail;
 
@@ -68,7 +70,8 @@ namespace mosahem.Infrastructure
 
             services.AddScoped<IFileService, FileService>();
             #endregion
-
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             return services;
         }
     }

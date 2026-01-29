@@ -6,6 +6,7 @@ using mosahem.Domain.Entities.MasterData;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Entities.Questions;
+using Mosahem.Domain.Entities.Identity;
 using System.Reflection;
 
 namespace mosahem.Persistence
@@ -21,7 +22,8 @@ namespace mosahem.Persistence
 
         // Core
         public DbSet<MosahmUser> Users => Set<MosahmUser>();
-
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<OneTimePassword> OneTimePasswords { get; set; }
         public DbSet<Volunteer> Volunteers => Set<Volunteer>();
         public DbSet<Organization> Organizations => Set<Organization>();
 

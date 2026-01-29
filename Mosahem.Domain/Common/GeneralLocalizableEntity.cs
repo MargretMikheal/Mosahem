@@ -1,4 +1,4 @@
-﻿using mosahem.Domain.Entities;
+﻿using Mosahem.Domain.Entities;
 using System.Globalization;
 
 namespace mosahem.Domain.Common.Localization

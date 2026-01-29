@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mosahem.Persistence;
 
@@ -11,9 +12,11 @@ using mosahem.Persistence;
 namespace mosahem.Presistence.Migrations
 {
     [DbContext(typeof(MosahmDbContext))]
-    partial class MosahmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260125195046_MakeLicenseUrlNullable")]
+    partial class MakeLicenseUrlNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

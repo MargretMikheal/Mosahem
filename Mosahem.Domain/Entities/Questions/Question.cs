@@ -1,5 +1,6 @@
 ﻿using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Enums;
+using Mosahem.Domain.Entities;
 using System.Text.Json;
 
 namespace mosahem.Domain.Entities.Questions

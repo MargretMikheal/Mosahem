@@ -3,6 +3,9 @@ using mosahem.Domain.Entities.Identity;
 
 namespace mosahem.Application.Interfaces.Repositories
 {
-    // Identity & Profiles
-    public interface IUserRepository : IGenericRepository<MosahmUser> { }
+    public interface IUserRepository : IGenericRepository<MosahmUser> 
+    {
+        Task<bool> IsEmailUniqueAsync(string email);
+        Task<bool> IsPhoneUniqueAsync(string phone);
+    }
 }

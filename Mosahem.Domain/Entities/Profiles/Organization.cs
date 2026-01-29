@@ -10,7 +10,7 @@ namespace mosahem.Domain.Entities.Profiles
     {
         #region Properties
         public string Description { get; set; }
-        public string LicenseUrl { get; set; }
+        public string? LicenseUrl { get; set; }
         public string? VerificationComment { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
         #endregion

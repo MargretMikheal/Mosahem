@@ -1,4 +1,5 @@
 ﻿using mosahem.Domain.Entities.Profiles;
+using Mosahem.Domain.Entities;
 
 namespace mosahem.Domain.Entities.Opportunities
 {

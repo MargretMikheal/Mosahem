@@ -1,5 +1,6 @@
 ﻿using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Profiles;
+using Mosahem.Domain.Entities;
 using System.Reflection.Emit;
 
 namespace mosahem.Domain.Entities.Location

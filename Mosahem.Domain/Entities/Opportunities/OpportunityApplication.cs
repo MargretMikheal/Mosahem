@@ -1,6 +1,7 @@
 ﻿using mosahem.Domain.Common.Localization;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
+using Mosahem.Domain.Entities;
 
 namespace mosahem.Domain.Entities.Opportunities
 {
