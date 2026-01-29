@@ -1,12 +1,14 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration;
 using mosahem.Application.Features.Authentication.Commands.LoginUser;
+using mosahem.Application.Features.Authentication.Commands.SendOtp;
 using mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo;
 using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations; // Check namespace
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Authentication.Commands.RefreshTokens;
+using Mosahem.Application.Features.Authentication.Commands.ResetPassword;
 using Mosahem.Application.Features.Authentication.Commands.ValidateOrganizationFields;
+using Mosahem.Application.Features.Authentication.Commands.VerifyOtp;
 
 namespace Mosahem.Api.Controllers
 {
@@ -31,6 +33,28 @@ namespace Mosahem.Api.Controllers
         }
 
         #endregion
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] SendOtpCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+
         #region Organization Registration Flow
 
         [HttpPost("organization/validate-basic-info")]
