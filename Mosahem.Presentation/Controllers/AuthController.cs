@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration;
+using mosahem.Application.Features.Authentication.Commands.LoginUser;
 using mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo;
 using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations; // Check namespace
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Authentication.Commands.RefreshTokens;
 using Mosahem.Application.Features.Authentication.Commands.ValidateOrganizationFields;
 
 namespace Mosahem.Api.Controllers
@@ -12,6 +14,23 @@ namespace Mosahem.Api.Controllers
     [ApiController]
     public class AuthController : MosahmControllerBase
     {
+        #region Login & Management (Shared)
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+
+        #endregion
         #region Organization Registration Flow
 
         [HttpPost("organization/validate-basic-info")]

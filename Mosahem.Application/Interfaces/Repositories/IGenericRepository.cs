@@ -11,7 +11,8 @@ namespace mosahem.Application.Interfaces.Repositories
         Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
         Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-
+        IQueryable<T> GetTableNoTracking();
+        IQueryable<T> GetTableAsTracking();
         // Advanced Specification Operations
         Task<IEnumerable<T>> FindAllAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);
         Task<T?> FindFirstAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);
