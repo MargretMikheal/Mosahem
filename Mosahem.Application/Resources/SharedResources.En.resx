@@ -324,4 +324,10 @@
   <data name="Validation_PasswordResetFailed" xml:space="preserve">
     <value>Password Reset Failed</value>
   </data>
+  <data name="Validation_CannotDeleteSelf" xml:space="preserve">
+    <value>Cannot Delete Self</value>
+  </data>
+  <data name="Success_AdminAdded" xml:space="preserve">
+    <value>Admin Added</value>
+  </data>
 </root>

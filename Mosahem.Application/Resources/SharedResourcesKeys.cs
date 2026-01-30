@@ -18,6 +18,7 @@
             public const string OtpSent = "Success_OtpSent";
             public const string OtpValid = "Success_OtpValid";
             public const string PasswordReset = "Success_PasswordReset";
+            public const string AdminAdded = "Success_AdminAdded";
         }
 
         public static class Validation
@@ -26,6 +27,7 @@
             public const string Invalid = "Invalid";
             public const string BadRequest = "BadRequest";
             public const string UnprocessableEntity = "UnprocessableEntity";
+            public const string CannotDeleteSelf = "Validation_CannotDeleteSelf";
 
             public const string MinLength = "MinLength";
             public const string MaxLength = "MaxLength";
