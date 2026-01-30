@@ -13,6 +13,14 @@
             public const string OperationFailed = "OperationFailed";
             public const string ActionCompleted = "ActionCompleted";
         }
+        public static class Success
+        {
+            public const string OtpSent = "Success_OtpSent";
+            public const string OtpValid = "Success_OtpValid";
+            public const string PasswordReset = "Success_PasswordReset";
+            public const string AdminAdded = "Success_AdminAdded";
+            public const string PasswordChanged = "Success_PasswordChanged";
+        }
 
         public static class Validation
         {
@@ -20,12 +28,16 @@
             public const string Invalid = "Invalid";
             public const string BadRequest = "BadRequest";
             public const string UnprocessableEntity = "UnprocessableEntity";
+            public const string CannotDeleteSelf = "Validation_CannotDeleteSelf";
 
             public const string MinLength = "MinLength";
             public const string MaxLength = "MaxLength";
             public const string OutOfRange = "OutOfRange";
             public const string DuplicateEntry = "DuplicateEntry";
             public const string NotFound = "NotFound";
+            public const string OtpUsed = "Validation_OtpUsed";
+            public const string OtpExpired = "Validation_OtpExpired";
+            public const string PasswordResetFailed = "Validation_PasswordResetFailed";
         }
 
         public static class Auth

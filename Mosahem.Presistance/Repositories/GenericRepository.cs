@@ -54,6 +54,15 @@ namespace mosahem.Persistence.Repositories
 
             return true;
         }
+        public virtual IQueryable<T> GetTableNoTracking()
+        {
+            return _dbContext.Set<T>().AsNoTracking();
+        }
+
+        public virtual IQueryable<T> GetTableAsTracking()
+        {
+            return _dbContext.Set<T>().AsQueryable();
+        }
         #endregion
 
         #region Specification Methods

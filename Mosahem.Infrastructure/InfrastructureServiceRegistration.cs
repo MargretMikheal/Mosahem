@@ -1,5 +1,4 @@
 ﻿using Amazon.S3;
-using FluentEmail.Smtp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -53,7 +52,7 @@ namespace mosahem.Infrastructure
 
             services.Configure<FileStorageSettings>(configuration.GetSection("FileStorageSettings"));
 
-         
+
             var fileSettings = configuration.GetSection("FileStorageSettings").Get<FileStorageSettings>();
 
             if (fileSettings != null)
@@ -72,6 +71,7 @@ namespace mosahem.Infrastructure
             #endregion
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IEmailTemplateService, EmailTemplateService>();
             return services;
         }
     }

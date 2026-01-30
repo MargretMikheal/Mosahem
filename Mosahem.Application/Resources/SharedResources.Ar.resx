@@ -180,7 +180,7 @@
   <data name="FailedToAddUser" xml:space="preserve">
     <value>فشل اضافه المستخدم</value>
   </data>
-  <data name="PasswordChanged" xml:space="preserve">
+  <data name="Success_PasswordReset" xml:space="preserve">
     <value>تم تغير كلمه المرور</value>
   </data>
   <data name="ChangePassFailed" xml:space="preserve">
@@ -308,5 +308,29 @@
   </data>
   <data name="OperationNotAllowed" xml:space="preserve">
     <value>العملية غير مسموح بها</value>
+  </data>
+  <data name="Success_OtpSent" xml:space="preserve">
+    <value>تم إرسال كود التحقق إلى بريدك الإلكتروني بنجاح.</value>
+  </data>
+  <data name="Success_OtpValid" xml:space="preserve">
+    <value>كود التحقق صحيح.</value>
+  </data>
+  <data name="Validation_OtpUsed" xml:space="preserve">
+    <value>تم استخدام هذا الكود مسبقاً.</value>
+  </data>
+  <data name="Validation_OtpExpired" xml:space="preserve">
+    <value>انتهت صلاحية كود التحقق، يرجى طلب كود جديد.</value>
+  </data>
+  <data name="Validation_PasswordResetFailed" xml:space="preserve">
+    <value>Password Reset Failed</value>
+  </data>
+  <data name="Validation_CannotDeleteSelf" xml:space="preserve">
+    <value>لا تسطيع حذف نفسك</value>
+  </data>
+  <data name="Success_AdminAdded" xml:space="preserve">
+    <value>تم اضافه الادمن</value>
+  </data>
+  <data name="Success_PasswordChanged" xml:space="preserve">
+    <value>تم تغير كلمه المرور</value>
   </data>
 </root>
