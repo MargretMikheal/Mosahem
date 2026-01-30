@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces;
@@ -9,57 +8,52 @@ using Mosahem.Application.Interfaces;
 using Mosahem.Domain.Entities.Identity;
 using Mosahem.Domain.Enums;
 
-namespace mosahem.Application.Features.Authentication.Commands.SendOtp
+namespace mosahem.Application.Features.Authentication.Commands.SendEmailVerificationCode
 {
-    public class SendOtpCommandHandler : IRequestHandler<SendOtpCommand, Response<string>>
+    public class SendEmailVerificationCodeCommandHandler : IRequestHandler<SendEmailVerificationCodeCommand, Response<string>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
+        private readonly IEmailTemplateService _emailTemplateService;
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
-        private readonly IEmailTemplateService _emailTemplateService;
-        public SendOtpCommandHandler(
+
+        public SendEmailVerificationCodeCommandHandler(
             IUnitOfWork unitOfWork,
             IEmailService emailService,
+            IEmailTemplateService emailTemplateService,
             ResponseHandler responseHandler,
-            IStringLocalizer<SharedResources> localizer,
-            IEmailTemplateService emailTemplateService)
+            IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _emailService = emailService;
+            _emailTemplateService = emailTemplateService;
             _responseHandler = responseHandler;
             _localizer = localizer;
-            _emailTemplateService = emailTemplateService;
         }
 
-        public async Task<Response<string>> Handle(SendOtpCommand request, CancellationToken cancellationToken)
+        public async Task<Response<string>> Handle(SendEmailVerificationCodeCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.GetTableNoTracking()
-                .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
-
-            if (user == null)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
-
             var otpCode = new Random().Next(100000, 999999).ToString();
 
             var otpEntity = new OneTimePassword
             {
                 Code = otpCode,
                 Email = request.Email,
-                UserId = user.Id,
-                Purpose = OtpPurpose.PasswordReset,
+                UserId = null,
+                Purpose = OtpPurpose.EmailVerification,
                 ExpiresAt = DateTime.UtcNow.AddMinutes(10),
                 IsUsed = false,
-
+                CreatedAt = DateTime.UtcNow
             };
 
             await _unitOfWork.Repository<OneTimePassword>().AddAsync(otpEntity, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
 
-            string emailBody = _emailTemplateService.GeneratePasswordResetEmail(user.FullName, otpCode);
+            string emailBody = _emailTemplateService.GenerateEmailVerificationEmail("New User", otpCode);
 
-            await _emailService.SendEmailAsync(user.Email, "Reset Your Password - Mosahem", emailBody);
+            await _emailService.SendEmailAsync(request.Email, "Verify Your Email - Mosahem", emailBody);
 
             return _responseHandler.Success<string>(null, _localizer[SharedResourcesKeys.Success.OtpSent]);
         }

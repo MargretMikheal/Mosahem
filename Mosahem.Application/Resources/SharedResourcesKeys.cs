@@ -19,6 +19,7 @@
             public const string OtpValid = "Success_OtpValid";
             public const string PasswordReset = "Success_PasswordReset";
             public const string AdminAdded = "Success_AdminAdded";
+            public const string PasswordChanged = "Success_PasswordChanged";
         }
 
         public static class Validation

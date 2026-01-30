@@ -2,6 +2,7 @@
 {
     public interface IEmailTemplateService
     {
-        string GenerateOtpEmail(string userName, string otpCode);
+        string GeneratePasswordResetEmail(string userName, string otpCode);
+        string GenerateEmailVerificationEmail(string userName, string otpCode);
     }
 }

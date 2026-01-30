@@ -330,4 +330,7 @@
   <data name="Success_AdminAdded" xml:space="preserve">
     <value>تم اضافه الادمن</value>
   </data>
+  <data name="Success_PasswordChanged" xml:space="preserve">
+    <value>تم تغير كلمه المرور</value>
+  </data>
 </root>

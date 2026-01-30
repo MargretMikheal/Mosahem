@@ -330,4 +330,7 @@
   <data name="Success_AdminAdded" xml:space="preserve">
     <value>Admin Added</value>
   </data>
+  <data name="Success_PasswordChanged" xml:space="preserve">
+    <value>Password Changed</value>
+  </data>
 </root>

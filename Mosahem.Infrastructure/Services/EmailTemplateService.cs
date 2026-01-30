@@ -4,7 +4,7 @@ namespace mosahem.Infrastructure.Services
 {
     public class EmailTemplateService : IEmailTemplateService
     {
-        public string GenerateOtpEmail(string userName, string otpCode)
+        public string GeneratePasswordResetEmail(string userName, string otpCode)
         {
             string content = $@"
                 <p style=""color: #666666; font-size: 16px;"">Hello <strong>{userName}</strong>,</p>
@@ -20,6 +20,24 @@ namespace mosahem.Infrastructure.Services
             ";
 
             return GenerateGeneralLayout("Password Reset Request", content);
+        }
+
+        public string GenerateEmailVerificationEmail(string userName, string otpCode)
+        {
+            string content = $@"
+                <p style=""color: #666666; font-size: 16px;"">Welcome to Mosahem, <strong>{userName}</strong>!</p>
+                <p style=""color: #666666; font-size: 16px;"">Thank you for joining us. To activate your account and verify your email address, please use the code below:</p>
+                
+                <div style=""text-align: center; margin: 30px 0;"">
+                    <span style=""background-color: #f4f4f4; border: 2px dashed #28a745; color: #28a745; padding: 15px 30px; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px;"">
+                        {otpCode}
+                    </span>
+                </div>
+
+                <p style=""color: #666666; font-size: 14px;"">This code is valid for 10 minutes. If you did not sign up for Mosahem, please ignore this email.</p>
+            ";
+
+            return GenerateGeneralLayout("Verify Your Email", content);
         }
 
         private string GenerateGeneralLayout(string title, string content)
