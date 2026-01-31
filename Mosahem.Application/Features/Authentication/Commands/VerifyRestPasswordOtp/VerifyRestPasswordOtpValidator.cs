@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
-using Mosahem.Application.Features.Authentication.Commands.VerifyOtp;
+using Mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp;
 
-namespace mosahem.Application.Features.Authentication.Commands.VerifyOtp
+namespace mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp
 {
-    public class VerifyOtpValidator : AbstractValidator<VerifyOtpCommand>
+    public class VerifyRestPasswordOtpValidator : AbstractValidator<VerifyRestPasswordOtpCommand>
     {
-        public VerifyOtpValidator(IStringLocalizer<SharedResources> localizer)
+        public VerifyRestPasswordOtpValidator(IStringLocalizer<SharedResources> localizer)
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])

@@ -14,10 +14,7 @@ namespace mosahem.Application.Features.Authentication.Commands.RevokeToken
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public RevokeTokenCommandHandler(
-            IUnitOfWork unitOfWork,
-            ResponseHandler responseHandler,
-            IStringLocalizer<SharedResources> localizer)
+        public RevokeTokenCommandHandler(IUnitOfWork unitOfWork, ResponseHandler responseHandler, IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _responseHandler = responseHandler;
@@ -30,7 +27,11 @@ namespace mosahem.Application.Features.Authentication.Commands.RevokeToken
                 .FirstOrDefaultAsync(t => t.Token == request.Token, cancellationToken);
 
             if (refreshToken == null)
-                return _responseHandler.BadRequest<bool>(_localizer[SharedResourcesKeys.Auth.InvalidToken]);
+            {
+                return _responseHandler.BadRequest<bool>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>> { { "Token", new List<string> { _localizer[SharedResourcesKeys.Auth.InvalidToken] } } });
+            }
 
             if (refreshToken.IsRevoked)
                 return _responseHandler.Success(true, _localizer[SharedResourcesKeys.Auth.LogoutSuccess]);

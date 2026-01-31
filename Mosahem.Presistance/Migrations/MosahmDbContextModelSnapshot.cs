@@ -568,7 +568,6 @@ namespace mosahem.Presistence.Migrations
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("LicenseUrl")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 

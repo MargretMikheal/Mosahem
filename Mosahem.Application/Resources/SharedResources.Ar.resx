@@ -322,7 +322,7 @@
     <value>انتهت صلاحية كود التحقق، يرجى طلب كود جديد.</value>
   </data>
   <data name="Validation_PasswordResetFailed" xml:space="preserve">
-    <value>Password Reset Failed</value>
+    <value>فشل تغير الباسورد</value>
   </data>
   <data name="Validation_CannotDeleteSelf" xml:space="preserve">
     <value>لا تسطيع حذف نفسك</value>
@@ -332,5 +332,17 @@
   </data>
   <data name="Success_PasswordChanged" xml:space="preserve">
     <value>تم تغير كلمه المرور</value>
+  </data>
+  <data name="Validation_PasswordRequiresUpper" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ('A'-'Z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresLower" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل ('a'-'z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresDigit" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على رقم واحد على الأقل ('0'-'9').</value>
+  </data>
+  <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل (مثلاً !@#$%).</value>
   </data>
 </root>

@@ -25,24 +25,59 @@ namespace mosahem.Application.Features.Admin.Commands.DeleteAdmin
 
         public async Task<Response<string>> Handle(DeleteAdminCommand request, CancellationToken cancellationToken)
         {
+            var generalError = _localizer[SharedResourcesKeys.General.OperationFailed].Value;
+
             if (request.AdminId == request.CurrentUserId)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.CannotDeleteSelf]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>>
+                    {
+                        { "AdminId", new List<string> { _localizer[SharedResourcesKeys.Validation.CannotDeleteSelf] } }
+                    });
+            }
 
             var user = await _unitOfWork.Users.GetByIdAsync(request.AdminId);
 
             if (user == null || user.IsDeleted)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>>
+                    {
+                        { "AdminId", new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
+                    });
+            }
 
             if (user.Role != UserRole.Admin)
-                return _responseHandler.BadRequest<string>("Target user is not an admin.");
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Role", new List<string> { "Target user is not an admin." } }
+                    });
+            }
 
-            user.IsDeleted = true;
-            user.DeletedAt = DateTime.UtcNow;
+            try
+            {
+                user.IsDeleted = true;
+                user.DeletedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Users.UpdateAsync(user);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+                await _unitOfWork.Users.UpdateAsync(user);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _responseHandler.Deleted<string>();
+                return _responseHandler.Deleted<string>();
+            }
+            catch (Exception ex)
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Exception", new List<string> { ex.Message } }
+                    });
+            }
         }
     }
 }

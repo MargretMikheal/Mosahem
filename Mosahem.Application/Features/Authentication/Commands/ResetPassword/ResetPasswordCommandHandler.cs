@@ -32,6 +32,8 @@ namespace mosahem.Application.Features.Authentication.Commands.ResetPassword
 
         public async Task<Response<string>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
+            var generalError = _localizer[SharedResourcesKeys.General.OperationFailed].Value;
+
             var otp = await _unitOfWork.Repository<OneTimePassword>().GetTableAsTracking()
                 .OrderByDescending(x => x.CreatedAt)
                 .FirstOrDefaultAsync(x =>
@@ -40,13 +42,21 @@ namespace mosahem.Application.Features.Authentication.Commands.ResetPassword
                     x.Purpose == OtpPurpose.PasswordReset, cancellationToken);
 
             if (otp == null || otp.IsUsed || otp.ExpiresAt < DateTime.UtcNow)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.Invalid]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "Otp", new List<string> { _localizer[SharedResourcesKeys.Validation.Invalid] } } });
+            }
 
             var user = await _unitOfWork.Users.GetTableAsTracking()
                 .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
             if (user == null)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "Email", new List<string> { _localizer[SharedResourcesKeys.User.NotFound] } } });
+            }
 
             await _unitOfWork.BeginTransactionAsync(cancellationToken);
             try
@@ -65,7 +75,9 @@ namespace mosahem.Application.Features.Authentication.Commands.ResetPassword
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.PasswordResetFailed]);
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "Exception", new List<string> { ex.Message } } });
             }
         }
     }

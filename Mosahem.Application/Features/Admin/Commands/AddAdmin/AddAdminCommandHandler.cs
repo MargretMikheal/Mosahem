@@ -33,14 +33,35 @@ namespace mosahem.Application.Features.Admin.Commands.AddAdmin
 
         public async Task<Response<string>> Handle(AddAdminCommand request, CancellationToken cancellationToken)
         {
-            var adminUser = _mapper.Map<MosahmUser>(request);
+            if (!await _unitOfWork.Users.IsEmailUniqueAsync(request.Email))
+            {
+                return _responseHandler.BadRequest<string>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Email", new List<string> { _localizer[SharedResourcesKeys.User.EmailAlreadyTaken] } }
+                    });
+            }
 
-            adminUser.PasswordHash = _passwordHasher.HashPassword(request.Password);
+            try
+            {
+                var adminUser = _mapper.Map<MosahmUser>(request);
+                adminUser.PasswordHash = _passwordHasher.HashPassword(request.Password);
 
-            await _unitOfWork.Users.AddAsync(adminUser, cancellationToken);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+                await _unitOfWork.Users.AddAsync(adminUser, cancellationToken);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.Success.AdminAdded]);
+                return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.Success.AdminAdded]);
+            }
+            catch (Exception ex)
+            {
+                return _responseHandler.BadRequest<string>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Exception", new List<string> { ex.Message } }
+                    });
+            }
         }
     }
 }

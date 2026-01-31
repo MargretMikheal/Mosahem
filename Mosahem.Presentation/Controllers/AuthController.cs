@@ -5,7 +5,7 @@ using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationR
 using mosahem.Application.Features.Authentication.Commands.LoginUser;
 using mosahem.Application.Features.Authentication.Commands.RevokeToken;
 using mosahem.Application.Features.Authentication.Commands.SendEmailVerificationCode;
-using mosahem.Application.Features.Authentication.Commands.SendOtp;
+using mosahem.Application.Features.Authentication.Commands.SendRestPasswordOtp;
 using mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo;
 using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations;
 using mosahem.Application.Features.Authentication.Commands.VerifyEmail;
@@ -13,7 +13,7 @@ using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Authentication.Commands.RefreshTokens;
 using Mosahem.Application.Features.Authentication.Commands.ResetPassword;
 using Mosahem.Application.Features.Authentication.Commands.ValidateOrganizationFields;
-using Mosahem.Application.Features.Authentication.Commands.VerifyOtp;
+using Mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp;
 using System.Security.Claims;
 
 namespace Mosahem.Api.Controllers
@@ -48,14 +48,14 @@ namespace Mosahem.Api.Controllers
         #endregion
 
         [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword([FromBody] SendOtpCommand command)
+        public async Task<IActionResult> ForgotPassword([FromBody] SendRestPasswordOtpCommand command)
         {
             var response = await _mediator.Send(command);
             return NewResult(response);
         }
 
         [HttpPost("verify-otp")]
-        public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpCommand command)
+        public async Task<IActionResult> VerifyOtp([FromBody] VerifyRestPasswordOtpCommand command)
         {
             var response = await _mediator.Send(command);
             return NewResult(response);

@@ -12,7 +12,7 @@ using mosahem.Persistence;
 namespace mosahem.Presistence.Migrations
 {
     [DbContext(typeof(MosahmDbContext))]
-    [Migration("20260125195046_MakeLicenseUrlNullable")]
+    [Migration("20260131143957_MakeLicenseUrlNullable")]
     partial class MakeLicenseUrlNullable
     {
         /// <inheritdoc />
@@ -571,7 +571,6 @@ namespace mosahem.Presistence.Migrations
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("LicenseUrl")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 

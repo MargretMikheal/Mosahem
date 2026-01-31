@@ -333,4 +333,16 @@
   <data name="Success_PasswordChanged" xml:space="preserve">
     <value>Password Changed</value>
   </data>
+  <data name="Validation_PasswordRequiresUpper" xml:space="preserve">
+    <value>Password must contain at least one uppercase letter ('A'-'Z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresLower" xml:space="preserve">
+    <value>Password must contain at least one lowercase letter ('a'-'z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresDigit" xml:space="preserve">
+    <value>Password must contain at least one digit ('0'-'9').</value>
+  </data>
+  <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>Password must contain at least one special character (e.g., !@#$%).</value>
+  </data>
 </root>

@@ -14,11 +14,7 @@ namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public ChangePasswordCommandHandler(
-            IUnitOfWork unitOfWork,
-            IPasswordHasher passwordHasher,
-            ResponseHandler responseHandler,
-            IStringLocalizer<SharedResources> localizer)
+        public ChangePasswordCommandHandler(IUnitOfWork unitOfWork, IPasswordHasher passwordHasher, ResponseHandler responseHandler, IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _passwordHasher = passwordHasher;
@@ -29,15 +25,23 @@ namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
         public async Task<Response<string>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.Users.GetByIdAsync(request.Id);
+            var generalError = _localizer[SharedResourcesKeys.General.OperationFailed].Value;
 
             if (user == null)
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.User.NotFound]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "User", new List<string> { _localizer[SharedResourcesKeys.User.NotFound] } } });
+            }
 
             if (!_passwordHasher.VerifyPassword(request.CurrentPassword, user.PasswordHash))
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Auth.InvalidCredentials]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "CurrentPassword", new List<string> { _localizer[SharedResourcesKeys.Auth.InvalidCredentials] } } });
+            }
 
             user.PasswordHash = _passwordHasher.HashPassword(request.NewPassword);
-
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

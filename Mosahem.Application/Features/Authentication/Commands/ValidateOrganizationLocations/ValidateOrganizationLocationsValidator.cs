@@ -17,11 +17,21 @@ namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizat
             _localizer = localizer;
 
             RuleFor(x => x.Locations)
-                .NotNull().NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Validation.Required]);
+                .NotNull().NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Validation.Required])
+                .Must(locations =>
+                {
+                    if (locations == null || !locations.Any()) return true;
+
+                    var duplicates = locations
+                        .GroupBy(l => new { l.GovernorateId, l.CityId })
+                        .Where(g => g.Count() > 1);
+
+                    return !duplicates.Any();
+                })
+                .WithMessage(_localizer[SharedResourcesKeys.Validation.DuplicateEntry]);
 
             RuleForEach(x => x.Locations).ChildRules(location =>
             {
-
                 location.RuleFor(l => l.GovernorateId)
                     .NotEmpty()
                     .MustAsync(async (id, ct) => await _unitOfWork.Governorates.GetByIdAsync(id) != null)
@@ -36,8 +46,7 @@ namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizat
 
                         return city.GovernorateId == dto.GovernorateId;
                     })
-                    .WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid]); 
-
+                    .WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid]);
             });
         }
     }

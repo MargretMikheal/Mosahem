@@ -12,7 +12,10 @@ namespace Mosahem.Application.Features.Files.Commands.Delete
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public DeleteFileCommandHandler(IFileService fileService, ResponseHandler responseHandler, IStringLocalizer<SharedResources> localizer)
+        public DeleteFileCommandHandler(
+            IFileService fileService,
+            ResponseHandler responseHandler,
+            IStringLocalizer<SharedResources> localizer)
         {
             _fileService = fileService;
             _responseHandler = responseHandler;
@@ -22,10 +25,23 @@ namespace Mosahem.Application.Features.Files.Commands.Delete
         public async Task<Response<string>> Handle(DeleteFileCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(request.FileUrl))
-                return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Validation.Required]);
+            {
+                return _responseHandler.BadRequest<string>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>> { { "FileUrl", new List<string> { _localizer[SharedResourcesKeys.Validation.Required] } } });
+            }
 
-            await _fileService.DeleteFileAsync(request.FileUrl);
-            return _responseHandler.Deleted<string>();
+            try
+            {
+                await _fileService.DeleteFileAsync(request.FileUrl);
+                return _responseHandler.Deleted<string>();
+            }
+            catch (Exception ex)
+            {
+                return _responseHandler.BadRequest<string>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>> { { "Delete", new List<string> { ex.Message } } });
+            }
         }
     }
 }

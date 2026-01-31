@@ -38,6 +38,10 @@
             public const string OtpUsed = "Validation_OtpUsed";
             public const string OtpExpired = "Validation_OtpExpired";
             public const string PasswordResetFailed = "Validation_PasswordResetFailed";
+            public const string PasswordRequiresUpper = "Validation_PasswordRequiresUpper";
+            public const string PasswordRequiresLower = "Validation_PasswordRequiresLower";
+            public const string PasswordRequiresDigit = "Validation_PasswordRequiresDigit";
+            public const string PasswordRequiresNonAlphanumeric = "Validation_PasswordRequiresNonAlphanumeric";
         }
 
         public static class Auth
