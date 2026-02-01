@@ -1,5 +1,4 @@
-﻿using mosahem.Domain.Common.Localization;
-using mosahem.Domain.Entities.Location;
+﻿using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Entities.Questions;
 using mosahem.Domain.Enums;
@@ -12,7 +11,7 @@ namespace mosahem.Domain.Entities.Opportunities
         #region Properties
         public string Title { get; set; }
         public string Descripition { get; set; }
-        public string LogoUrl { get; set; }
+        public string PhotoKey { get; set; }
         public OpportunityStatus Status { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
         public OpportunityWorkType WorkType { get; set; }

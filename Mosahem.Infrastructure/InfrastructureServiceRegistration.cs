@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using Amazon.Runtime;
+using Amazon.S3;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -55,19 +56,21 @@ namespace mosahem.Infrastructure
 
             var fileSettings = configuration.GetSection("FileStorageSettings").Get<FileStorageSettings>();
 
-            if (fileSettings != null)
+            services.AddSingleton<IAmazonS3>(sp =>
             {
-                var s3Config = new AmazonS3Config
+                var settings = configuration.GetSection("FileStorageSettings").Get<FileStorageSettings>();
+
+                var config = new AmazonS3Config
                 {
-                    ServiceURL = fileSettings.ServiceUrl
+                    ServiceURL = settings.ServiceUrl,
+                    ForcePathStyle = true
                 };
 
-                var credentials = new Amazon.Runtime.BasicAWSCredentials(fileSettings.AccessKey, fileSettings.SecretKey);
+                var credentials = new BasicAWSCredentials(settings.AccessKey, settings.SecretKey);
+                return new AmazonS3Client(credentials, config);
+            });
 
-                services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(credentials, s3Config));
-            }
-
-            services.AddScoped<IFileService, FileService>();
+            services.AddTransient<IFileService, FileService>();
             #endregion
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();

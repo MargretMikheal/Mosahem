@@ -18,7 +18,7 @@ namespace mosahem.Persistence.Configurations.Profiles
                    .IsRequired()
                    .HasMaxLength(2000);
 
-            builder.Property(o => o.LicenseUrl)
+            builder.Property(o => o.LicenseKey)
                    .HasMaxLength(500);
 
             builder.Property(o => o.VerificationStatus)

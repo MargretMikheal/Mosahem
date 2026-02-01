@@ -24,16 +24,16 @@ namespace Mosahem.Application.Features.Files.Commands.Delete
 
         public async Task<Response<string>> Handle(DeleteFileCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.FileUrl))
+            if (string.IsNullOrEmpty(request.FileKey))
             {
                 return _responseHandler.BadRequest<string>(
                     _localizer[SharedResourcesKeys.General.OperationFailed],
-                    new Dictionary<string, List<string>> { { "FileUrl", new List<string> { _localizer[SharedResourcesKeys.Validation.Required] } } });
+                    new Dictionary<string, List<string>> { { nameof(request.FileKey), new List<string> { _localizer[SharedResourcesKeys.Validation.Required] } } });
             }
 
             try
             {
-                await _fileService.DeleteFileAsync(request.FileUrl);
+                await _fileService.DeleteFileAsync(request.FileKey);
                 return _responseHandler.Deleted<string>();
             }
             catch (Exception ex)

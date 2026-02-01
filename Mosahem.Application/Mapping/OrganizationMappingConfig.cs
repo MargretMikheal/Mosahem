@@ -25,18 +25,18 @@ namespace mosahem.Application.Mapping
 
             config.NewConfig<CompleteOrganizationRegistrationCommand, Organization>()
                 .Map(dest => dest.Description, src => src.Description ?? string.Empty)
-                .Map(dest => dest.LicenseUrl, src => src.LicenseUrl)
+                .Map(dest => dest.LicenseKey, src => src.LicenseUrl)
                 .Map(dest => dest.VerificationStatus, src => VerficationStatus.Pending);
 
             config.NewConfig<OrganizationAddressDto, Address>()
                 .Map(dest => dest.CityId, src => src.CityId)
-                .Map(dest => dest.Description, src => src.Details) 
+                .Map(dest => dest.Description, src => src.Details)
                 .Ignore(dest => dest.Id)
-                .Ignore(dest => dest.OrganizationId); 
+                .Ignore(dest => dest.OrganizationId);
 
             config.NewConfig<Guid, OrganizationField>()
                 .Map(dest => dest.FieldId, src => src)
-                .Ignore(dest => dest.OrganizationId); 
+                .Ignore(dest => dest.OrganizationId);
         }
     }
 }
