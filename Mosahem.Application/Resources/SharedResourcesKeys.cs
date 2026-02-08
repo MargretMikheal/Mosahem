@@ -20,6 +20,8 @@
             public const string PasswordReset = "Success_PasswordReset";
             public const string AdminAdded = "Success_AdminAdded";
             public const string PasswordChanged = "Success_PasswordChanged";
+
+            public const string Added = "Added";
         }
 
         public static class Validation

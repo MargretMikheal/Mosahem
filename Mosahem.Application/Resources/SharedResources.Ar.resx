@@ -345,4 +345,7 @@
   <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
     <value>يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل (مثلاً !@#$%).</value>
   </data>
+  <data name="Added" xml:space="preserve">
+    <value>تمت الاضافة بنجاح</value>
+  </data>
 </root>
