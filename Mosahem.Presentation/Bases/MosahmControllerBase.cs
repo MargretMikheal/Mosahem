@@ -3,15 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using mosahem.Application.Common;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace mosahem.Presentation.Bases
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class MosahmControllerBase : ControllerBase
     {

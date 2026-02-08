@@ -3,23 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Admin.Commands.AddAdmin;
 using mosahem.Application.Features.Admin.Commands.DeleteAdmin;
 using mosahem.Presentation.Bases;
+using Mosahem.Domain.AppMetaData;
 using System.Security.Claims;
 
 namespace Mosahem.Api.Controllers
 {
-    [Route("api/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class AdminController : MosahmControllerBase
     {
-        [HttpPost("add-admin")]
+        [HttpPost(Router.AdminRouting.AddAdmin)]
         public async Task<IActionResult> AddAdmin([FromBody] AddAdminCommand command)
         {
             var response = await _mediator.Send(command);
             return NewResult(response);
         }
 
-        [HttpDelete("delete-admin/{id}")]
+        [HttpDelete(Router.AdminRouting.DeleteAdmin)]
         public async Task<IActionResult> DeleteAdmin(Guid id)
         {
             var currentUserIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

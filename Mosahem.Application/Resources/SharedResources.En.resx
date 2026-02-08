@@ -345,4 +345,7 @@
   <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
     <value>Password must contain at least one special character (e.g., !@#$%).</value>
   </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added successfully</value>
+  </data>
 </root>
