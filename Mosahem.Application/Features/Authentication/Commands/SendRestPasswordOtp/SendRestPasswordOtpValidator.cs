@@ -10,7 +10,7 @@ namespace mosahem.Application.Features.Authentication.Commands.SendRestPasswordO
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .EmailAddress().WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
+                .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
         }
     }
 }

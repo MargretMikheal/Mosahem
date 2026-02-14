@@ -8,7 +8,9 @@ namespace Mosahem.Application.Features.Authentication.Commands.ResetPassword
     {
         public ResetPasswordValidator(IStringLocalizer<SharedResources> localizer)
         {
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .EmailAddress().WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
 
             RuleFor(x => x.Code).NotEmpty();
             RuleFor(x => x.NewPassword).NotEmpty()

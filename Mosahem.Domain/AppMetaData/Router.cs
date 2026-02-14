@@ -51,6 +51,7 @@
         {
             public const string Prefix = $"{Base}/users";
             public const string UserInfo = "user-info";
+            public const string AllUsers = "all";
         }
 
         public static class FileRouting

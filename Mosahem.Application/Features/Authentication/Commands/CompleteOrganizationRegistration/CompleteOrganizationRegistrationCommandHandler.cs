@@ -73,7 +73,8 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     var addresses = _mapper.Map<List<Address>>(request.Locations);
                     addresses.ForEach(a => a.OrganizationId = userId);
 
-                    await _unitOfWork.Repository<Address>().AddRangeAsync(addresses, cancellationToken);
+                    await _unitOfWork.Addresses.AddRangeAsync(addresses, cancellationToken);
+
                 }
 
                 if (request.FieldIds != null && request.FieldIds.Any())

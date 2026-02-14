@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using mosahem.Domain.Entities.Identity;
+using Mosahem.Application.Features.Users.Queries.GetAllUsers;
 using Mosahem.Application.Features.Users.Queries.GetUserInfo;
 
 namespace Mosahem.Application.Mapping
@@ -12,6 +13,12 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.PhoneNumber, src => src.PhoneNumber ?? string.Empty)
                 .Map(dest => dest.Email, src => src.Email ?? string.Empty)
                 .Map(dest => dest.Role, src => src.Role.ToString());
+
+            config.NewConfig<MosahmUser, GetAllUsersResponse>()
+                .Map(dest => dest.PhoneNumber, src => src.PhoneNumber ?? string.Empty)
+                .Map(dest => dest.Email, src => src.Email ?? string.Empty)
+                .Map(dest => dest.Role, src => src.Role.ToString());
+
         }
     }
 }
