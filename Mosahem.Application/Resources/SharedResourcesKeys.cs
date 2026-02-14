@@ -31,7 +31,7 @@
             public const string BadRequest = "BadRequest";
             public const string UnprocessableEntity = "UnprocessableEntity";
             public const string CannotDeleteSelf = "Validation_CannotDeleteSelf";
-
+            public const string CannotBeEmptyOrWhitespace = "Validation_CannotBeEmptyOrWhitespace";
             public const string MinLength = "MinLength";
             public const string MaxLength = "MaxLength";
             public const string OutOfRange = "OutOfRange";

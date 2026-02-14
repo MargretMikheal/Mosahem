@@ -9,10 +9,18 @@ namespace mosahem.Persistence.Repositories
     {
         public FieldRepository(MosahmDbContext dbContext) : base(dbContext) { }
 
-        public async Task<bool> IsExistByNameAsync(string name)
+        public async Task<bool> IsExistByNameAsync(string name, CancellationToken cancellationToken = default)
         {
             return await GetTableNoTracking()
-                .AnyAsync(f => f.NameAr == name || f.NameEn == name);
+                .AnyAsync(f => f.NameAr == name || f.NameEn == name, cancellationToken);
+        }
+        public async Task<bool> IsExistByNameExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return false;
+
+            return await GetTableNoTracking()
+                .AnyAsync(f => f.Id != id && (f.NameEn == name || f.NameAr == name), cancellationToken);
         }
 
         public async Task<IReadOnlyList<Field>> GetAllOrderedAsync(CancellationToken cancellationToken = default)

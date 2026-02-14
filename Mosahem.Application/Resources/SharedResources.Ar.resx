@@ -348,4 +348,7 @@
   <data name="Added" xml:space="preserve">
     <value>تمت الاضافة بنجاح</value>
   </data>
+  <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
+    <value>لا يمكن ترك العنصر فارغا</value>
+  </data>
 </root>
