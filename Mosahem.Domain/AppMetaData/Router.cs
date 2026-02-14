@@ -39,6 +39,19 @@
                 public const string RegisterOrganization = $"{Path}/register-organization";
             }
         }
+        public static class OrganizationRouting
+        {
+            public const string Prefix = $"{Base}/organizations";
+            public const string OrganizationData = "organization-data";
+            public const string Fields = $"fields/{SingleRoute}";
+            public const string Locations = $"locations/{SingleRoute}";
+            public const string AllOrganizations = "all";
+        }
+        public static class UserRouting
+        {
+            public const string Prefix = $"{Base}/users";
+            public const string UserInfo = "user-info";
+        }
 
         public static class FileRouting
         {

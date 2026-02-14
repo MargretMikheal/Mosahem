@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using mosahem.Application.Interfaces.Repositories;
+using Mosahem.Application.Interfaces.Repositories;
+using Mosahem.Persistence.Repositories;
 using System.Collections;
 
 namespace mosahem.Persistence.Repositories
@@ -17,6 +19,7 @@ namespace mosahem.Persistence.Repositories
         private IOpportunityApplicationRepository? _opportunityApplications;
         private IOpportunityCommentRepository? _opportunityComments;
         private IFieldRepository? _fields;
+        private IAddressRepository? _addresses;
         private ISkillRepository? _skills;
         private ICityRepository? _cities;
         private IGovernorateRepository? _governorates;
@@ -36,6 +39,7 @@ namespace mosahem.Persistence.Repositories
         public IOpportunityApplicationRepository OpportunityApplications => _opportunityApplications ??= new OpportunityApplicationRepository(_dbContext);
         public IOpportunityCommentRepository OpportunityComments => _opportunityComments ??= new OpportunityCommentRepository(_dbContext);
         public IFieldRepository Fields => _fields ??= new FieldRepository(_dbContext);
+        public IAddressRepository Addresses => _addresses ??= new AddressRepository(_dbContext);
         public ISkillRepository Skills => _skills ??= new SkillRepository(_dbContext);
         public ICityRepository Cities => _cities ??= new CityRepository(_dbContext);
         public IGovernorateRepository Governorates => _governorates ??= new GovernorateRepository(_dbContext);

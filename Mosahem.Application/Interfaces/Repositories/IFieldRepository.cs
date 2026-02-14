@@ -6,5 +6,6 @@ namespace mosahem.Application.Interfaces.Repositories
     public interface IFieldRepository : IGenericRepository<Field>
     {
         Task<bool> IsExistByNameAsync(string name);
+        Task<IReadOnlyList<Field>> GetAllOrderedAsync(CancellationToken cancellationToken = default);
     }
 }
