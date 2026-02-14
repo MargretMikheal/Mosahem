@@ -391,7 +391,7 @@ namespace mosahem.Persistence.Seeds
                     {
                         new City { Id = Guid.NewGuid(), NameAr = "سوهاج", NameEn = "Sohag" },
                         new City { Id = Guid.NewGuid(), NameAr = "أخميم", NameEn = "Akhmim" },
-                        new City { Id = Guid.NewGuid(), NameAr = "البتلينا", NameEn = "Balyana" },
+                        new City { Id = Guid.NewGuid(), NameAr = "البلينا", NameEn = "Balyana" },
                         new City { Id = Guid.NewGuid(), NameAr = "جرجا", NameEn = "Girga" },
                         new City { Id = Guid.NewGuid(), NameAr = "طهطا", NameEn = "Tahta" },
                         new City { Id = Guid.NewGuid(), NameAr = "المراغة", NameEn = "Maragha" },

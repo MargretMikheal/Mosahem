@@ -348,4 +348,7 @@
   <data name="Added" xml:space="preserve">
     <value>Added successfully</value>
   </data>
+  <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
+    <value>Field can not be empty</value>
+  </data>
 </root>

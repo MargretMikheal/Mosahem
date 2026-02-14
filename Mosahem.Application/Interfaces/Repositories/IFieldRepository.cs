@@ -5,6 +5,7 @@ namespace mosahem.Application.Interfaces.Repositories
     // Master Data / Lookups
     public interface IFieldRepository : IGenericRepository<Field>
     {
-        Task<bool> IsExistByNameAsync(string name);
+        Task<bool> IsExistByNameAsync(string name, CancellationToken cancellationToken);
+        Task<bool> IsExistByNameExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken);
     }
 }
