@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Net;
 
 namespace mosahem.Application.Common
@@ -27,6 +26,7 @@ namespace mosahem.Application.Common
 
         public bool Succeeded { get; set; }
         public string? Message { get; set; }
+
         public T? Data { get; set; }
 
         public Dictionary<string, List<string>> Errors { get; set; }

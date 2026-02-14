@@ -11,12 +11,12 @@ namespace Mosahem.Application.Features.Fields.Commands.AddField
         {
             RuleFor(x => x.NameAr)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .MustAsync(async (key, ct) => !await unitOfWork.Fields.IsExistByNameAsync(key))
+                .MustAsync(async (key, ct) => !await unitOfWork.Fields.IsExistByNameAsync(key, ct))
                 .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
 
             RuleFor(x => x.NameEn)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .MustAsync(async (key, ct) => !await unitOfWork.Fields.IsExistByNameAsync(key))
+                .MustAsync(async (key, ct) => !await unitOfWork.Fields.IsExistByNameAsync(key, ct))
                 .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
         }
     }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Admin.Commands.AddAdmin;
 using mosahem.Application.Features.Admin.Commands.DeleteAdmin;
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Admin.Queries.GetAdminById;
+using Mosahem.Application.Features.Admin.Queries.GetAllAdmins;
 using Mosahem.Domain.AppMetaData;
 using System.Security.Claims;
 
@@ -34,6 +36,18 @@ namespace Mosahem.Api.Controllers
             };
 
             var response = await _mediator.Send(command);
+            return NewResult(response);
+        }
+        [HttpGet(Router.AdminRouting.GetAdminById)]
+        public async Task<IActionResult> GetAdminById([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetAdminByIdQuery(adminId: id));
+            return NewResult(response);
+        }
+        [HttpGet(Router.AdminRouting.GetAllAdmins)]
+        public async Task<IActionResult> GetAllAdmins()
+        {
+            var response = await _mediator.Send(new GetAllAdminsQuery());
             return NewResult(response);
         }
     }
