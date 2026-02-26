@@ -21,6 +21,8 @@ namespace mosahem.Persistence.Configurations.Profiles
             builder.Property(o => o.LicenseKey)
                    .HasMaxLength(500);
 
+            builder.HasQueryFilter(o => !o.User.IsDeleted);
+
             builder.Property(o => o.VerificationStatus)
                    .HasConversion<string>();
         }

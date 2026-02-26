@@ -49,6 +49,8 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
             RuleFor(x => x.NumberOfVolunteers)
                 .GreaterThan(0).WithMessage(localizer[SharedResourcesKeys.Validation.OutOfRange]);
 
+
+
             RuleFor(x => x.Addresses)
                 .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .Must(addresses => addresses.Select(a => a.CityId).Distinct().Count() == addresses.Count)

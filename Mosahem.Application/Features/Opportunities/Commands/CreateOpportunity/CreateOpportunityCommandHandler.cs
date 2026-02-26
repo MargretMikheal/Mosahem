@@ -8,6 +8,7 @@ using mosahem.Application.Resources;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
+using Mosahem.Domain.Entities;
 
 namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
 {
@@ -94,7 +95,16 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
                     }
                     await _unitOfWork.Questions.AddRangeAsync(questions, cancellationToken);
                 }
+                var temporaryFiles = await _unitOfWork.Repository<TemporaryFileUpload>()
+                   .GetTableAsTracking()
+                   .Where(x => x.FileKey == request.PhotoKey)
+                   .ToListAsync(cancellationToken);
 
+                if (temporaryFiles.Any())
+                {
+                    await _unitOfWork.Repository<TemporaryFileUpload>()
+                        .DeleteRangeAsync(temporaryFiles, cancellationToken);
+                }
                 var affectedRows = await _unitOfWork.SaveChangesAsync(cancellationToken);
                 if (affectedRows <= 0)
                 {

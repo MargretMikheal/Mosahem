@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
-using mosahem.Domain.Entities.Location;
 
 namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations
 {
@@ -15,39 +14,31 @@ namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizat
         {
             _unitOfWork = unitOfWork;
             _localizer = localizer;
-
-            RuleFor(x => x.Locations)
-                .NotNull().NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Validation.Required])
-                .Must(locations =>
-                {
-                    if (locations == null || !locations.Any()) return true;
-
-                    var duplicates = locations
-                        .GroupBy(l => new { l.GovernorateId, l.CityId })
-                        .Where(g => g.Count() > 1);
-
-                    return !duplicates.Any();
-                })
-                .WithMessage(_localizer[SharedResourcesKeys.Validation.DuplicateEntry]);
-
-            RuleForEach(x => x.Locations).ChildRules(location =>
+            RuleForEach(x => x.Locations).ChildRules(address =>
             {
-                location.RuleFor(l => l.GovernorateId)
-                    .NotEmpty()
-                    .MustAsync(async (id, ct) => await _unitOfWork.Governorates.GetByIdAsync(id) != null)
-                    .WithMessage(_localizer[SharedResourcesKeys.Validation.NotFound]);
+                address.RuleFor(x => x.GovernorateId)
+                    .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
-                location.RuleFor(l => l.CityId)
-                    .NotEmpty()
-                    .MustAsync(async (dto, cityId, ct) =>
-                    {
-                        var city = await _unitOfWork.Repository<City>().GetByIdAsync(cityId);
-                        if (city == null) return false;
+                address.RuleFor(x => x.CityId)
+                    .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
-                        return city.GovernorateId == dto.GovernorateId;
-                    })
-                    .WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid]);
+                address.RuleFor(x => x.Details)
+                    .MaximumLength(500).WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 500));
             });
+            RuleFor(x => x.Locations)
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .Must(addresses => addresses.Select(a => a.CityId).Distinct().Count() == addresses.Count)
+                .WithMessage(localizer[SharedResourcesKeys.Validation.DuplicateEntry])
+                .MustAsync(async (addresses, ct) =>
+                {
+                    var cityGovernoratePairs = addresses.ToDictionary(a => a.CityId, a => a.GovernorateId);
+                    return await unitOfWork.Cities.AreValidCityGovernoratePairsAsync(
+                        cityGovernoratePairs.Keys.ToList(),
+                        cityGovernoratePairs,
+                        ct);
+                })
+                .WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
+
         }
     }
 }

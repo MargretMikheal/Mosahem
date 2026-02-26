@@ -20,6 +20,8 @@ namespace mosahem.Persistence.Configurations.Identity
             builder.Property(u => u.CreatedAt)
                    .IsRequired();
 
+            builder.HasQueryFilter(u => !u.IsDeleted);
+
             builder.HasOne(u => u.Volunteer)
                    .WithOne(v => v.User)
                    .HasForeignKey<Volunteer>(v => v.Id)
