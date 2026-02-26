@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Skills.Commands.AddSkill;
 using Mosahem.Application.Features.Skills.Commands.DeleteSkill;
@@ -11,7 +12,7 @@ namespace Mosahem.Presentation.Controllers
     [ApiController]
     public class SkillController : MosahmControllerBase
     {
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.SkillRouting.AddSkill)]
         public async Task<IActionResult> AddSkill([FromBody] AddSkillCommand command)
         {
@@ -19,7 +20,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpDelete(Router.SkillRouting.DeleteSkill)]
         public async Task<IActionResult> DeleteSkill([FromRoute] Guid id)
         {
@@ -27,7 +28,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPut(Router.SkillRouting.EditSkill)]
         public async Task<IActionResult> EditSkill([FromBody] EditSkillCommand command)
         {

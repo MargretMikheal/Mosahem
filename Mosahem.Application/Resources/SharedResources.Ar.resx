@@ -351,4 +351,31 @@
   <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
     <value>لا يمكن ترك العنصر فارغا</value>
   </data>
+	<data name="Success_OpportunityAdded" xml:space="preserve">
+    <value>تم إنشاء الفرصة بنجاح.</value>
+  </data>
+	<data name="Validation_EndDateAfterStartDate" xml:space="preserve">
+    <value>يجب أن يكون تاريخ النهاية بعد تاريخ البداية.</value>
+  </data>
+	<data name="Validation_SkillCannotBeBothRequiredAndProvided" xml:space="preserve">
+    <value>لا يمكن أن تكون المهارة مطلوبة ومقدمة في نفس الوقت.</value>
+  </data>
+	<data name="Validation_InvalidQuestionOptions" xml:space="preserve">
+    <value>خيارات السؤال غير صالحة لنوع الإجابة المحدد.</value>
+  </data>
+	<data name="TransactionStartFailed" xml:space="preserve">
+    <value>فشل بدء معاملة قاعدة البيانات.</value>
+  </data>
+	<data name="TransactionCommitFailed" xml:space="preserve">
+    <value>فشل تأكيد معاملة قاعدة البيانات.</value>
+  </data>
+	<data name="NoRowsAffected" xml:space="preserve">
+    <value>لم يتم حفظ أي سجلات.</value>
+  </data>
+	<data name="DatabaseUpdateFailed" xml:space="preserve">
+    <value>فشل تحديث قاعدة البيانات.</value>
+  </data>
+	<data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
+    <value>يجب أن تكون المنظمة موثقة لإنشاء الفرص.</value>
+  </data>
 </root>

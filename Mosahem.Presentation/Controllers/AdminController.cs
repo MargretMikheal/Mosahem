@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Admin.Commands.AddAdmin;
 using mosahem.Application.Features.Admin.Commands.DeleteAdmin;
+using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Admin.Queries.GetAdminById;
 using Mosahem.Application.Features.Admin.Queries.GetAllAdmins;
@@ -11,7 +12,7 @@ using System.Security.Claims;
 namespace Mosahem.Api.Controllers
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public class AdminController : MosahmControllerBase
     {
         [HttpPost(Router.AdminRouting.AddAdmin)]

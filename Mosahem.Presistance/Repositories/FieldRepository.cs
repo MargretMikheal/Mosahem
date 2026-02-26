@@ -22,7 +22,16 @@ namespace mosahem.Persistence.Repositories
             return await GetTableNoTracking()
                 .AnyAsync(f => f.Id != id && (f.NameEn == name || f.NameAr == name), cancellationToken);
         }
+        public async Task<bool> AreAllExistingAsync(IReadOnlyCollection<Guid> fieldIds, CancellationToken cancellationToken = default)
+        {
+            if (fieldIds.Count == 0)
+                return false;
 
+            var count = await GetTableNoTracking()
+                .CountAsync(f => fieldIds.Contains(f.Id), cancellationToken);
+
+            return count == fieldIds.Count;
+        }
         public async Task<IReadOnlyList<Field>> GetAllOrderedAsync(CancellationToken cancellationToken = default)
         {
             var spec = new Specification<Field>()

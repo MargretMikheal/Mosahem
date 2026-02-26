@@ -17,8 +17,7 @@ namespace mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo
 
             RuleFor(x => x.OrganizationName)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Validation.Required])
-                .Matches(@"[a-zA-Z\u0600-\u06FF]").WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid])
-                .Must(name => !name.All(char.IsDigit)).WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid]);
+                .Matches(@"[a-zA-Z\u0600-\u06FF]").WithMessage(_localizer[SharedResourcesKeys.Validation.Invalid]);
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Validation.Required])

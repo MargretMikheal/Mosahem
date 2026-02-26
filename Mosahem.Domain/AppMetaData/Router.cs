@@ -49,6 +49,11 @@
             public const string Locations = $"locations/{SingleRoute}";
             public const string AllOrganizations = "all";
         }
+        public static class OpportunityRouting
+        {
+            public const string Prefix = $"{Base}/opportunities";
+            public const string Create = "create";
+        }
         public static class UserRouting
         {
             public const string Prefix = $"{Base}/users";

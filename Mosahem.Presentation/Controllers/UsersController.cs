@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Users.Queries.GetAllUsers;
 using Mosahem.Application.Features.Users.Queries.GetUserInfo;
@@ -13,7 +14,7 @@ namespace Mosahem.Presentation.Controllers
     [Authorize]
     public class UsersController : MosahmControllerBase
     {
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpGet(Router.UserRouting.AllUsers)]
         public async Task<IActionResult> GetAllUsers()
         {

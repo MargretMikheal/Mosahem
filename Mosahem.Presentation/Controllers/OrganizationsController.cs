@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Organization.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationData;
@@ -21,7 +22,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Organization")]
+        [Authorize(Roles = nameof(UserRole.Organization))]
         [HttpGet(Router.OrganizationRouting.OrganizationData)]
         public async Task<IActionResult> GetOrganizationData()
         {

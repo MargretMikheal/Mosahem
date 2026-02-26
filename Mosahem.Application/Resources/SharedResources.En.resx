@@ -351,4 +351,31 @@
   <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
     <value>Field can not be empty</value>
   </data>
+	<data name="Success_OpportunityAdded" xml:space="preserve">
+    <value>Opportunity created successfully.</value>
+  </data>
+	<data name="Validation_EndDateAfterStartDate" xml:space="preserve">
+    <value>End date must be after start date.</value>
+  </data>
+	<data name="Validation_SkillCannotBeBothRequiredAndProvided" xml:space="preserve">
+    <value>A skill cannot be both required and provided.</value>
+  </data>
+	<data name="Validation_InvalidQuestionOptions" xml:space="preserve">
+    <value>Invalid question options for selected answer type.</value>
+  </data>
+	<data name="TransactionStartFailed" xml:space="preserve">
+    <value>Failed to start database transaction.</value>
+  </data>
+	<data name="TransactionCommitFailed" xml:space="preserve">
+    <value>Failed to commit database transaction.</value>
+  </data>
+	<data name="NoRowsAffected" xml:space="preserve">
+    <value>No records were saved.</value>
+  </data>
+	<data name="DatabaseUpdateFailed" xml:space="preserve">
+    <value>Database update failed.</value>
+  </data>
+	<data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
+    <value>Organization must be verified to create opportunities.</value>
+  </data>
 </root>

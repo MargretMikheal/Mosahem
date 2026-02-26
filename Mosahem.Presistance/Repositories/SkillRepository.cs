@@ -21,5 +21,15 @@ namespace mosahem.Persistence.Repositories
             return await GetTableNoTracking()
                 .AnyAsync(s => s.Id != id && (s.NameEn == name || s.NameAr == name), cancellationToken);
         }
+        public async Task<bool> AreAllExistingAsync(IReadOnlyCollection<Guid> skillIds, CancellationToken cancellationToken = default)
+        {
+            if (skillIds.Count == 0)
+                return false;
+
+            var count = await GetTableNoTracking()
+                .CountAsync(s => skillIds.Contains(s.Id), cancellationToken);
+
+            return count == skillIds.Count;
+        }
     }
 }

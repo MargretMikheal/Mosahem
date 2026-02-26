@@ -11,7 +11,7 @@ namespace mosahem.Domain.Entities.Opportunities
         #region Properties
         public string Title { get; set; }
         public string Descripition { get; set; }
-        public string PhotoKey { get; set; }
+        public string? PhotoKey { get; set; }
         public OpportunityStatus Status { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
         public OpportunityWorkType WorkType { get; set; }
