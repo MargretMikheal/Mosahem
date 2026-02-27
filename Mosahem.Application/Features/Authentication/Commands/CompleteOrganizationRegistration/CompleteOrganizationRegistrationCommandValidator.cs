@@ -80,13 +80,15 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     .WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
             });
 
-            RuleFor(x => x.LicenseUrl)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .MustAsync(async (licenseKey, cancellationToken) =>
-                    await unitOfWork.Repository<TemporaryFileUpload>()
-                        .GetTableNoTracking()
-                        .AnyAsync(x => x.FileKey == licenseKey && x.FolderName == StorageFolder.Licenses.ToString(), cancellationToken))
-                .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
+            When(x => !string.IsNullOrWhiteSpace(x.LicenseUrl), () =>
+            {
+                RuleFor(x => x.LicenseUrl!)
+                    .MustAsync(async (licenseKey, cancellationToken) =>
+                        await unitOfWork.Repository<TemporaryFileUpload>()
+                            .GetTableNoTracking()
+                            .AnyAsync(x => x.FileKey == licenseKey && x.FolderName == StorageFolder.Licenses.ToString(), cancellationToken))
+                    .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
+            });
         }
     }
 }
