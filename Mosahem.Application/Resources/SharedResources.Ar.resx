@@ -374,7 +374,8 @@
   </data>
 	<data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
     <value>يجب أن تكون المنظمة موثقة لإنشاء الفرص.</value>
-  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+  </data>
+    <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
     <value>رقم الصفحة يجب ان يكون اكبر من الصفر</value>
   </data>
   <data name="LoginSuccess" xml:space="preserve">

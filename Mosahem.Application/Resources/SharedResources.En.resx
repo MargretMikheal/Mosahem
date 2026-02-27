@@ -374,7 +374,8 @@
   </data>
 	<data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
     <value>Organization must be verified to create opportunities.</value>
-  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+  </data>
+    <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
     <value>Page number must be greater than zero</value>
   </data>
   <data name="LoginSuccess" xml:space="preserve">
