@@ -6,5 +6,6 @@ namespace mosahem.Application.Interfaces.Repositories
     {
         Task<Organization?> GetOrganizationWithDetailsAsync(Guid organizationId, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<Organization>> GetAllForListingAsync(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Organization>> GetPendingOrganizationsPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
     }
 }

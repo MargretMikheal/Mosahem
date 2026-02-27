@@ -5,11 +5,11 @@ namespace Mosahem.Application.Features.Cities.Queries.GetCitiesByGovernate
 {
     public class GetCitiesByGovernateQuery : IRequest<Response<IReadOnlyList<GetCitiesByGovernateResponse>>>
     {
-        public Guid GovernateID { get; set; }
+        public Guid GovernateId { get; set; }
 
-        public GetCitiesByGovernateQuery(Guid governateID)
+        public GetCitiesByGovernateQuery(Guid governateId)
         {
-            GovernateID = governateID;
+            GovernateId = governateId;
         }
     }
 }

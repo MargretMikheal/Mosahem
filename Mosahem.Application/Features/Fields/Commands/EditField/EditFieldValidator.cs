@@ -13,16 +13,18 @@ namespace Mosahem.Application.Features.Fields.Commands.EditField
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
             RuleFor(x => x.NameAr)
-                .Must(s => s is null || !string.IsNullOrWhiteSpace(s))
+                .NotEmpty()
                 .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
                 .MustAsync(async (model, key, ct) => !await unitOfWork.Fields.IsExistByNameExcludeSelfAsync(model.Id, key, ct))
-                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
+                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists])
+                .When(x => x.NameAr is not null);
 
             RuleFor(x => x.NameEn)
-                .Must(s => s is null || !string.IsNullOrWhiteSpace(s))
+                .NotEmpty()
                 .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
                 .MustAsync(async (model, key, ct) => !await unitOfWork.Fields.IsExistByNameExcludeSelfAsync(model.Id, key, ct))
-                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
+                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists])
+                .When(x => x.NameEn is not null);
         }
     }
 }
