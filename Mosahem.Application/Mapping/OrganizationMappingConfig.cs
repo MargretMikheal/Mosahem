@@ -6,6 +6,7 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
+using Mosahem.Application.Features.Organization.Commands.EditOrganizationInfo;
 
 namespace mosahem.Application.Mapping
 {
@@ -37,6 +38,18 @@ namespace mosahem.Application.Mapping
             config.NewConfig<Guid, OrganizationField>()
                 .Map(dest => dest.FieldId, src => src)
                 .Ignore(dest => dest.OrganizationId);
+
+            #region Edit Organization Info Mapping
+            config.NewConfig<EditOrganizationInfoCommand, MosahmUser>()
+                .Map(dest => dest.FullName, src => src.OrganizationName)
+                .Map(dest => dest.PhoneNumber, src => src.OrganizationPhoneNumber)
+                .IgnoreNullValues(true);
+
+            config.NewConfig<EditOrganizationInfoCommand, Organization>()
+                .Map(dest => dest.Description, src => src.OrganizationDescription)
+                .IgnoreNullValues(true);
+            #endregion
+
         }
     }
 }

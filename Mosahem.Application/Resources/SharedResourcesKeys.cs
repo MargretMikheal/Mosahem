@@ -44,6 +44,12 @@
             public const string PasswordRequiresLower = "Validation_PasswordRequiresLower";
             public const string PasswordRequiresDigit = "Validation_PasswordRequiresDigit";
             public const string PasswordRequiresNonAlphanumeric = "Validation_PasswordRequiresNonAlphanumeric";
+
+            public static class Pagination
+            {
+                public const string PageNumberMustBeGreaterThanZero = "Validation_Pagination_PageNumberMustBeGreaterThanZero";
+                public const string PageSizeMustNotExceedMax = "Validation_Pagination_PageSizeMustNotExceedMax";
+            }
         }
 
         public static class Auth

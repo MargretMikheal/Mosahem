@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mosahem.Application\Mosahem.Application.csproj" />
+    <ProjectReference Include="..\Mosahem.Infrastructure\Mosahem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

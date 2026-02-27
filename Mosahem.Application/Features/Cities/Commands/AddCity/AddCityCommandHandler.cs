@@ -32,12 +32,13 @@ namespace Mosahem.Application.Features.Cities.Commands.AddCity
             //Check if the governorate exists
             var governate = await _unitOfWork.Governorates.GetByIdAsync(request.GovernorateId, cancellationToken);
             if (governate is null)
-                return _responseHandler.BadRequest<string>(
-                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                return _responseHandler.NotFound<string>(
+                    null!,
                     new Dictionary<string, List<string>>
                     {
-                        { $"{nameof(request.GovernorateId)}", new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
+                        { nameof(request.GovernorateId) , new(){_localizer[SharedResourcesKeys.Validation.NotFound]} }
                     });
+
 
             var city = _mapper.Map<City>(request);
 
@@ -56,7 +57,7 @@ namespace Mosahem.Application.Features.Cities.Commands.AddCity
                     });
             }
 
-            return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.General.Created]);
+            return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.Success.Added]);
         }
     }
 }

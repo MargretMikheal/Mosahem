@@ -264,9 +264,6 @@
   <data name="Forbidden" xml:space="preserve">
     <value>لا تملك صلاحية الوصول</value>
   </data>
-  <data name="LoginSuccess" xml:space="preserve">
-    <value>تم تسجيل الدخول بنجاح</value>
-  </data>
   <data name="LogoutSuccess" xml:space="preserve">
     <value>تم تسجيل الخروج بنجاح</value>
   </data>
@@ -350,5 +347,14 @@
   </data>
   <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
     <value>لا يمكن ترك العنصر فارغا</value>
+  </data>
+  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>رقم الصفحة يجب ان يكون اكبر من الصفر</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح</value>
+  </data>
+  <data name="Validation_Pagination_PageSizeMustNotExceedMax" xml:space="preserve">
+    <value>حجم الصفحة كبير جدا</value>
   </data>
 </root>

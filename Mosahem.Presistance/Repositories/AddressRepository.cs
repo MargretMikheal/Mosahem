@@ -1,4 +1,5 @@
-﻿using mosahem.Domain.Entities.Location;
+﻿using Microsoft.EntityFrameworkCore;
+using mosahem.Domain.Entities.Location;
 using mosahem.Persistence;
 using mosahem.Persistence.Repositories;
 using Mosahem.Application.Interfaces.Repositories;
@@ -10,6 +11,13 @@ namespace Mosahem.Persistence.Repositories
     {
         public AddressRepository(MosahmDbContext dbContext) : base(dbContext) { }
 
+        public async Task<Address?> GetByIdAndOrganizationId(Guid addressId, Guid organizationId, CancellationToken cancellationToken)
+        {
+            var spec = new Specification<Address>(a => a.Id == addressId && a.OrganizationId == organizationId);
+
+            return (await FindFirstAsync(spec, cancellationToken));
+        }
+        #region Organization
         public async Task<IReadOnlyList<Address>> GetOrganizationAddressesAsync(Guid organizationId, CancellationToken cancellationToken = default)
         {
             var spec = new Specification<Address>(address => address.OrganizationId == organizationId)
@@ -19,5 +27,6 @@ namespace Mosahem.Persistence.Repositories
 
             return (await FindAllAsync(spec, cancellationToken)).ToList();
         }
+        #endregion
     }
 }

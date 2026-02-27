@@ -23,6 +23,14 @@ namespace mosahem.Persistence.Repositories
             return !await _dbSet.AnyAsync(u => u.Email == email);
         }
 
+        public async Task<bool> IsNameUniqueExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return true;
+
+            return !await GetTableNoTracking().AnyAsync(u => u.FullName.Equals(name) && u.Id != id, cancellationToken);
+        }
+
         public async Task<bool> IsPhoneUniqueAsync(string phone)
         {
             return !await _dbSet.AnyAsync(u => u.PhoneNumber == phone);
