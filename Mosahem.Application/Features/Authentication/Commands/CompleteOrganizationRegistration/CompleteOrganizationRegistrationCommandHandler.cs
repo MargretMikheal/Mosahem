@@ -70,9 +70,9 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
 
                 await _unitOfWork.Organizations.AddAsync(organization, cancellationToken);
 
-                if (request.Locations != null && request.Locations.Any())
+                if (request.Addresses != null && request.Addresses.Any())
                 {
-                    var addresses = _mapper.Map<List<Address>>(request.Locations);
+                    var addresses = _mapper.Map<List<Address>>(request.Addresses);
                     addresses.ForEach(a => a.OrganizationId = userId);
 
                     await _unitOfWork.Addresses.AddRangeAsync(addresses, cancellationToken);

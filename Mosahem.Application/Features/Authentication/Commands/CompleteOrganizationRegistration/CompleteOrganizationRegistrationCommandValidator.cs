@@ -47,13 +47,13 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 .MustAsync(async (id, ct) => await unitOfWork.Fields.GetByIdAsync(id, ct) != null)
                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
 
-            RuleFor(x => x.Locations)
+            RuleFor(x => x.Addresses)
                 .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .Must(locations =>
+                .Must(Addresses =>
                 {
-                    if (locations == null || !locations.Any()) return true;
+                    if (Addresses == null || !Addresses.Any()) return true;
 
-                    var duplicates = locations
+                    var duplicates = Addresses
                         .GroupBy(l => new { l.GovernorateId, l.CityId })
                         .Where(g => g.Count() > 1);
 
@@ -61,7 +61,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 })
                 .WithMessage(localizer[SharedResourcesKeys.Validation.DuplicateEntry]);
 
-            RuleForEach(x => x.Locations).ChildRules(location =>
+            RuleForEach(x => x.Addresses).ChildRules(location =>
             {
                 location.RuleFor(l => l.GovernorateId)
                     .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
