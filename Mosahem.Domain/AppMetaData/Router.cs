@@ -47,8 +47,16 @@
         {
             public const string Prefix = $"{Base}/organizations";
             public const string OrganizationData = "organization-data";
-            public const string Fields = $"fields/{SingleRoute}";
-            public const string Locations = $"locations/{SingleRoute}";
+
+            public const string OrganizationFieldsPrefix = $"{Prefix}/fields";
+            public const string Fields = $"{OrganizationFieldsPrefix}/{SingleRoute}";
+
+            public const string OrganizationLocationsPrefix = $"{Prefix}/locations";
+            public const string Locations = $"{OrganizationLocationsPrefix}/{SingleRoute}";
+            public const string AddOrganizationAddress = $"{OrganizationLocationsPrefix}/add-organization-address";
+            public const string DeleteOrganizationAddress = $"{OrganizationLocationsPrefix}/delete-organization-address/{SingleRoute}";
+            public const string EditOrganizationAddress = $"{OrganizationLocationsPrefix}/edit-organization-address/{SingleRoute}";
+
             public const string AllOrganizations = "all";
             public const string GetPendingOrganizations = "pending";
             public const string GetOrganizationLisence = $"license/{SingleRoute}";
@@ -108,12 +116,6 @@
             public const string GetAllGovernates = $"{Prefix}/get-all-governates";
         }
 
-        public static class AddressRouting
-        {
-            public const string Prefix = $"{Base}/addresses";
-            public const string AddOrganizationAddress = "add-organization-address";
-            public const string DeleteOrganizationAddress = $"delete-organization-address/{SingleRoute}";
-            public const string EditOrganizationAddress = $"edit-organization-address/{SingleRoute}";
-        }
+
     }
 }

@@ -6,6 +6,7 @@ using Mosahem.Application.Features.Fields.Commands.AddField;
 using Mosahem.Application.Features.Fields.Commands.DeleteField;
 using Mosahem.Application.Features.Fields.Commands.EditField;
 using Mosahem.Application.Features.Fields.Queries.GetAllFields;
+using Mosahem.Application.Features.Fields.Queries.GetOrganizationFields;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 
@@ -54,5 +55,13 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetAllFieldsQuery());
             return NewResult(response);
         }
+
+        [HttpGet(Router.OrganizationRouting.Fields)]
+        public async Task<IActionResult> GetOrganizationFields(Guid id)
+        {
+            var response = await _mediator.Send(new GetOrganizationFieldsQuery { OrganizationId = id });
+            return NewResult(response);
+        }
+
     }
 }

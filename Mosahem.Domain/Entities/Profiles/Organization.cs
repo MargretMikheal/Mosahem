@@ -13,6 +13,7 @@ namespace mosahem.Domain.Entities.Profiles
         public string? LogoKey { get; set; }
         public string? LicenseKey { get; set; }
         public string? VerificationComment { get; set; }
+        public string? AboutUs { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
         #endregion
         #region Navigations

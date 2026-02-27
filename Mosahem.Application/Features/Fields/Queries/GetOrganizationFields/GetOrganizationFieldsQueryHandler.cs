@@ -7,7 +7,7 @@ using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 using mosahem.Domain.Entities;
 
-namespace Mosahem.Application.Features.Organization.Queries.GetOrganizationFields
+namespace Mosahem.Application.Features.Fields.Queries.GetOrganizationFields
 {
     public class GetOrganizationFieldsQueryHandler : IRequestHandler<GetOrganizationFieldsQuery, Response<List<GetOrganizationFieldsResponse>>>
     {

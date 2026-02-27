@@ -1,4 +1,4 @@
-﻿namespace Mosahem.Application.Features.Organization.Queries.GetOrganizationFields
+﻿namespace Mosahem.Application.Features.Fields.Queries.GetOrganizationFields
 {
     public class GetOrganizationFieldsResponse
     {

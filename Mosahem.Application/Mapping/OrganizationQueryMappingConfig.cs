@@ -2,10 +2,10 @@
 using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
+using Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations;
+using Mosahem.Application.Features.Fields.Queries.GetOrganizationFields;
 using Mosahem.Application.Features.Organization.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationData.Mosahem.Application.Features.Organization.Queries.GetOrganizationData;
-using Mosahem.Application.Features.Organization.Queries.GetOrganizationFields;
-using Mosahem.Application.Features.Organization.Queries.GetOrganizationLocations;
 using Mosahem.Application.Features.Organization.Queries.GetPendingOrganizations;
 
 namespace Mosahem.Application.Mapping

@@ -5,19 +5,26 @@ using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Addresses.Commands.Organization.AddOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.DeleteOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.EditOrganizationAddress;
+using Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
 
 namespace Mosahem.Presentation.Controllers
 {
-    [Route(Router.AddressRouting.Prefix)]
     [ApiController]
     public class AddressController : MosahmControllerBase
     {
         #region Organization
+        [HttpGet(Router.OrganizationRouting.Locations)]
+        public async Task<IActionResult> GetOrganizationLocations(Guid id)
+        {
+            var response = await _mediator.Send(new GetOrganizationLocationsQuery { OrganizationId = id });
+            return NewResult(response);
+        }
+
         [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPost(Router.AddressRouting.AddOrganizationAddress)]
+        [HttpPost(Router.OrganizationRouting.AddOrganizationAddress)]
         [ValidateModelId]
         public async Task<IActionResult> AddOrganizationAddress([FromBody] AddOrganizationAddressCommandRequest request)
         {
@@ -39,7 +46,7 @@ namespace Mosahem.Presentation.Controllers
         }
 
         [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpDelete(Router.AddressRouting.DeleteOrganizationAddress)]
+        [HttpDelete(Router.OrganizationRouting.DeleteOrganizationAddress)]
         [ValidateModelId]
         public async Task<IActionResult> DeleteOrganizationAddress([FromRoute] Guid id)
         {
@@ -54,7 +61,7 @@ namespace Mosahem.Presentation.Controllers
         }
 
         [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPut(Router.AddressRouting.EditOrganizationAddress)]
+        [HttpPut(Router.OrganizationRouting.EditOrganizationAddress)]
         [ValidateModelId]
         public async Task<IActionResult> EditOrganizationAddress(
             [FromRoute] Guid id,

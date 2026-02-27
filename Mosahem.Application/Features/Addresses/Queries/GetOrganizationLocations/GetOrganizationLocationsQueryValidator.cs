@@ -3,7 +3,7 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Organization.Queries.GetOrganizationLocations
+namespace Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations
 {
     public class GetOrganizationLocationsQueryValidator : AbstractValidator<GetOrganizationLocationsQuery>
     {

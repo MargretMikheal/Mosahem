@@ -1,4 +1,4 @@
-﻿namespace Mosahem.Application.Features.Organization.Queries.GetOrganizationLocations
+﻿namespace Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations
 {
     public class GetOrganizationLocationsResponse
     {
