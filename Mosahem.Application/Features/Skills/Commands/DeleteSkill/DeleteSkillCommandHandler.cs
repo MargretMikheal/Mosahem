@@ -27,12 +27,7 @@ namespace Mosahem.Application.Features.Skills.Commands.DeleteSkill
             var skill = await _unitOfWork.Skills.GetByIdAsync(request.Id, cancellationToken);
             // Check if the skill exists
             if (skill is null)
-                return _responseHandler.BadRequest<string>(
-                    _localizer[SharedResourcesKeys.General.OperationFailed],
-                    new Dictionary<string, List<string>>
-                    {
-                        { "SkillId" ,new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
-                    });
+                return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
 
             await _unitOfWork.Skills.DeleteAsync(request.Id, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

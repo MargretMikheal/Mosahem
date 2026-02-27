@@ -264,9 +264,6 @@
   <data name="Forbidden" xml:space="preserve">
     <value>Access forbidden</value>
   </data>
-  <data name="LoginSuccess" xml:space="preserve">
-    <value>Logged in successfully</value>
-  </data>
   <data name="LogoutSuccess" xml:space="preserve">
     <value>Logged out successfully</value>
   </data>
@@ -377,5 +374,13 @@
   </data>
 	<data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
     <value>Organization must be verified to create opportunities.</value>
+  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>Page number must be greater than zero</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Logged in successfully</value>
+  </data>
+  <data name="Validation_Pagination_PageSizeMustNotExceedMax" xml:space="preserve">
+    <value>Page size is too big</value>
   </data>
 </root>

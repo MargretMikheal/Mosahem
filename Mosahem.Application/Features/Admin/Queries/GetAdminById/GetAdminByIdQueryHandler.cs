@@ -32,25 +32,8 @@ namespace Mosahem.Application.Features.Admin.Queries.GetAdminById
             var generalError = _localizer[SharedResourcesKeys.General.OperationFailed].Value;
 
             var user = await _unitOfWork.Users.GetByIdAsync(request.AdminId, cancellationToken);
-            if (user is null || user.IsDeleted)
-            {
-                return _responseHandler.BadRequest<GetAdminByIdQueryResponse>(
-                    generalError,
-                    new Dictionary<string, List<string>>
-                    {
-                        { "AdminId", new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
-                    });
-            }
-
-            if (user.Role is not UserRole.Admin)
-            {
-                return _responseHandler.BadRequest<GetAdminByIdQueryResponse>(
-                    generalError,
-                    new Dictionary<string, List<string>>
-                    {
-                        { "Role", new List<string> { "Target user is not an admin." } }
-                    });
-            }
+            if (user is null || user.Role is not UserRole.Admin)
+                return _responseHandler.NotFound<GetAdminByIdQueryResponse>(_localizer[SharedResourcesKeys.User.NotFound]);
 
             var response = _mapper.Map<GetAdminByIdQueryResponse>(user);
 

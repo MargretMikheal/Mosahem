@@ -6,12 +6,14 @@ using Mosahem.Application.Features.Skills.Commands.AddSkill;
 using Mosahem.Application.Features.Skills.Commands.DeleteSkill;
 using Mosahem.Application.Features.Skills.Commands.EditSkill;
 using Mosahem.Domain.AppMetaData;
+using Mosahem.Presentation.Filters;
 
 namespace Mosahem.Presentation.Controllers
 {
     [ApiController]
     public class SkillController : MosahmControllerBase
     {
+        #region Admin
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.SkillRouting.AddSkill)]
         public async Task<IActionResult> AddSkill([FromBody] AddSkillCommand command)
@@ -22,6 +24,7 @@ namespace Mosahem.Presentation.Controllers
 
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpDelete(Router.SkillRouting.DeleteSkill)]
+        [ValidateModelId]
         public async Task<IActionResult> DeleteSkill([FromRoute] Guid id)
         {
             var response = await _mediator.Send(new DeleteSkillCommand(id));
@@ -30,10 +33,20 @@ namespace Mosahem.Presentation.Controllers
 
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPut(Router.SkillRouting.EditSkill)]
-        public async Task<IActionResult> EditSkill([FromBody] EditSkillCommand command)
+        [ValidateModelId]
+        public async Task<IActionResult> EditSkill(
+            Guid id,
+            [FromBody] EditSkillRequest request)
         {
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(new EditSkillCommand
+            {
+                Id = id,
+                NameAr = request.NameAr,
+                NameEn = request.NameEn,
+                Category = request.Category
+            });
             return NewResult(response);
         }
+        #endregion
     }
 }

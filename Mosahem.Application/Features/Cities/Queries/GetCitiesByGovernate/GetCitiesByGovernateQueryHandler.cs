@@ -7,14 +7,14 @@ using mosahem.Application.Resources;
 
 namespace Mosahem.Application.Features.Cities.Queries.GetCitiesByGovernate
 {
-    public class GetCitiesByGovernateHandler : IRequestHandler<GetCitiesByGovernateQuery, Response<IReadOnlyList<GetCitiesByGovernateResponse>>>
+    public class GetCitiesByGovernateQueryHandler : IRequestHandler<GetCitiesByGovernateQuery, Response<IReadOnlyList<GetCitiesByGovernateResponse>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IMapper _mapper;
 
-        public GetCitiesByGovernateHandler(
+        public GetCitiesByGovernateQueryHandler(
             IUnitOfWork unitOfWork,
             ResponseHandler responseHandler,
             IStringLocalizer<SharedResources> localizer,
@@ -29,16 +29,18 @@ namespace Mosahem.Application.Features.Cities.Queries.GetCitiesByGovernate
         public async Task<Response<IReadOnlyList<GetCitiesByGovernateResponse>>> Handle(GetCitiesByGovernateQuery request, CancellationToken cancellationToken)
         {
             //Check if the governate exists
-            if (await _unitOfWork.Governorates.GetByIdAsync(request.GovernateID, cancellationToken) is null)
-                return _responseHandler.BadRequest<IReadOnlyList<GetCitiesByGovernateResponse>>(
-                    _localizer[SharedResourcesKeys.General.OperationFailed],
+            var governate = await _unitOfWork.Governorates.GetByIdAsync(request.GovernateId, cancellationToken);
+            if (governate is null)
+                return _responseHandler.NotFound<IReadOnlyList<GetCitiesByGovernateResponse>>(
+                    null!,
                     new Dictionary<string, List<string>>
                     {
-                        { $"{nameof(request.GovernateID)}" ,new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
+                        { nameof(request.GovernateId) , new(){_localizer[SharedResourcesKeys.Validation.NotFound]} }
                     });
 
+
             //Get the cities of that governate
-            var cities = await _unitOfWork.Cities.GetCitiesByGovernate(request.GovernateID, cancellationToken);
+            var cities = await _unitOfWork.Cities.GetCitiesByGovernate(request.GovernateId, cancellationToken);
             var citiesResponse = _mapper.Map<IReadOnlyList<GetCitiesByGovernateResponse>>(cities);
 
             return _responseHandler.Success(citiesResponse);
