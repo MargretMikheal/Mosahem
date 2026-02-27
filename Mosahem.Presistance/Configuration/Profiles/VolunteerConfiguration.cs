@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 
@@ -28,6 +27,8 @@ namespace mosahem.Persistence.Configurations.Profiles
 
             builder.Property(v => v.DateOfBirth)
                    .IsRequired();
+
+            builder.HasQueryFilter(v => !v.User.IsDeleted);
 
             builder.HasOne(v => v.Address)
                    .WithOne(a => a.Volunteer)

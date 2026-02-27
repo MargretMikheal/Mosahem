@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mosahem.Persistence;
 
@@ -11,9 +12,11 @@ using mosahem.Persistence;
 namespace mosahem.Presistence.Migrations
 {
     [DbContext(typeof(MosahmDbContext))]
-    partial class MosahmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260224134821_makeOpportunityPhotoKeyNullable")]
+    partial class makeOpportunityPhotoKeyNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,32 +107,6 @@ namespace mosahem.Presistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Mosahem.Domain.Entities.TemporaryFileUpload", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FileKey")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
-
-                    b.Property<string>("FolderName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileKey");
-
-                    b.ToTable("TemporaryFileUploads", (string)null);
                 });
 
             modelBuilder.Entity("mosahem.Domain.Entities.Identity.MosahmUser", b =>

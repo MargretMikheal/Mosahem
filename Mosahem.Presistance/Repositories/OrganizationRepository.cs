@@ -1,4 +1,5 @@
-﻿using mosahem.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using mosahem.Application.Interfaces.Repositories;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Interfaces.Repositories.Specifications;
@@ -30,6 +31,16 @@ namespace mosahem.Persistence.Repositories
                 .OrderByAsc(o => o.CreatedAt);
 
             return (await FindAllAsync(spec, cancellationToken)).ToList();
+        }
+        public Task<bool> ExistsAsync(Guid organizationId, CancellationToken cancellationToken = default)
+        {
+            return GetTableNoTracking().AnyAsync(o => o.Id == organizationId, cancellationToken);
+        }
+
+        public Task<bool> IsVerifiedAsync(Guid organizationId, CancellationToken cancellationToken = default)
+        {
+            return GetTableNoTracking()
+                .AnyAsync(o => o.Id == organizationId && o.VerificationStatus == mosahem.Domain.Enums.VerficationStatus.Approved, cancellationToken);
         }
 
         public async Task<IReadOnlyList<Organization>> GetPendingOrganizationsPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)

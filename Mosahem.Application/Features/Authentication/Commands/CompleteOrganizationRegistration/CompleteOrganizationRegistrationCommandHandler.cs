@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
@@ -10,6 +11,7 @@ using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using Mosahem.Application.DTOs.Auth;
 using Mosahem.Application.Interfaces.Security;
+using Mosahem.Domain.Entities;
 using Mosahem.Domain.Entities.Identity;
 
 namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration
@@ -83,6 +85,17 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     orgFields.ForEach(f => f.OrganizationId = userId);
 
                     await _unitOfWork.Repository<OrganizationField>().AddRangeAsync(orgFields, cancellationToken);
+                }
+
+                var temporaryFiles = await _unitOfWork.Repository<TemporaryFileUpload>()
+                    .GetTableAsTracking()
+                    .Where(x => x.FileKey == request.LicenseUrl)
+                    .ToListAsync(cancellationToken);
+
+                if (temporaryFiles.Any())
+                {
+                    await _unitOfWork.Repository<TemporaryFileUpload>()
+                        .DeleteRangeAsync(temporaryFiles, cancellationToken);
                 }
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);

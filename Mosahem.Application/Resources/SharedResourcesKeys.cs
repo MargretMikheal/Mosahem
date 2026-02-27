@@ -20,7 +20,7 @@
             public const string PasswordReset = "Success_PasswordReset";
             public const string AdminAdded = "Success_AdminAdded";
             public const string PasswordChanged = "Success_PasswordChanged";
-
+            public const string OpportunityAdded = "Success_OpportunityAdded";
             public const string Added = "Added";
         }
 
@@ -44,6 +44,10 @@
             public const string PasswordRequiresLower = "Validation_PasswordRequiresLower";
             public const string PasswordRequiresDigit = "Validation_PasswordRequiresDigit";
             public const string PasswordRequiresNonAlphanumeric = "Validation_PasswordRequiresNonAlphanumeric";
+            public const string EndDateAfterStartDate = "Validation_EndDateAfterStartDate";
+            public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
+            public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
+            public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
 
             public static class Pagination
             {
@@ -84,6 +88,10 @@
             public const string FailedToDelete = "FailedToDelete";
 
             public const string ConcurrencyConflict = "ConcurrencyConflict";
+            public const string TransactionStartFailed = "TransactionStartFailed";
+            public const string TransactionCommitFailed = "TransactionCommitFailed";
+            public const string NoRowsAffected = "NoRowsAffected";
+            public const string DatabaseUpdateFailed = "DatabaseUpdateFailed";
         }
 
         public static class Http

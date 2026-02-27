@@ -56,6 +56,11 @@
             public const string ApproveOrganization = "approve-organization";
             public const string RejectOrganization = "reject-organization";
         }
+        public static class OpportunityRouting
+        {
+            public const string Prefix = $"{Base}/opportunities";
+            public const string Create = "create";
+        }
         public static class UserRouting
         {
             public const string Prefix = $"{Base}/users";

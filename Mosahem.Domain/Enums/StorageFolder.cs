@@ -4,6 +4,8 @@
     {
         Licenses,
         Images,
+        OpportunityPhotos,
+        OrganizationLogos,
         Documents
     }
 }
