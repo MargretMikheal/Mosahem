@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Interfaces.Repositories.Specifications;
-using mosahem.Domain.Entities;
 using mosahem.Persistence.Repositories.Specifications;
 
 namespace mosahem.Persistence.Repositories

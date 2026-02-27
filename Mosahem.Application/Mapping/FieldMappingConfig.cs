@@ -25,8 +25,8 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.NameEn, src => src.NameEn)
                 .IgnoreNullValues(true);
             #endregion
-            //Get All Fields Query Mapping
             #region Queries Mapping
+            //Get All Fields Query Mapping
             config.NewConfig<Field, GetAllFieldsQueryResponse>()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Name, src => src.Localize(src.NameAr, src.NameEn));

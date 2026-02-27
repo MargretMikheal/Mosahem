@@ -25,12 +25,8 @@ namespace Mosahem.Application.Features.Fields.Commands.DeleteField
             var field = await _unitOfWork.Fields.GetByIdAsync(request.Id, cancellationToken);
             // Check if the field exists
             if (field is null)
-                return _responseHandler.BadRequest<string>(
-                    _localizer[SharedResourcesKeys.General.OperationFailed],
-                    new Dictionary<string, List<string>>
-                    {
-                        { "FieldId" ,new List<string> { _localizer[SharedResourcesKeys.Validation.NotFound] } }
-                    });
+                return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
+
 
             await _unitOfWork.Fields.DeleteAsync(request.Id, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

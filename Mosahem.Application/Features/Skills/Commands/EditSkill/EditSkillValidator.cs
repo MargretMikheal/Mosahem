@@ -13,20 +13,23 @@ namespace Mosahem.Application.Features.Skills.Commands.EditSkill
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
             RuleFor(x => x.NameAr)
-                .Must(s => s is null || !string.IsNullOrWhiteSpace(s))
+                .NotEmpty()
                 .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
                 .MustAsync(async (model, key, ct) => !await unitOfWork.Skills.IsExistByNameExcludeSelfAsync(model.Id, key, ct))
-                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
+                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists])
+                .When(x => x.NameAr is not null);
 
             RuleFor(x => x.NameEn)
-                .Must(s => s is null || !string.IsNullOrWhiteSpace(s))
+                .NotEmpty()
                 .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
                 .MustAsync(async (model, key, ct) => !await unitOfWork.Skills.IsExistByNameExcludeSelfAsync(model.Id, key, ct))
-                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
+                .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists])
+                .When(x => x.NameEn is not null);
 
             RuleFor(x => x.Category)
-                .Must(s => s is null || !string.IsNullOrWhiteSpace(s))
-                .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace]);
+                .NotEmpty()
+                .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
+                .When(x => x.Category is not null);
         }
     }
 }

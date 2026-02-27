@@ -48,6 +48,12 @@
             public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
             public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
             public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
+
+            public static class Pagination
+            {
+                public const string PageNumberMustBeGreaterThanZero = "Validation_Pagination_PageNumberMustBeGreaterThanZero";
+                public const string PageSizeMustNotExceedMax = "Validation_Pagination_PageSizeMustNotExceedMax";
+            }
         }
 
         public static class Auth

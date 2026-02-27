@@ -2,6 +2,7 @@
 using mosahem.Application.Features.Admin.Commands.AddAdmin;
 using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Enums;
+using Mosahem.Application.Features.Admin.Commands.EditBasicInfo;
 using Mosahem.Application.Features.Admin.Queries.GetAdminById;
 using Mosahem.Application.Features.Admin.Queries.GetAllAdmins;
 
@@ -23,6 +24,12 @@ namespace mosahem.Application.Mapping
                 .Map(dest => dest.IsDeleted, src => false)
                 .Map(dest => dest.CreatedAt, src => DateTime.UtcNow)
                 .Ignore(dest => dest.PasswordHash);
+
+            //Edit Basic Info Mapping
+            config.NewConfig<EditAdminInfoCommand, MosahmUser>()
+                .Map(dest => dest.FullName, src => src.UserName)
+                .Map(dest => dest.PhoneNumber, src => src.PhoneNumber)
+                .IgnoreNullValues(true);
             #endregion
 
             #region Query Mapping

@@ -33,7 +33,7 @@ namespace Mosahem.Application.Features.Skills.Commands.AddSkill
             await _unitOfWork.Skills.AddAsync(skill, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.General.Created]);
+            return _responseHandler.Created<string>(_localizer[SharedResourcesKeys.Success.Added]);
         }
     }
 }

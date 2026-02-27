@@ -7,6 +7,7 @@ namespace mosahem.Application.Interfaces.Repositories
     {
         Task<bool> IsEmailUniqueAsync(string email);
         Task<bool> IsPhoneUniqueAsync(string phone);
+        Task<bool> IsNameUniqueExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken);
         Task<IReadOnlyList<MosahmUser>> GetUsersByRole(UserRole role, CancellationToken cancellationToken);
     }
 }

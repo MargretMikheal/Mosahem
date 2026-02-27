@@ -6,6 +6,7 @@ using Mosahem.Application.Features.Organization.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationData.Mosahem.Application.Features.Organization.Queries.GetOrganizationData;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationFields;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationLocations;
+using Mosahem.Application.Features.Organization.Queries.GetPendingOrganizations;
 
 namespace Mosahem.Application.Mapping
 {
@@ -51,6 +52,12 @@ namespace Mosahem.Application.Mapping
                     src => (src.OrganizationFields ?? new List<OrganizationField>()).ToList())
                 .Map(dest => dest.Locations,
                     src => (src.Address ?? new List<Address>()).ToList());
+
+            config.NewConfig<Organization, GetPendingOrganizationsResponse>()
+                .Map(dest => dest.OrganizationId, src => src.Id)
+                .Map(dest => dest.OrganizationName, src => src.User != null ? src.User.FullName : string.Empty)
+                .Map(dest => dest.OrganizationLogo, src => src.LogoKey);
+
         }
     }
 }
