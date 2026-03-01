@@ -75,6 +75,7 @@ namespace mosahem.Infrastructure
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            services.AddScoped<IOtpService, OtpService>();
             return services;
         }
     }

@@ -39,6 +39,32 @@ namespace mosahem.Infrastructure.Services
 
             return GenerateGeneralLayout("Verify Your Email", content);
         }
+        public string GenerateChangeEmailVerificationEmail(string userName, string otpCode)
+        {
+            string content = $@"
+                <p style=""color: #666666; font-size: 16px;"">
+                    Hello <strong>{userName}</strong>,
+                </p>
+
+                <p style=""color: #666666; font-size: 16px;"">
+                    We received a request to change the email address associated with your Mosahem account.
+                    To confirm this change, please use the verification code below:
+                </p>
+                
+                <div style=""text-align: center; margin: 30px 0;"">
+                    <span style=""background-color: #f4f4f4; border: 2px dashed #f39c12; color: #f39c12; padding: 15px 30px; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px;"">
+                        {otpCode}
+                    </span>
+                </div>
+
+                <p style=""color: #666666; font-size: 14px;"">
+                    This code is valid for 10 minutes.
+                    If you did not request to change your email address, please ignore this email or contact support.
+                </p>
+            ";
+
+            return GenerateGeneralLayout("Confirm Email Change", content);
+        }
 
         private string GenerateGeneralLayout(string title, string content)
         {

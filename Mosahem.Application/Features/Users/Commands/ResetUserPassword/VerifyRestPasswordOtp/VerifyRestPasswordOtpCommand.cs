@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 
-namespace Mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp
+namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.VerifyRestPasswordOtp
 {
     public class VerifyRestPasswordOtpCommand : IRequest<Response<string>>
     {

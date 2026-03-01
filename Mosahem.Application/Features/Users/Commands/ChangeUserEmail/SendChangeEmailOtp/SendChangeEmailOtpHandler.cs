@@ -6,16 +6,16 @@ using mosahem.Application.Resources;
 using Mosahem.Application.Interfaces;
 using Mosahem.Domain.Enums;
 
-namespace mosahem.Application.Features.Authentication.Commands.SendEmailVerificationCode
+namespace Mosahem.Application.Features.Users.Commands.ChangeEmail.SendChangeEmailOtp
 {
-    public class SendEmailVerificationCodeCommandHandler : IRequestHandler<SendEmailVerificationCodeCommand, Response<string>>
+    public class SendChangeEmailOtpHandler : IRequestHandler<SendChangeEmailOtp, Response<string>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IOtpService _otpService;
 
-        public SendEmailVerificationCodeCommandHandler(
+        public SendChangeEmailOtpHandler(
             IUnitOfWork unitOfWork,
             ResponseHandler responseHandler,
             IStringLocalizer<SharedResources> localizer,
@@ -27,12 +27,18 @@ namespace mosahem.Application.Features.Authentication.Commands.SendEmailVerifica
             _otpService = otpService;
         }
 
-        public async Task<Response<string>> Handle(SendEmailVerificationCodeCommand request, CancellationToken cancellationToken)
+        public async Task<Response<string>> Handle(SendChangeEmailOtp request, CancellationToken cancellationToken)
         {
+            var user = await _unitOfWork.Users.GetByIdAsync(request.UserId, cancellationToken);
+            if (user is null)
+                return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.User.NotFound]);
+
             try
             {
-                var otp = await _otpService.GenerateOtpAsync(null!, request.Email, OtpPurpose.EmailVerification, cancellationToken);
-                await _otpService.SendOtpAsync(otp, "User", cancellationToken);
+                var otp = await _otpService.GenerateOtpAsync(user.Id, request.Email, OtpPurpose.ChangeEmailVerification, cancellationToken);
+
+                await _otpService.SendOtpAsync(otp, user.FullName, cancellationToken);
+
 
                 return _responseHandler.Success<string>(null!, _localizer[SharedResourcesKeys.Success.OtpSent]);
             }

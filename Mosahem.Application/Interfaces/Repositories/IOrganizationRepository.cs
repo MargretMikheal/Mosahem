@@ -5,6 +5,7 @@ namespace mosahem.Application.Interfaces.Repositories
     public interface IOrganizationRepository : IGenericRepository<Organization>
     {
         Task<Organization?> GetOrganizationWithDetailsAsync(Guid organizationId, CancellationToken cancellationToken = default);
+        Task<Organization?> GetOrganizationWithFieldsAsync(Guid organizationId, CancellationToken cancellationToken);
         Task<IReadOnlyList<Organization>> GetAllForListingAsync(CancellationToken cancellationToken = default);
         Task<bool> ExistsAsync(Guid organizationId, CancellationToken cancellationToken = default);
         Task<bool> IsVerifiedAsync(Guid organizationId, CancellationToken cancellationToken = default);

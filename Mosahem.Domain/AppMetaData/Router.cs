@@ -53,9 +53,13 @@
 
             public const string OrganizationLocationsPrefix = $"{Prefix}/locations";
             public const string Locations = $"{OrganizationLocationsPrefix}/{SingleRoute}";
+
             public const string AddOrganizationAddress = $"{OrganizationLocationsPrefix}/add-organization-address";
             public const string DeleteOrganizationAddress = $"{OrganizationLocationsPrefix}/delete-organization-address/{SingleRoute}";
             public const string EditOrganizationAddress = $"{OrganizationLocationsPrefix}/edit-organization-address/{SingleRoute}";
+
+            public const string AddOrganizationField = "add-organization-field/{fieldId}";
+            public const string DeleteOrganizationField = "delete-organization-field/{fieldId}";
 
             public const string AllOrganizations = "all";
             public const string GetPendingOrganizations = "pending";
@@ -74,6 +78,9 @@
             public const string Prefix = $"{Base}/users";
             public const string UserInfo = "user-info";
             public const string AllUsers = "all";
+            public const string SendChangeEmailOtp = "send-change-email-otp";
+            public const string ChangeEmailOtpVerification = "change-email-otp-verify";
+            public const string ChangeEmail = "change-email";
         }
 
         public static class FileRouting

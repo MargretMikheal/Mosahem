@@ -37,6 +37,7 @@
             public const string OutOfRange = "OutOfRange";
             public const string DuplicateEntry = "DuplicateEntry";
             public const string NotFound = "NotFound";
+            public const string OtpAlreadySent = "Validation_OtpAlreadySent";
             public const string OtpUsed = "Validation_OtpUsed";
             public const string OtpExpired = "Validation_OtpExpired";
             public const string PasswordResetFailed = "Validation_PasswordResetFailed";
