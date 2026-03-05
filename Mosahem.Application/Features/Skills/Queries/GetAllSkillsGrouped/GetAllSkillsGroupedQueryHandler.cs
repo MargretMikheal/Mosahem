@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
@@ -12,16 +13,20 @@ namespace Mosahem.Application.Features.Skills.Queries.GetAllSkillsGrouped
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ResponseHandler _responseHandler;
+        private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
         public GetAllSkillsGroupedQueryHandler(
             IUnitOfWork unitOfWork,
             IStringLocalizer<SharedResources> localizer,
-            ResponseHandler responseHandler)
+
+            ResponseHandler responseHandler,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _responseHandler = responseHandler;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Response<IReadOnlyList<GetAllSkillsGroupedQueryResponse>>> Handle(GetAllSkillsGroupedQuery request, CancellationToken cancellationToken)
@@ -43,7 +48,7 @@ namespace Mosahem.Application.Features.Skills.Queries.GetAllSkillsGrouped
                 {
                     FieldId = group.Key.FieldId,
                     Category = group.Key.CategoryName,
-                    Skills = MapSkills(group.ToList())
+                    Skills = MapSkills(group.ToList(), _mapper)
                 })
                 .OrderBy(group => GetOrder(group.FieldId, fieldOrder))
                 .ThenBy(group => group.Category)
@@ -76,15 +81,10 @@ namespace Mosahem.Application.Features.Skills.Queries.GetAllSkillsGrouped
             return fieldOrder.TryGetValue(fieldId, out var order) ? order : int.MaxValue;
         }
 
-        private static IReadOnlyList<GetAllSkillsGroupedSkillResponse> MapSkills(IReadOnlyList<Skill> skills)
+        private static IReadOnlyList<GetAllSkillsGroupedSkillResponse> MapSkills(IReadOnlyList<Skill> skills, IMapper mapper)
         {
-            return skills
-                .OrderBy(skill => skill.Localize(skill.NameAr, skill.NameEn))
-                .Select(skill => new GetAllSkillsGroupedSkillResponse
-                {
-                    Id = skill.Id,
-                    Name = skill.Localize(skill.NameAr, skill.NameEn)
-                })
+            return mapper.Map<IReadOnlyList<GetAllSkillsGroupedSkillResponse>>(skills)
+                .OrderBy(skill => skill.Name)
                 .ToList();
         }
     }

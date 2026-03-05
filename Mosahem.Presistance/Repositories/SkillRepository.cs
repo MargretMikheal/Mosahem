@@ -37,5 +37,14 @@ namespace mosahem.Persistence.Repositories
                 .Include(skill => skill.Field)
                 .ToListAsync(cancellationToken);
         }
+        public async Task<IReadOnlyList<Skill>> GetAllForListingAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetTableNoTracking()
+                .Include(skill => skill.Field)
+                .Where(skill => skill.Field != null)
+                .OrderBy(skill => skill.Field.NameEn)
+                .ThenBy(skill => skill.NameEn)
+                .ToListAsync(cancellationToken);
+        }
     }
 }

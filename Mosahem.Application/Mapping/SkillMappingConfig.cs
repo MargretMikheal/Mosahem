@@ -2,6 +2,8 @@
 using mosahem.Domain.Entities.MasterData;
 using Mosahem.Application.Features.Skills.Commands.AddSkill;
 using Mosahem.Application.Features.Skills.Commands.EditSkill;
+using Mosahem.Application.Features.Skills.Queries.GetAllSkills;
+using Mosahem.Application.Features.Skills.Queries.GetAllSkillsGrouped;
 
 namespace Mosahem.Application.Mapping
 {
@@ -22,6 +24,17 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.NameEn, src => src.NameEn)
                 .Map(dest => dest.FieldId, src => src.FieldId)
                 .IgnoreNullValues(true);
+            #endregion
+
+            #region Queries Mapping
+            config.NewConfig<Skill, GetAllSkillsGroupedSkillResponse>()
+               .Map(dest => dest.Id, src => src.Id)
+               .Map(dest => dest.Name, src => src.Localize(src.NameAr, src.NameEn));
+
+            config.NewConfig<Skill, GetAllSkillsQueryResponse>()
+                .Map(dest => dest.SkillId, src => src.Id)
+                .Map(dest => dest.Name, src => src.Localize(src.NameAr, src.NameEn))
+                .Map(dest => dest.FieldName, src => src.Field.Localize(src.Field.NameAr, src.Field.NameEn));
             #endregion
         }
     }

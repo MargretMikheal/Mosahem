@@ -8,5 +8,6 @@ namespace mosahem.Application.Interfaces.Repositories
         Task<bool> IsExistByNameExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken);
         Task<bool> AreAllExistingAsync(IReadOnlyCollection<Guid> skillIds, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<Skill>> GetAllWithFieldAsync(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Skill>> GetAllForListingAsync(CancellationToken cancellationToken = default);
     }
 }
