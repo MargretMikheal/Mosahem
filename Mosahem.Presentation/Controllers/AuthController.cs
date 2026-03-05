@@ -5,15 +5,15 @@ using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationR
 using mosahem.Application.Features.Authentication.Commands.LoginUser;
 using mosahem.Application.Features.Authentication.Commands.RevokeToken;
 using mosahem.Application.Features.Authentication.Commands.SendEmailVerificationCode;
-using mosahem.Application.Features.Authentication.Commands.SendRestPasswordOtp;
 using mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo;
 using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations;
 using mosahem.Application.Features.Authentication.Commands.VerifyEmail;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Authentication.Commands.RefreshTokens;
-using Mosahem.Application.Features.Authentication.Commands.ResetPassword;
 using Mosahem.Application.Features.Authentication.Commands.ValidateOrganizationFields;
-using Mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp;
+using Mosahem.Application.Features.Users.Commands.ResetUserPassword.ResetPassword;
+using Mosahem.Application.Features.Users.Commands.ResetUserPassword.SendRestPasswordOtp;
+using Mosahem.Application.Features.Users.Commands.ResetUserPassword.VerifyRestPasswordOtp;
 using Mosahem.Domain.AppMetaData;
 using System.Security.Claims;
 

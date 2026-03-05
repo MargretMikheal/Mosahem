@@ -54,5 +54,12 @@ namespace mosahem.Persistence.Repositories
             return (await FindAllAsync(spec, cancellationToken)).ToList();
         }
 
+        public async Task<Organization?> GetOrganizationWithFieldsAsync(Guid organizationId, CancellationToken cancellationToken)
+        {
+            var spec = new Specification<Organization>(o => o.Id == organizationId)
+                .Include(o => o.OrganizationFields);
+
+            return (await FindFirstAsync(spec, cancellationToken));
+        }
     }
 }

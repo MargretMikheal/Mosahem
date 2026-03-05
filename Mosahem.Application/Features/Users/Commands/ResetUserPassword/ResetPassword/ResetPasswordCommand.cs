@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 
-namespace Mosahem.Application.Features.Authentication.Commands.ResetPassword
+namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.ResetPassword
 {
     public class ResetPasswordCommand : IRequest<Response<string>>
     {

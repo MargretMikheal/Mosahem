@@ -2,9 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Users.Commands.ChangeEmail.ChangeEmailOtpVerification;
+using Mosahem.Application.Features.Users.Commands.ChangeEmail.SendChangeEmailOtp;
+using Mosahem.Application.Features.Users.Commands.ChangeUserEmail.ChangeEmail;
 using Mosahem.Application.Features.Users.Queries.GetAllUsers;
 using Mosahem.Application.Features.Users.Queries.GetUserInfo;
 using Mosahem.Domain.AppMetaData;
+using Mosahem.Presentation.Filters;
 using System.Security.Claims;
 
 namespace Mosahem.Presentation.Controllers
@@ -34,5 +38,65 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(query);
             return NewResult(response);
         }
+        #region Change Email
+        [Authorize]
+        [ValidateModelId]
+        [HttpPost(Router.UserRouting.SendChangeEmailOtp)]
+        public async Task<IActionResult> SendChangeEmailOtp([FromBody] SendChangeEmailOtpRequest request)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                 ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new SendChangeEmailOtp
+            {
+                UserId = userId,
+                Email = request.Email,
+            });
+            return NewResult(response);
+        }
+
+        [Authorize]
+        [ValidateModelId]
+        [HttpPost(Router.UserRouting.ChangeEmailOtpVerification)]
+        public async Task<IActionResult> ChangeEmailOtpVerification([FromBody] ChangeEmailOtpVerificationRequest request)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new ChangeEmailOtpVerification
+            {
+                UserId = userId,
+                Email = request.Email,
+                Code = request.Code
+            });
+            return NewResult(response);
+        }
+
+        [Authorize]
+        [ValidateModelId]
+        [HttpPut(Router.UserRouting.ChangeEmail)]
+        public async Task<IActionResult> ChangeEmail([FromBody] ChangeEmailCommandRequest request)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new ChangeEmailCommand
+            {
+                UserId = userId,
+                Email = request.Email,
+                Code = request.Code
+            });
+            return NewResult(response);
+        }
+        #endregion
     }
 }

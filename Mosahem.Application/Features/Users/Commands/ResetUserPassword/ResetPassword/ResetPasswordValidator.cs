@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Authentication.Commands.ResetPassword
+namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.ResetPassword
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>
     {

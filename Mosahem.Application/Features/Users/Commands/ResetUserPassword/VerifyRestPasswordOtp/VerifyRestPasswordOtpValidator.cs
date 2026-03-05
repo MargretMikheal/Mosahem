@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
-using Mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp;
 
-namespace mosahem.Application.Features.Authentication.Commands.VerifyRestPasswordOtp
+namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.VerifyRestPasswordOtp
 {
     public class VerifyRestPasswordOtpValidator : AbstractValidator<VerifyRestPasswordOtpCommand>
     {
