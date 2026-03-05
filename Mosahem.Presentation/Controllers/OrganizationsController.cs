@@ -50,7 +50,7 @@ namespace Mosahem.Presentation.Controllers
         [ValidateModelId]
         public async Task<IActionResult> GetLicenseUrl([FromRoute] Guid id)
         {
-            if (User.IsInRole("Organization"))
+            if (User.IsInRole(nameof(UserRole.Organization)))
             {
                 var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
                     ?? User.FindFirst("sub")?.Value;
@@ -85,7 +85,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
         [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPut(Router.OrganizationRouting.AddOrganizationField)]
+        [HttpPut(Router.OrganizationRouting.AddOrganizationAddress)]
         [ValidateModelId]
         public async Task<IActionResult> AddOrganizationField([FromRoute] Guid fieldId)
         {
@@ -103,7 +103,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
         [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPut(Router.OrganizationRouting.DeleteOrganizationField)]
+        [HttpPut(Router.OrganizationRouting.DeleteOrganizationAddress)]
         [ValidateModelId]
         public async Task<IActionResult> DeleteOrganizationField([FromRoute] Guid fieldId)
         {
