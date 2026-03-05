@@ -14,13 +14,13 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Id, src => Guid.NewGuid())
                 .Map(dest => dest.NameAr, src => src.NameAr)
                 .Map(dest => dest.NameEn, src => src.NameEn)
-                .Map(dest => dest.Category, src => src.Category)
-                .Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
+                .Map(dest => dest.FieldId, src => src.FieldId).
+                Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
 
             config.NewConfig<EditSkillCommand, Skill>()
                 .Map(dest => dest.NameAr, src => src.NameAr)
                 .Map(dest => dest.NameEn, src => src.NameEn)
-                .Map(dest => dest.Category, src => src.Category)
+                .Map(dest => dest.FieldId, src => src.FieldId)
                 .IgnoreNullValues(true);
             #endregion
         }

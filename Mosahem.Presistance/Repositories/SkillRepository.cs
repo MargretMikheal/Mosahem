@@ -31,5 +31,11 @@ namespace mosahem.Persistence.Repositories
 
             return count == skillIds.Count;
         }
+        public async Task<IReadOnlyList<Skill>> GetAllWithFieldAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetTableNoTracking()
+                .Include(skill => skill.Field)
+                .ToListAsync(cancellationToken);
+        }
     }
 }

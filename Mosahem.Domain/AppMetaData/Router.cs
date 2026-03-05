@@ -53,11 +53,15 @@
             public const string EditOrganizationInfo = "me";
             public const string ApproveOrganization = "approve";
             public const string RejectOrganization = "reject";
-            public const string Fields = $"{SingleRoute}/fields";
-            public const string Locations = $"{SingleRoute}/locations";
+
+            public const string Fields = $"{Prefix}/{SingleRoute}/fields";
+            public const string AddOrganizationField = $"{Prefix}/{SingleRoute}/fields";
+            public const string DeleteOrganizationField = $"{Prefix}/{{OrganizationId}}/fields/{SingleRoute}";
+
+            public const string Locations = $"{Prefix}/{SingleRoute}/locations";
             public const string AddOrganizationAddress = $"{Prefix}/addresses";
-            public const string DeleteOrganizationAddress = $"addresses/{SingleRoute}";
-            public const string EditOrganizationAddress = $"addresses/{SingleRoute}";
+            public const string DeleteOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
+            public const string EditOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
         }
         public static class OpportunityRouting
         {
@@ -99,6 +103,7 @@
             public const string AddSkill = Prefix;
             public const string DeleteSkill = $"{Prefix}/{SingleRoute}";
             public const string EditSkill = $"{Prefix}/{SingleRoute}";
+            public const string GetAllSkillsGrouped = $"{Prefix}/grouped";
         }
 
         public static class CityRouting

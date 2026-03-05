@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
-using Mosahem.Application.Features.Organization.Commands.AddOrganizationField;
-using Mosahem.Application.Features.Organization.Commands.DeleteOrganizationField;
 using Mosahem.Application.Features.Organization.Commands.EditOrganizationInfo;
 using Mosahem.Application.Features.Organization.Commands.ValidateOrganization.ApproveOrganization;
 using Mosahem.Application.Features.Organization.Commands.ValidateOrganization.RejectOrganization;
@@ -84,42 +82,7 @@ namespace Mosahem.Presentation.Controllers
             });
             return NewResult(response);
         }
-        [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPut(Router.OrganizationRouting.AddOrganizationAddress)]
-        [ValidateModelId]
-        public async Task<IActionResult> AddOrganizationField([FromRoute] Guid fieldId)
-        {
-            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("sub")?.Value;
 
-            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
-                return Unauthorized();
-
-            var response = await _mediator.Send(new AddOrganizationFieldCommand
-            {
-                OrganizationId = organizationId,
-                FieldId = fieldId
-            });
-            return NewResult(response);
-        }
-        [Authorize(Roles = nameof(UserRole.Organization))]
-        [HttpPut(Router.OrganizationRouting.DeleteOrganizationAddress)]
-        [ValidateModelId]
-        public async Task<IActionResult> DeleteOrganizationField([FromRoute] Guid fieldId)
-        {
-            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("sub")?.Value;
-
-            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
-                return Unauthorized();
-
-            var response = await _mediator.Send(new DeleteOrganizationFieldCommand
-            {
-                OrganizationId = organizationId,
-                FieldId = fieldId
-            });
-            return NewResult(response);
-        }
         #endregion
         #region Admin
         [Authorize(Roles = nameof(UserRole.Admin))]
