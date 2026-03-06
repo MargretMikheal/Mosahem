@@ -9,13 +9,13 @@
         public const string SingleRoute = "{id}";
         public static class AdminRouting
         {
-            public const string Prefix = $"{Base}/admin";
+            public const string Prefix = $"{Base}/admins";
 
-            public const string AddAdmin = $"{Prefix}/add-admin";
-            public const string DeleteAdmin = $"{Prefix}/delete-admin";
-            public const string GetAdminById = $"{Prefix}/get-admin-by-id/{SingleRoute}";
-            public const string GetAllAdmins = $"{Prefix}/get-all-admins";
-            public const string EditAdminInfo = $"{Prefix}/edit-admin-info";
+            public const string AddAdmin = Prefix;
+            public const string DeleteAdmin = $"{Prefix}/{SingleRoute}";
+            public const string GetAdminById = $"{Prefix}/{SingleRoute}";
+            public const string GetAllAdmins = Prefix;
+            public const string EditAdminInfo = $"{Prefix}/me";
 
         }
 
@@ -46,26 +46,36 @@
         public static class OrganizationRouting
         {
             public const string Prefix = $"{Base}/organizations";
-            public const string OrganizationData = "organization-data";
-            public const string Fields = $"fields/{SingleRoute}";
-            public const string Locations = $"locations/{SingleRoute}";
-            public const string AllOrganizations = "all";
+            public const string OrganizationData = "me";
+            public const string AllOrganizations = "";
             public const string GetPendingOrganizations = "pending";
-            public const string GetOrganizationLisence = $"license/{SingleRoute}";
-            public const string EditOrganizationInfo = "edit-info";
-            public const string ApproveOrganization = "approve-organization";
-            public const string RejectOrganization = "reject-organization";
+            public const string GetOrganizationLisence = $"{SingleRoute}/license";
+            public const string EditOrganizationInfo = "me";
+            public const string ApproveOrganization = "approve";
+            public const string RejectOrganization = "reject";
+
+            public const string Fields = $"{Prefix}/{SingleRoute}/fields";
+            public const string AddOrganizationField = $"{Prefix}/{SingleRoute}/fields";
+            public const string DeleteOrganizationField = $"{Prefix}/{{OrganizationId}}/fields/{SingleRoute}";
+
+            public const string Locations = $"{Prefix}/{SingleRoute}/locations";
+            public const string AddOrganizationAddress = $"{Prefix}/addresses";
+            public const string DeleteOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
+            public const string EditOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
         }
         public static class OpportunityRouting
         {
             public const string Prefix = $"{Base}/opportunities";
-            public const string Create = "create";
+            public const string Create = "";
         }
         public static class UserRouting
         {
             public const string Prefix = $"{Base}/users";
-            public const string UserInfo = "user-info";
-            public const string AllUsers = "all";
+            public const string UserInfo = "me";
+            public const string AllUsers = "";
+            public const string SendChangeEmailOtp = "email/change/send-otp";
+            public const string ChangeEmailOtpVerification = "email/change/verify-otp";
+            public const string ChangeEmail = "email/change";
         }
 
         public static class FileRouting
@@ -73,32 +83,34 @@
             public const string Prefix = $"{Base}/files";
 
             public const string Upload = $"{Prefix}/upload";
-            public const string GetUrl = $"{Prefix}/get-url";
-            public const string Delete = $"{Prefix}/delete";
+            public const string GetUrl = $"{Prefix}/url";
+            public const string Delete = Prefix;
         }
 
         public static class FieldRouting
         {
             public const string Prefix = $"{Base}/fields";
 
-            public const string AddField = $"{Prefix}/add-field";
-            public const string DeleteField = $"{Prefix}/delete-field/{SingleRoute}";
-            public const string EditField = $"{Prefix}/edit-field/{SingleRoute}";
+            public const string AddField = Prefix;
+            public const string DeleteField = $"{Prefix}/{SingleRoute}";
+            public const string EditField = $"{Prefix}/{SingleRoute}";
             public const string GetAllFields = $"{Prefix}/get-all-fields";
         }
 
         public static class SkillRouting
         {
             public const string Prefix = $"{Base}/skills";
-            public const string AddSkill = $"{Prefix}/add-skill";
-            public const string DeleteSkill = $"{Prefix}/delete-skill/{SingleRoute}";
-            public const string EditSkill = $"{Prefix}/edit-skill/{SingleRoute}";
+            public const string AddSkill = Prefix;
+            public const string DeleteSkill = $"{Prefix}/{SingleRoute}";
+            public const string EditSkill = $"{Prefix}/{SingleRoute}";
+            public const string GetAllSkillsGrouped = $"{Prefix}/grouped";
+            public const string GetAllSkills = $"{Prefix}";
         }
 
         public static class CityRouting
         {
             public const string Prefix = $"{Base}/cities";
-            public const string AddCity = $"{Prefix}/add-city";
+            public const string AddCity = Prefix;
             public const string GetCitiesByGovernate = $"{Prefix}/get-cities-by-governate/{SingleRoute}";
         }
 
@@ -108,12 +120,6 @@
             public const string GetAllGovernates = $"{Prefix}/get-all-governates";
         }
 
-        public static class AddressRouting
-        {
-            public const string Prefix = $"{Base}/addresses";
-            public const string AddOrganizationAddress = "add-organization-address";
-            public const string DeleteOrganizationAddress = $"delete-organization-address/{SingleRoute}";
-            public const string EditOrganizationAddress = $"edit-organization-address/{SingleRoute}";
-        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
 
         public string? LicenseUrl { get; set; }
 
-        public List<OrganizationAddressDto> Addresses { get; set; }
+        public List<OrganizationAddressDto> Locations { get; set; }
 
         public List<Guid> FieldIds { get; set; }
         public string? Description { get; set; }

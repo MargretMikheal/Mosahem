@@ -6,8 +6,12 @@ using Mosahem.Application.Features.Fields.Commands.AddField;
 using Mosahem.Application.Features.Fields.Commands.DeleteField;
 using Mosahem.Application.Features.Fields.Commands.EditField;
 using Mosahem.Application.Features.Fields.Queries.GetAllFields;
+using Mosahem.Application.Features.Fields.Queries.GetOrganizationFields;
+using Mosahem.Application.Features.Organization.Commands.AddOrganizationField;
+using Mosahem.Application.Features.Organization.Commands.DeleteOrganizationField;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
+using System.Security.Claims;
 
 namespace Mosahem.Presentation.Controllers
 {
@@ -52,6 +56,49 @@ namespace Mosahem.Presentation.Controllers
         public async Task<IActionResult> GetAllFields()
         {
             var response = await _mediator.Send(new GetAllFieldsQuery());
+            return NewResult(response);
+        }
+
+        [HttpGet(Router.OrganizationRouting.Fields)]
+        public async Task<IActionResult> GetOrganizationFields(Guid id)
+        {
+            var response = await _mediator.Send(new GetOrganizationFieldsQuery { OrganizationId = id });
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpPut(Router.OrganizationRouting.AddOrganizationField)]
+        [ValidateModelId]
+        public async Task<IActionResult> AddOrganizationField([FromRoute] Guid fieldId)
+        {
+            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new AddOrganizationFieldCommand
+            {
+                OrganizationId = organizationId,
+                FieldId = fieldId
+            });
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpPut(Router.OrganizationRouting.DeleteOrganizationField)]
+        [ValidateModelId]
+        public async Task<IActionResult> DeleteOrganizationField([FromRoute] Guid fieldId)
+        {
+            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new DeleteOrganizationFieldCommand
+            {
+                OrganizationId = organizationId,
+                FieldId = fieldId
+            });
             return NewResult(response);
         }
     }

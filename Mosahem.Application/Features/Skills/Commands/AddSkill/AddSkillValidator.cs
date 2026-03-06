@@ -19,8 +19,10 @@ namespace Mosahem.Application.Features.Skills.Commands.AddSkill
                 .MustAsync(async (key, ct) => !await unitOfWork.Skills.IsExistByNameAsync(key, ct))
                 .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists]);
 
-            RuleFor(x => x.Category)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
+            RuleFor(x => x.FieldId)
+                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                 .MustAsync(async (fieldId, ct) => await unitOfWork.Fields.GetByIdAsync(fieldId, ct) is not null)
+                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Mosahem.Application.Features.Skills.Commands.AddSkill
     {
         public string NameAr { get; set; }
         public string NameEn { get; set; }
-        public string? Category { get; set; }
+        public Guid FieldId { get; set; }
     }
 }

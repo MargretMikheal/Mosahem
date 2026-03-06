@@ -2,7 +2,8 @@
 {
     public enum OtpPurpose
     {
-        EmailVerification = 1,  
-        PasswordReset = 2     
+        EmailVerification = 1,
+        PasswordReset = 2,
+        ChangeEmailVerification = 3,
     }
 }

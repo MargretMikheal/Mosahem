@@ -7,9 +7,7 @@ using Mosahem.Application.Features.Organization.Commands.ValidateOrganization.Ap
 using Mosahem.Application.Features.Organization.Commands.ValidateOrganization.RejectOrganization;
 using Mosahem.Application.Features.Organization.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationData;
-using Mosahem.Application.Features.Organization.Queries.GetOrganizationFields;
 using Mosahem.Application.Features.Organization.Queries.GetOrganizationLicense;
-using Mosahem.Application.Features.Organization.Queries.GetOrganizationLocations;
 using Mosahem.Application.Features.Organization.Queries.GetPendingOrganizations;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
@@ -28,19 +26,7 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetAllOrganizationsQuery());
             return NewResult(response);
         }
-        [HttpGet(Router.OrganizationRouting.Fields)]
-        public async Task<IActionResult> GetOrganizationFields(Guid id)
-        {
-            var response = await _mediator.Send(new GetOrganizationFieldsQuery { OrganizationId = id });
-            return NewResult(response);
-        }
 
-        [HttpGet(Router.OrganizationRouting.Locations)]
-        public async Task<IActionResult> GetOrganizationLocations(Guid id)
-        {
-            var response = await _mediator.Send(new GetOrganizationLocationsQuery { OrganizationId = id });
-            return NewResult(response);
-        }
         #endregion
         #region Organization Authorized Endpoints
         [Authorize(Roles = nameof(UserRole.Organization))]
@@ -62,9 +48,10 @@ namespace Mosahem.Presentation.Controllers
         [ValidateModelId]
         public async Task<IActionResult> GetLicenseUrl([FromRoute] Guid id)
         {
-            if (User.IsInRole("Organization"))
+            if (User.IsInRole(nameof(UserRole.Organization)))
             {
-                var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    ?? User.FindFirst("sub")?.Value;
                 if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
                     return Unauthorized();
 
@@ -78,9 +65,11 @@ namespace Mosahem.Presentation.Controllers
 
         [Authorize(Roles = nameof(UserRole.Organization))]
         [HttpPut(Router.OrganizationRouting.EditOrganizationInfo)]
+        [ValidateModelId]
         public async Task<IActionResult> EditOrganizationInfo([FromBody] EditOrganizationInfoCommandRequest request)
         {
-            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
             if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
                 return Unauthorized();
 
@@ -93,6 +82,7 @@ namespace Mosahem.Presentation.Controllers
             });
             return NewResult(response);
         }
+
         #endregion
         #region Admin
         [Authorize(Roles = nameof(UserRole.Admin))]

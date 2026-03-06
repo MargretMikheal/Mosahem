@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
@@ -31,7 +32,7 @@ namespace Mosahem.Application.Features.Admin.Queries.GetAllAdmins
         {
             var admins = await _unitOfWork.Users.GetUsersByRole(UserRole.Admin, cancellationToken);
 
-            var response = _mapper.Map<IReadOnlyList<GetAllAdminsQueryResponse>>(admins);
+            var response = admins.Adapt<IReadOnlyList<GetAllAdminsQueryResponse>>();
 
             return _responseHandler.Success(response);
         }

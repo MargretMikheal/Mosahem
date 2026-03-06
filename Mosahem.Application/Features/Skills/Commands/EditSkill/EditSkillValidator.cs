@@ -26,10 +26,11 @@ namespace Mosahem.Application.Features.Skills.Commands.EditSkill
                 .WithMessage(localizer[SharedResourcesKeys.State.AlreadyExists])
                 .When(x => x.NameEn is not null);
 
-            RuleFor(x => x.Category)
-                .NotEmpty()
-                .WithMessage(localizer[SharedResourcesKeys.Validation.CannotBeEmptyOrWhitespace])
-                .When(x => x.Category is not null);
+            RuleFor(x => x.FieldId)
+                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                 .MustAsync(async (fieldId, ct) => fieldId is null || await unitOfWork.Fields.GetByIdAsync(fieldId.Value, ct) is not null)
+                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound])
+                 .When(x => x.FieldId is not null);
         }
     }
 }

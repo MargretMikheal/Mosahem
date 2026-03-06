@@ -47,6 +47,9 @@ namespace mosahem.Presistence.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Purpose")
                         .HasColumnType("int");
 
@@ -331,13 +334,11 @@ namespace mosahem.Presistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -350,6 +351,8 @@ namespace mosahem.Presistence.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FieldId");
 
                     b.ToTable("Skills", (string)null);
                 });
@@ -583,6 +586,9 @@ namespace mosahem.Presistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -834,6 +840,17 @@ namespace mosahem.Presistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Governorate");
+                });
+
+            modelBuilder.Entity("mosahem.Domain.Entities.MasterData.Skill", b =>
+                {
+                    b.HasOne("mosahem.Domain.Entities.MasterData.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Field");
                 });
 
             modelBuilder.Entity("mosahem.Domain.Entities.Opportunities.Opportunity", b =>
