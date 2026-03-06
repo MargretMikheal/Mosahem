@@ -4,8 +4,6 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 using mosahem.Domain.Entities.Location;
-using mosahem.Domain.Enums;
-using Mosahem.Domain.Entities;
 
 namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration
 {
@@ -47,7 +45,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 .MustAsync(async (id, ct) => await unitOfWork.Fields.GetByIdAsync(id, ct) != null)
                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
 
-            RuleFor(x => x.Addresses)
+            RuleFor(x => x.Locations)
                 .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .Must(Addresses =>
                 {
@@ -61,7 +59,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 })
                 .WithMessage(localizer[SharedResourcesKeys.Validation.DuplicateEntry]);
 
-            RuleForEach(x => x.Addresses).ChildRules(location =>
+            RuleForEach(x => x.Locations).ChildRules(location =>
             {
                 location.RuleFor(l => l.GovernorateId)
                     .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
@@ -80,15 +78,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     .WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
             });
 
-            When(x => !string.IsNullOrWhiteSpace(x.LicenseUrl), () =>
-            {
-                RuleFor(x => x.LicenseUrl!)
-                    .MustAsync(async (licenseKey, cancellationToken) =>
-                        await unitOfWork.Repository<TemporaryFileUpload>()
-                            .GetTableNoTracking()
-                            .AnyAsync(x => x.FileKey == licenseKey && x.FolderName == StorageFolder.Licenses.ToString(), cancellationToken))
-                    .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
-            });
+
         }
     }
 }

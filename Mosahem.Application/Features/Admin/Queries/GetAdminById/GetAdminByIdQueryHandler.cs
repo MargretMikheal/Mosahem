@@ -1,4 +1,4 @@
-﻿using MapsterMapper;
+﻿using Mapster;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
@@ -13,18 +13,15 @@ namespace Mosahem.Application.Features.Admin.Queries.GetAdminById
         private readonly IUnitOfWork _unitOfWork;
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
-        private readonly IMapper _mapper;
 
         public GetAdminByIdQueryHandler(
             IUnitOfWork unitOfWork,
             ResponseHandler responseHandler,
-            IStringLocalizer<SharedResources> localizer,
-            IMapper mapper)
+            IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _responseHandler = responseHandler;
             _localizer = localizer;
-            _mapper = mapper;
         }
 
         public async Task<Response<GetAdminByIdQueryResponse>> Handle(GetAdminByIdQuery request, CancellationToken cancellationToken)
@@ -35,7 +32,7 @@ namespace Mosahem.Application.Features.Admin.Queries.GetAdminById
             if (user is null || user.Role is not UserRole.Admin)
                 return _responseHandler.NotFound<GetAdminByIdQueryResponse>(_localizer[SharedResourcesKeys.User.NotFound]);
 
-            var response = _mapper.Map<GetAdminByIdQueryResponse>(user);
+            var response = user.Adapt<GetAdminByIdQueryResponse>();
 
             return _responseHandler.Success(response);
         }

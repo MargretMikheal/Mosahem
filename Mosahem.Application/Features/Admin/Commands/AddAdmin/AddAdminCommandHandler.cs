@@ -1,4 +1,4 @@
-﻿using MapsterMapper;
+﻿using Mapster;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
@@ -15,27 +15,24 @@ namespace mosahem.Application.Features.Admin.Commands.AddAdmin
         private readonly IPasswordHasher _passwordHasher;
         private readonly ResponseHandler _responseHandler;
         private readonly IStringLocalizer<SharedResources> _localizer;
-        private readonly IMapper _mapper;
 
         public AddAdminCommandHandler(
             IUnitOfWork unitOfWork,
             IPasswordHasher passwordHasher,
             ResponseHandler responseHandler,
-            IStringLocalizer<SharedResources> localizer,
-            IMapper mapper)
+            IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _passwordHasher = passwordHasher;
             _responseHandler = responseHandler;
             _localizer = localizer;
-            _mapper = mapper;
         }
 
         public async Task<Response<string>> Handle(AddAdminCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var adminUser = _mapper.Map<MosahmUser>(request);
+                var adminUser = request.Adapt<MosahmUser>();
                 adminUser.PasswordHash = _passwordHasher.HashPassword(request.Password);
 
                 await _unitOfWork.Users.AddAsync(adminUser, cancellationToken);

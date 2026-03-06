@@ -94,7 +94,7 @@
             public const string AddField = Prefix;
             public const string DeleteField = $"{Prefix}/{SingleRoute}";
             public const string EditField = $"{Prefix}/{SingleRoute}";
-            public const string GetAllFields = $"{Prefix}";
+            public const string GetAllFields = $"{Prefix}/get-all-fields";
         }
 
         public static class SkillRouting
