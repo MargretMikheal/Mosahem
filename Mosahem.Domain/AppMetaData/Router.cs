@@ -67,6 +67,8 @@
         {
             public const string Prefix = $"{Base}/opportunities";
             public const string Create = "";
+            public const string GetById = SingleRoute;
+            public const string GetPending = "pending";
         }
         public static class UserRouting
         {
