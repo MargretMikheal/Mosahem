@@ -387,4 +387,13 @@
   <data name="Validation_OtpAlreadySent" xml:space="preserve">
     <value>تم ارسال كود التحقق بالفعل</value>
   </data>
+  <data name="Success_OpportunityApproved" xml:space="preserve">
+    <value>تم قبول الفرصة بنجاح.</value>
+  </data>
+  <data name="Success_OpportunityRejected" xml:space="preserve">
+    <value>تم رفض الفرصة بنجاح.</value>
+  </data>
+  <data name="Success_OpportunityStopped" xml:space="preserve">
+    <value>تم إيقاف الفرصة بنجاح.</value>
+  </data>
 </root>

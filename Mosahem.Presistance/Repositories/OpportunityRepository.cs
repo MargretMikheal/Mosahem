@@ -31,5 +31,12 @@ namespace mosahem.Persistence.Repositories
 
             return (await FindAllAsync(spec, cancellationToken)).ToList();
         }
+        public async Task<bool> IsOwnedByOrganizationAsync(Guid opportunityId, Guid organizationId, CancellationToken cancellationToken = default)
+        {
+            var specification = new Specification<Opportunity>(
+                opportunity => opportunity.Id == opportunityId && opportunity.OrganizationId == organizationId);
+
+            return await CountAsync(specification, cancellationToken) > 0;
+        }
     }
 }
