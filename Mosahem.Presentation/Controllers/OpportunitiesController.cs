@@ -12,6 +12,7 @@ using Mosahem.Application.Features.Opportunities.Commands.ResumeOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
@@ -61,6 +62,13 @@ namespace Mosahem.Presentation.Controllers
         public async Task<IActionResult> GetAccepted()
         {
             var response = await _mediator.Send(new GetAllAcceptedOpportunitiesQuery());
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        [HttpGet(Router.OpportunityRouting.GetRejected)]
+        public async Task<IActionResult> GetRejected()
+        {
+            var response = await _mediator.Send(new GetAllRejectedOpportunitiesQuery());
             return NewResult(response);
         }
 

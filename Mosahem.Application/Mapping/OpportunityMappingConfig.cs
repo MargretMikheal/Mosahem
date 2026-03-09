@@ -6,6 +6,7 @@ using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using System.Text.Json;
 
@@ -67,7 +68,11 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
                 .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
 
-
+            config.NewConfig<Opportunity, RejectedOpportunityResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
+                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
 
             config.NewConfig<Opportunity, OpportunityDetailsResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
