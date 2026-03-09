@@ -14,6 +14,7 @@ namespace Mosahem.Presentation.Controllers
     {
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.CityRouting.AddCity)]
+        [ValidateModelId]
         public async Task<IActionResult> AddCity([FromBody] AddCityCommand command)
         {
             var response = await _mediator.Send(command);

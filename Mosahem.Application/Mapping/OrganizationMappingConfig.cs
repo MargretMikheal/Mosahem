@@ -6,8 +6,8 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
-using Mosahem.Application.Features.Organization.Commands.AddOrganizationField;
-using Mosahem.Application.Features.Organization.Commands.EditOrganizationInfo;
+using Mosahem.Application.Features.Organizations.Commands.AddOrganizationField;
+using Mosahem.Application.Features.Organizations.Commands.EditOrganizationInfo;
 
 namespace mosahem.Application.Mapping
 {

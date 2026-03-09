@@ -90,6 +90,7 @@
             public const string Upload = $"{Prefix}/upload";
             public const string GetUrl = $"{Prefix}/url";
             public const string Delete = Prefix;
+            public const string Edit = $"{Prefix}/edit";
         }
 
         public static class FieldRouting

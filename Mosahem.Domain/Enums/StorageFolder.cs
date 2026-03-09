@@ -2,10 +2,12 @@
 {
     public enum StorageFolder
     {
-        Licenses,
         Images,
+        Licenses,
+        VolunteerProfileImages,
+        VolunteerCoverImages,
+        VolunteerCVs,
         OpportunityPhotos,
         OrganizationLogos,
-        Documents
     }
 }

@@ -1,4 +1,5 @@
-﻿using mosahem.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using mosahem.Application.Interfaces.Repositories;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Interfaces.Repositories.Specifications;
@@ -37,6 +38,14 @@ namespace mosahem.Persistence.Repositories
                 opportunity => opportunity.Id == opportunityId && opportunity.OrganizationId == organizationId);
 
             return await CountAsync(specification, cancellationToken) > 0;
+        public OpportunityRepository(MosahmDbContext dbContext) : base(dbContext) { }
+
+        public async Task<string?> GetOpportunityPhotoKeyAsync(Guid opportunityId, CancellationToken cancellationToken)
+        {
+            return await GetTableNoTracking()
+                .Where(o => o.Id == opportunityId).
+                Select(o => o.PhotoKey)
+                .FirstOrDefaultAsync();
         }
     }
 }
