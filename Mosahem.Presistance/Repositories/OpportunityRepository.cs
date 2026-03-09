@@ -38,7 +38,7 @@ namespace mosahem.Persistence.Repositories
                 opportunity => opportunity.Id == opportunityId && opportunity.OrganizationId == organizationId);
 
             return await CountAsync(specification, cancellationToken) > 0;
-        public OpportunityRepository(MosahmDbContext dbContext) : base(dbContext) { }
+        }
 
         public async Task<string?> GetOpportunityPhotoKeyAsync(Guid opportunityId, CancellationToken cancellationToken)
         {
