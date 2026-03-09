@@ -9,5 +9,7 @@ namespace mosahem.Application.Interfaces.Repositories
         Task<IReadOnlyList<Opportunity>> GetPendingOpportunitiesAsync(CancellationToken cancellationToken = default);
         Task<bool> IsOwnedByOrganizationAsync(Guid opportunityId, Guid organizationId, CancellationToken cancellationToken = default);
         Task<string?> GetOpportunityPhotoKeyAsync(Guid opportunityId, CancellationToken cancellationToken);
+        Task<IReadOnlyList<Opportunity>> GetAcceptedOpportunitiesAsync(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Opportunity>> GetRejectedOpportunitiesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -10,6 +10,7 @@ using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.RejectOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.ResumeOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Domain.AppMetaData;
@@ -52,6 +53,14 @@ namespace Mosahem.Presentation.Controllers
         public async Task<IActionResult> GetPending()
         {
             var response = await _mediator.Send(new GetAllPendingOpportunitiesQuery());
+            return NewResult(response);
+        }
+
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        [HttpGet(Router.OpportunityRouting.GetAccepted)]
+        public async Task<IActionResult> GetAccepted()
+        {
+            var response = await _mediator.Send(new GetAllAcceptedOpportunitiesQuery());
             return NewResult(response);
         }
 
