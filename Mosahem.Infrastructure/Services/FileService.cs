@@ -79,5 +79,15 @@ namespace Mosahem.Infrastructure.Services
             var baseUrl = _settings.PublicUrl.TrimEnd('/');
             return $"{baseUrl}/{fileKey}";
         }
+
+        public async Task<string> EditFileAsync(string? oldFileKey, IFormFile file, string folderName, CancellationToken cancellationToken)
+        {
+            var newFileKey = await UploadFileAsync(file, folderName, cancellationToken);
+
+            if (!string.IsNullOrEmpty(oldFileKey))
+                await DeleteFileAsync(oldFileKey, cancellationToken);
+
+            return newFileKey;
+        }
     }
 }

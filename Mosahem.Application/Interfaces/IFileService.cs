@@ -11,5 +11,6 @@ namespace Mosahem.Application.Interfaces
 
         string? GetFileUrl(string? fileKey, bool isPrivate = true);
 
+        Task<string> EditFileAsync(string? oldFileKey, IFormFile file, string folderName, CancellationToken cancellationToken);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mosahem.Application.Interfaces;
 using mosahem.Application.Settings;
+using mosahem.Domain.Entities.Profiles;
 using mosahem.Infrastructure.Services;
 using Mosahem.Application.Interfaces;
 using Mosahem.Application.Interfaces.Security;
@@ -75,7 +76,11 @@ namespace mosahem.Infrastructure
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+
             services.AddScoped<IOtpService, OtpService>();
+            services.AddScoped<IFileOwnerService<Organization>, OrganizationFileOwnerService>();
+            services.AddScoped<IFileOwnerService<Volunteer>, VolunteerFileOwnerService>();
+
             return services;
         }
     }
