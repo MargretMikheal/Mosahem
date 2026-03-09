@@ -25,6 +25,7 @@
             public const string OpportunityRejected = "Success_OpportunityRejected";
             public const string OpportunityStopped = "Success_OpportunityStopped";
             public const string Added = "Added";
+            public const string OpportunityResumed = "Success_OpportunityResumed";
         }
 
         public static class Validation

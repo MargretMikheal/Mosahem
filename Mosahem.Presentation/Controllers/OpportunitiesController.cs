@@ -8,6 +8,7 @@ using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Opportunities.Commands.ApproveOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.RejectOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.ResumeOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
@@ -99,6 +100,28 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
+        [Authorize(Roles = $"{nameof(UserRole.Admin)},{nameof(UserRole.Organization)}")]
+        [HttpPost(Router.OpportunityRouting.Resume)]
+        [ValidateModelId]
+        public async Task<IActionResult> ResumeOpportunity([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            if (!User.IsInRole(nameof(UserRole.Admin)))
+            {
+                var organizationId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    ?? User.FindFirst("sub")?.Value;
 
+                if (string.IsNullOrWhiteSpace(organizationId) || !Guid.TryParse(organizationId, out var organizationGuid))
+                    return Unauthorized();
+
+                var isOwnedByOrganization = await _unitOfWork.Opportunities
+                    .IsOwnedByOrganizationAsync(id, organizationGuid, cancellationToken);
+
+                if (!isOwnedByOrganization)
+                    return Forbid();
+            }
+
+            var response = await _mediator.Send(new ResumeOpportunityCommand { OpportunityId = id });
+            return NewResult(response);
+        }
     }
 }

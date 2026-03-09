@@ -69,9 +69,12 @@
             public const string Create = "";
             public const string GetById = SingleRoute;
             public const string GetPending = "pending";
+            public const string GetAccepted = "accepted";
+            public const string GetRejected = "rejected";
             public const string Approve = $"{SingleRoute}/approve";
             public const string Reject = $"{SingleRoute}/reject";
             public const string Stop = $"{SingleRoute}/stop";
+            public const string Resume = $"{SingleRoute}/resume";
         }
         public static class UserRouting
         {
