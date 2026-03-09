@@ -99,6 +99,9 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.GovernorateName,
                     src => src.City.Governorate.Localize(src.City.Governorate.NameAr, src.City.Governorate.NameEn));
 
+            config.NewConfig<OpportunityField, OpportunityFieldResponse>()
+                .Map(dest => dest.FieldName, src => src.Field.Localize(src.Field.NameAr, src.Field.NameEn));
+
             config.NewConfig<OpportunitySkill, OpportunitySkillResponse>()
                 .Map(dest => dest.SkillName, src => src.Skill.Localize(src.Skill.NameAr, src.Skill.NameEn));
 

@@ -29,7 +29,7 @@
             public const string ForgetPassword = $"{Prefix}/forgot-password";
             public const string VerifyOtp = $"{Prefix}/verify-otp";
             public const string ResetPassword = $"{Prefix}/reset-password";
-            public const string ChangePassword = $"{Prefix}/change-password";
+
             public const string SendEmailVerification = $"{Prefix}/send-email-verification";
             public const string VerifyEmail = $"{Prefix}/verify-email";
 
@@ -81,6 +81,7 @@
             public const string SendChangeEmailOtp = "email/change/send-otp";
             public const string ChangeEmailOtpVerification = "email/change/verify-otp";
             public const string ChangeEmail = "email/change";
+            public const string ChangePassword = $"password";
         }
 
         public static class FileRouting

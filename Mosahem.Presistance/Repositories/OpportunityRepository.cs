@@ -18,6 +18,10 @@ namespace mosahem.Persistence.Repositories
                 .Include("Organization.User")
                 .Include("Address.City.Governorate")
                 .Include("OpportunitySkills.Skill")
+                .Include("OpportunityFields.Field")
+                .Include("OpportunityLikes")
+                .Include("OpportunityComments")
+                .Include("OpportunitySaves")
                 .Include("Questions");
 
             return await FindFirstAsync(spec, cancellationToken);
