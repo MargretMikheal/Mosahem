@@ -387,4 +387,13 @@
   <data name="Validation_OtpAlreadySent" xml:space="preserve">
     <value>OTP already sent</value>
   </data>
+  <data name="Success_OpportunityApproved" xml:space="preserve">
+    <value>Opportunity approved successfully.</value>
+  </data>
+  <data name="Success_OpportunityRejected" xml:space="preserve">
+    <value>Opportunity rejected successfully.</value>
+  </data>
+  <data name="Success_OpportunityStopped" xml:space="preserve">
+    <value>Opportunity stopped successfully.</value>
+  </data>
 </root>
