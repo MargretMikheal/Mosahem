@@ -396,4 +396,7 @@
   <data name="Success_OpportunityStopped" xml:space="preserve">
     <value>تم إيقاف الفرصة بنجاح.</value>
   </data>
+  <data name="Success_OpportunityResumed" xml:space="preserve">
+    <value>تم استئناف الفرصة بنجاح.</value>
+  </data>
 </root>

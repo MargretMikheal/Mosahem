@@ -396,4 +396,7 @@
   <data name="Success_OpportunityStopped" xml:space="preserve">
     <value>Opportunity stopped successfully.</value>
   </data>
+  <data name="Success_OpportunityResumed" xml:space="preserve">
+    <value>Opportunity resumed successfully.</value>
+  </data>
 </root>

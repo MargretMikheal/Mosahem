@@ -4,7 +4,9 @@ using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using System.Text.Json;
 
@@ -60,6 +62,18 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
                 .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
 
+            config.NewConfig<Opportunity, AcceptedOpportunityResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
+                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
+
+            config.NewConfig<Opportunity, RejectedOpportunityResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
+                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
+
             config.NewConfig<Opportunity, OpportunityDetailsResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
@@ -98,6 +112,9 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.GovernorateId, src => src.City.GovernorateId)
                 .Map(dest => dest.GovernorateName,
                     src => src.City.Governorate.Localize(src.City.Governorate.NameAr, src.City.Governorate.NameEn));
+
+            config.NewConfig<OpportunityField, OpportunityFieldResponse>()
+                .Map(dest => dest.FieldName, src => src.Field.Localize(src.Field.NameAr, src.Field.NameEn));
 
             config.NewConfig<OpportunitySkill, OpportunitySkillResponse>()
                 .Map(dest => dest.SkillName, src => src.Skill.Localize(src.Skill.NameAr, src.Skill.NameEn));

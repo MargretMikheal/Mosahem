@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using mosahem.Application.Features.Authentication.Commands.ChangePassword;
+﻿using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration;
 using mosahem.Application.Features.Authentication.Commands.LoginUser;
 using mosahem.Application.Features.Authentication.Commands.RevokeToken;
@@ -15,7 +13,6 @@ using Mosahem.Application.Features.Users.Commands.ResetUserPassword.ResetPasswor
 using Mosahem.Application.Features.Users.Commands.ResetUserPassword.SendRestPasswordOtp;
 using Mosahem.Application.Features.Users.Commands.ResetUserPassword.VerifyRestPasswordOtp;
 using Mosahem.Domain.AppMetaData;
-using System.Security.Claims;
 
 namespace Mosahem.Api.Controllers
 {
@@ -67,20 +64,7 @@ namespace Mosahem.Api.Controllers
             var response = await _mediator.Send(command);
             return NewResult(response);
         }
-        [Authorize]
-        [HttpPut(Router.AuthRouting.ChangePassword)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
-        {
-            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
-                return Unauthorized();
-
-            command.Id = userId;
-
-            var response = await _mediator.Send(command);
-            return NewResult(response);
-        }
         [HttpPost(Router.AuthRouting.SendEmailVerification)]
         public async Task<IActionResult> SendEmailVerification([FromBody] SendEmailVerificationCodeCommand command)
         {

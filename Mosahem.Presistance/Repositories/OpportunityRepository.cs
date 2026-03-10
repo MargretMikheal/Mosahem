@@ -18,9 +18,32 @@ namespace mosahem.Persistence.Repositories
                 .Include("Organization.User")
                 .Include("Address.City.Governorate")
                 .Include("OpportunitySkills.Skill")
+                .Include("OpportunityFields.Field")
+                .Include("OpportunityLikes")
+                .Include("OpportunityComments")
+                .Include("OpportunitySaves")
                 .Include("Questions");
 
             return await FindFirstAsync(spec, cancellationToken);
+        }
+        public async Task<IReadOnlyList<Opportunity>> GetAcceptedOpportunitiesAsync(CancellationToken cancellationToken = default)
+        {
+            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == VerficationStatus.Approved)
+                .NoTracking()
+                .Include("Organization.User")
+                .OrderByDesc(opportunity => opportunity.CreatedAt);
+
+            return (await FindAllAsync(spec, cancellationToken)).ToList();
+        }
+
+        public async Task<IReadOnlyList<Opportunity>> GetRejectedOpportunitiesAsync(CancellationToken cancellationToken = default)
+        {
+            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == VerficationStatus.Rejected)
+                .NoTracking()
+                .Include("Organization.User")
+                .OrderByDesc(opportunity => opportunity.CreatedAt);
+
+            return (await FindAllAsync(spec, cancellationToken)).ToList();
         }
 
         public async Task<IReadOnlyList<Opportunity>> GetPendingOpportunitiesAsync(CancellationToken cancellationToken = default)

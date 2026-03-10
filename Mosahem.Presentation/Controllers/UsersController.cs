@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mosahem.Application.Features.Authentication.Commands.ChangePassword;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Users.Commands.ChangeEmail.ChangeEmailOtpVerification;
@@ -36,6 +37,20 @@ namespace Mosahem.Presentation.Controllers
 
             var query = new GetUserInfoQuery { UserId = userId };
             var response = await _mediator.Send(query);
+            return NewResult(response);
+        }
+        [Authorize]
+        [HttpPut(Router.UserRouting.ChangePassword)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+                return Unauthorized();
+
+            command.Id = userId;
+
+            var response = await _mediator.Send(command);
             return NewResult(response);
         }
         #region Change Email
