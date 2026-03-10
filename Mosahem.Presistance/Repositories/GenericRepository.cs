@@ -104,6 +104,7 @@ namespace mosahem.Persistence.Repositories
         {
             return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
         }
+
         #endregion
     }
 }

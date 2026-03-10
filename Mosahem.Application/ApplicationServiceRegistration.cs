@@ -29,6 +29,7 @@ namespace mosahem.Application
 
             services.AddScoped<ResponseHandler>();
 
+            services.AddHttpContextAccessor();
             return services;
         }
     }

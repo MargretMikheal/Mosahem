@@ -43,15 +43,17 @@ namespace mosahem.Persistence.Repositories
                 .AnyAsync(o => o.Id == organizationId && o.VerificationStatus == mosahem.Domain.Enums.VerficationStatus.Approved, cancellationToken);
         }
 
-        public async Task<IReadOnlyList<Organization>> GetPendingOrganizationsPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<(IReadOnlyList<Organization>, int totalCount)> GetPendingOrganizationsPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
         {
             var spec = new Specification<Organization>(o => o.VerificationStatus.Equals(VerficationStatus.Pending))
                 .NoTracking()
                 .Include(o => o.User)
-                .OrderByAsc(o => o.CreatedAt)
-                .Page((pageNumber - 1) * pageSize, pageSize);
+                .OrderByAsc(o => o.CreatedAt);
 
-            return (await FindAllAsync(spec, cancellationToken)).ToList();
+            int totalCount = await CountAsync(spec, cancellationToken);
+            spec = spec.Page((pageNumber - 1) * pageSize, pageSize);
+
+            return ((await FindAllAsync(spec, cancellationToken)).ToList(), totalCount);
         }
 
         public async Task<Organization?> GetOrganizationWithFieldsAsync(Guid organizationId, CancellationToken cancellationToken)

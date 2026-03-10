@@ -8,11 +8,11 @@ namespace Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizat
     {
         public GetPendingOrganizationsQueryValidator(IStringLocalizer<SharedResources> localizers)
         {
-            RuleFor(x => x.PageNumber)
+            RuleFor(x => x.Page)
                 .GreaterThan(0).WithMessage(localizers[SharedResourcesKeys.Validation.Pagination.PageNumberMustBeGreaterThanZero]);
 
             RuleFor(x => x.PageSize)
-                .LessThanOrEqualTo(50).WithMessage(localizers[SharedResourcesKeys.Validation.Pagination.PageSizeMustNotExceedMax]);
+                .LessThanOrEqualTo(500).WithMessage(localizers[SharedResourcesKeys.Validation.Pagination.PageSizeMustNotExceedMax]);
         }
     }
 }
