@@ -59,6 +59,8 @@ namespace Mosahem.Infrastructure.Services
             {
                 case StorageFolder.Licenses:
                     owner.LicenseKey = newKey;
+                    if (owner.VerificationStatus == VerficationStatus.Rejected)
+                        owner.VerificationStatus = VerficationStatus.Pending;
                     break;
 
                 case StorageFolder.OrganizationLogos:
