@@ -1,5 +1,4 @@
 ﻿using mosahem.Application.Interfaces.Repositories.Specifications;
-using mosahem.Domain.Entities;
 
 namespace mosahem.Application.Interfaces.Repositories
 {
