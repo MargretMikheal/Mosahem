@@ -57,7 +57,7 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
         [HttpGet(Router.SkillRouting.GetAllSkillsGrouped)]
-        public async Task<IActionResult> GetAllSkillsGrouped([FromBody] GetAllSkillsGroupedQuery? query)
+        public async Task<IActionResult> GetAllSkillsGrouped([FromQuery] GetAllSkillsGroupedQuery? query)
         {
             var response = await _mediator.Send(query ?? new GetAllSkillsGroupedQuery());
             return NewResult(response);
