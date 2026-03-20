@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Opportunities;
 
 namespace mosahem.Persistence.Configurations.Opportunities
@@ -24,7 +23,7 @@ namespace mosahem.Persistence.Configurations.Opportunities
                    .HasMaxLength(5000);
 
             builder.Property(o => o.Status)
-                   .HasConversion<string>();
+                   .HasConversion<int>();
 
             builder.Property(o => o.WorkType)
                    .HasConversion<string>();

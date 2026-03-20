@@ -17,6 +17,13 @@ namespace Mosahem.Persistence.Repositories
 
             return (await FindFirstAsync(spec, cancellationToken));
         }
+        #region Opportunity
+        public async Task<IReadOnlyList<Address>> GetOpportunityAddressAsync(Guid OpportunityId, CancellationToken cancellationToken)
+        {
+            var spec = new Specification<Address>(a => a.OpportunityId == OpportunityId);
+            return (await FindAllAsync(spec, cancellationToken)).ToList();
+        }
+        #endregion
         #region Organization
         public async Task<IReadOnlyList<Address>> GetOrganizationAddressesAsync(Guid organizationId, CancellationToken cancellationToken = default)
         {
