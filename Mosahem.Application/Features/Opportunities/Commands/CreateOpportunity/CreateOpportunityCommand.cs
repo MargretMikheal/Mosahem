@@ -33,6 +33,7 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
 
     public class CreateOpportunityQuestionDto
     {
+        public Guid? QuestionId { get; set; }
         public string Description { get; set; }
         public AnswerType AnswerType { get; set; }
         public bool IsRequired { get; set; }

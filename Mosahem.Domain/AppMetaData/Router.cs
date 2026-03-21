@@ -55,18 +55,22 @@
             public const string RejectOrganization = "reject";
 
             public const string Fields = $"{Prefix}/{SingleRoute}/fields";
-            public const string AddOrganizationField = $"{Prefix}/{SingleRoute}/fields";
-            public const string DeleteOrganizationField = $"{Prefix}/{{OrganizationId}}/fields/{SingleRoute}";
 
             public const string Locations = $"{Prefix}/{SingleRoute}/locations";
             public const string AddOrganizationAddress = $"{Prefix}/addresses";
             public const string DeleteOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
             public const string EditOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
+            public const string EditFields = $"{SingleRoute}/fields";
+            public const string EditAboutUs = $"{SingleRoute}/about-us";
+
+            public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
+            public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
         }
         public static class OpportunityRouting
         {
             public const string Prefix = $"{Base}/opportunities";
             public const string Create = "";
+            public const string GetAll = "all";
             public const string GetById = SingleRoute;
             public const string GetPending = "pending";
             public const string GetAccepted = "accepted";
@@ -75,6 +79,10 @@
             public const string Reject = $"{SingleRoute}/reject";
             public const string Stop = $"{SingleRoute}/stop";
             public const string Resume = $"{SingleRoute}/resume";
+            public const string EditFields = $"{SingleRoute}/fields";
+            public const string EditSkills = $"{SingleRoute}/skills";
+            public const string EditQuestions = $"{SingleRoute}/questions";
+            public const string EditInfo = $"{SingleRoute}/info";
         }
         public static class UserRouting
         {
