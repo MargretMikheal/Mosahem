@@ -399,4 +399,34 @@
   <data name="Success_OpportunityResumed" xml:space="preserve">
     <value>تم استئناف الفرصة بنجاح.</value>
   </data>
+  <data name="Validation_PasswordIsAlreadyUsed" xml:space="preserve">
+    <value>انت تستخدم كلمة المرور بالفعل</value>
+  </data>
+  <data name="Validation_FieldsMustNotExceedThree" xml:space="preserve">
+    <value>عدد المجلات يجب ان لا يتعدي 3</value>
+  </data>
+  <data name="Validation_SkillsMustNotExceedThree" xml:space="preserve">
+    <value>عدد المهارات يجب ان لا يتعدي 3</value>
+  </data>
+  <data name="Validation_FieldsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل مجالات الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
+  </data>
+  <data name="Validation_SkillsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل مهارات الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
+  </data>
+  <data name="DuplicatedData" xml:space="preserve">
+    <value>بيانات مكررة</value>
+  </data>
+  <data name="Validation_VacanciesCannotBeLessThanAcceptedApplicants" xml:space="preserve">
+    <value>لديك متطوعين في هذه الفرصة اكثر من عدد الاماكن الشغارة</value>
+  </data>
+  <data name="Validation_VacanciesMinimumValueIs10" xml:space="preserve">
+    <value>اقل قيمة يمكن ادخالها 10</value>
+  </data>
+  <data name="Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation" xml:space="preserve">
+    <value>هذه الفرصة يجب ان تحتوي علي موقع واحد علي الاقل</value>
+  </data>
+  <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل موقع الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
+  </data>
 </root>

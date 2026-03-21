@@ -4,10 +4,15 @@ using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
+using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
+using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
+using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
 using System.Text.Json;
 
 namespace Mosahem.Application.Mapping
@@ -34,6 +39,12 @@ namespace Mosahem.Application.Mapping
             config.NewConfig<CreateOpportunityAddressDto, Address>()
                 .Map(dest => dest.Id, src => Guid.NewGuid());
 
+            config.NewConfig<EditOpportunityInfoAddressDto, Address>()
+                .Map(dest => dest.Id, src => src.AddressId ?? Guid.NewGuid())
+                .Map(dest => dest.CityId, src => src.CityId)
+                .Map(dest => dest.Description, src => src.Description)
+                .IgnoreNonMapped(true);
+
             // 3. Skills Mapping (Handling Guid to Entity)
             config.NewConfig<Guid, OpportunityProvideSkill>()
                 .Map(dest => dest.Id, src => Guid.NewGuid())
@@ -56,6 +67,16 @@ namespace Mosahem.Application.Mapping
                  .Ignore(dest => dest.Options)
                  .Ignore(dest => dest.OpportunityId)
                  .AfterMapping((src, dest) => dest.Options = BuildQuestionOptions(src.Options));
+
+            config.NewConfig<EditOpportunityQuestionDto, Question>()
+                .Map(dest => dest.Id, src => src.QuestionId ?? Guid.NewGuid())
+                .Map(dest => dest.Description, src => src.Description)
+                .Map(dest => dest.AnswerType, src => src.AnswerType)
+                .Map(dest => dest.IsRequired, src => src.IsRequired)
+                .Ignore(dest => dest.Options)
+                .Ignore(dest => dest.OpportunityId)
+                .AfterMapping((src, dest) => dest.Options = BuildQuestionOptions(src.Options));
+
             config.NewConfig<Opportunity, PendingOpportunityResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
@@ -124,6 +145,74 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.AnswerType, src => src.AnswerType.ToString())
                 .Map(dest => dest.Options, src => ParseQuestionOptions(src.Options));
 
+            #region Organization
+            //Get Oraganiztion Opportunities By Verification Status
+            config.NewConfig<Opportunity, GetOpportunitiesByVerificationStatusResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OpportunityDescription, src => src.Descripition)
+                .Map(dest => dest.WorkType, src => src.WorkType.ToString())
+                .Map(dest => dest.LocationType, src => src.LocationType.ToString())
+                .Map(dest => dest.StartDate, src => src.StartDate)
+                .Map(dest => dest.EndDate, src => src.EndDate)
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                .Map(dest => dest.Vacancies, src => src.Vacancies)
+                .Map(dest => dest.ApplicantsCount, src => src.ApplicantsCount)
+                .Map(dest => dest.Organization, src => src.Organization)
+                .Map(dest => dest.Locations, src => src.Address ?? new List<Address>())
+                .Map(dest => dest.LikesCount, src => src.OpportunityLikes != null ? src.OpportunityLikes.Count : 0)
+                .Map(dest => dest.CommentsCount, src => src.OpportunityComments != null ? src.OpportunityComments.Count : 0)
+                .Map(dest => dest.SavesCount, src => src.OpportunitySaves != null ? src.OpportunitySaves.Count : 0)
+                .IgnoreNonMapped(true);
+
+            //Get Oraganiztion Opportunities By Status
+            config.NewConfig<Opportunity, GetOpportunitiesByStatusResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OpportunityDescription, src => src.Descripition)
+                .Map(dest => dest.WorkType, src => src.WorkType.ToString())
+                .Map(dest => dest.LocationType, src => src.LocationType.ToString())
+                .Map(dest => dest.OpportunityStatus, src => BuildOpportunityStatuses(src))
+                .Map(dest => dest.StartDate, src => src.StartDate)
+                .Map(dest => dest.EndDate, src => src.EndDate)
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                .Map(dest => dest.Vacancies, src => src.Vacancies)
+                .Map(dest => dest.ApplicantsCount, src => src.ApplicantsCount)
+                .Map(dest => dest.Organization, src => src.Organization)
+                .Map(dest => dest.Locations, src => src.Address ?? new List<Address>())
+                .Map(dest => dest.LikesCount, src => src.OpportunityLikes != null ? src.OpportunityLikes.Count : 0)
+                .Map(dest => dest.CommentsCount, src => src.OpportunityComments != null ? src.OpportunityComments.Count : 0)
+                .Map(dest => dest.SavesCount, src => src.OpportunitySaves != null ? src.OpportunitySaves.Count : 0)
+                .IgnoreNonMapped(true);
+
+            //Get All Opportunities
+            config.NewConfig<Opportunity, GetAllOpportunitiesResponse>()
+                 .Map(dest => dest.OpportunityId, src => src.Id)
+                 .Map(dest => dest.OpportunityName, src => src.Title)
+                 .Map(dest => dest.OpportunityDescription, src => src.Descripition)
+                 .Map(dest => dest.WorkType, src => src.WorkType.ToString())
+                 .Map(dest => dest.LocationType, src => src.LocationType.ToString())
+                 .Map(dest => dest.OpportunityStatus, src => BuildOpportunityStatuses(src))
+                 .Map(dest => dest.StartDate, src => src.StartDate)
+                 .Map(dest => dest.EndDate, src => src.EndDate)
+                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                 .Map(dest => dest.Vacancies, src => src.Vacancies)
+                 .Map(dest => dest.ApplicantsCount, src => src.ApplicantsCount)
+                 .Map(dest => dest.Organization, src => src.Organization)
+                 .Map(dest => dest.Locations, src => src.Address ?? new List<Address>())
+                 .Map(dest => dest.LikesCount, src => src.OpportunityLikes != null ? src.OpportunityLikes.Count : 0)
+                 .Map(dest => dest.CommentsCount, src => src.OpportunityComments != null ? src.OpportunityComments.Count : 0)
+                 .Map(dest => dest.SavesCount, src => src.OpportunitySaves != null ? src.OpportunitySaves.Count : 0)
+                 .IgnoreNonMapped(true);
+            #endregion
+
+            //Edit Opportunity Info Mapping
+            config.NewConfig<EditOpportunityInfoCommand, Opportunity>()
+                .Map(dest => dest.Title, src => src.Title)
+                .Map(dest => dest.Descripition, src => src.Description)
+                .Map(dest => dest.Vacancies, src => src.Vacancies)
+                .IgnoreNonMapped(true)
+                .IgnoreNullValues(true);
         }
 
         private static List<string> BuildOpportunityStatuses(Opportunity opportunity)

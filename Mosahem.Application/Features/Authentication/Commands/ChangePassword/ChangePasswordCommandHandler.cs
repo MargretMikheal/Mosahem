@@ -41,7 +41,13 @@ namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
                     new Dictionary<string, List<string>> { { "CurrentPassword", new List<string> { _localizer[SharedResourcesKeys.Auth.InvalidCredentials] } } });
             }
 
-            user.PasswordHash = _passwordHasher.HashPassword(request.NewPassword);
+            var newPasswordHash = _passwordHasher.HashPassword(request.NewPassword);
+            if (user.PasswordHash == newPasswordHash)
+                return _responseHandler.BadRequest<string>(
+                    generalError,
+                    new Dictionary<string, List<string>> { { "NewPassword", new List<string> { _localizer[SharedResourcesKeys.Validation.PasswordIsAlreadyUsed] } } });
+
+            user.PasswordHash = newPasswordHash;
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

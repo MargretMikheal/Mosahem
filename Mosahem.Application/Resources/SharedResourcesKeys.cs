@@ -34,6 +34,7 @@
             public const string Invalid = "Invalid";
             public const string BadRequest = "BadRequest";
             public const string UnprocessableEntity = "UnprocessableEntity";
+            public const string DuplicatedData = "DuplicatedData";
             public const string CannotDeleteSelf = "Validation_CannotDeleteSelf";
             public const string CannotBeEmptyOrWhitespace = "Validation_CannotBeEmptyOrWhitespace";
             public const string MinLength = "MinLength";
@@ -49,11 +50,20 @@
             public const string PasswordRequiresLower = "Validation_PasswordRequiresLower";
             public const string PasswordRequiresDigit = "Validation_PasswordRequiresDigit";
             public const string PasswordRequiresNonAlphanumeric = "Validation_PasswordRequiresNonAlphanumeric";
+            public const string PasswordIsAlreadyUsed = "Validation_PasswordIsAlreadyUsed";
             public const string EndDateAfterStartDate = "Validation_EndDateAfterStartDate";
             public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
             public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
             public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
+            public const string FieldsMustNotExceedThree = "Validation_FieldsMustNotExceedThree";
+            public const string SkillsMustNotExceedThree = "Validation_SkillsMustNotExceedThree";
 
+            public const string FieldsCanBeEditedOnlyBefore48Houres = "Validation_FieldsCanBeEditedOnlyBefore48Houres";
+            public const string SkillsCanBeEditedOnlyBefore48Houres = "Validation_SkillsCanBeEditedOnlyBefore48Houres";
+            public const string LocationsCanBeEditedOnlyBefore48Houres = "Validation_LocationsCanBeEditedOnlyBefore48Houres";
+            public const string VacanciesCannotBeLessThanAcceptedApplicants = "Validation_VacanciesCannotBeLessThanAcceptedApplicants";
+            public const string VacanciesMinimumValueIs10 = "Validation_VacanciesMinimumValueIs10";
+            public const string AnOnSiteOpportunityMustHaveAtLeastOneLocation = "Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation";
             public static class Pagination
             {
                 public const string PageNumberMustBeGreaterThanZero = "Validation_Pagination_PageNumberMustBeGreaterThanZero";

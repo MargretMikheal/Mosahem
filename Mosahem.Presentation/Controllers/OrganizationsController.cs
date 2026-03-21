@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Organizations.Commands.EditOrganizationAboutUs;
+using Mosahem.Application.Features.Organizations.Commands.EditOrganizationFields;
 using Mosahem.Application.Features.Organizations.Commands.EditOrganizationInfo;
 using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.ApproveOrganization;
 using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.RejectOrganization;
@@ -82,7 +84,32 @@ namespace Mosahem.Presentation.Controllers
             });
             return NewResult(response);
         }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpPut(Router.OrganizationRouting.EditFields)]
+        [ValidateModelId]
+        public async Task<IActionResult> EditFields(Guid id, [FromBody] EditOrganizationFieldsRequest request)
+        {
+            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
+                return Unauthorized();
 
+            var response = await _mediator.Send(new EditOrganizationFieldsCommand(organizationId, request.FieldsIds));
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpPut(Router.OrganizationRouting.EditAboutUs)]
+        [ValidateModelId]
+        public async Task<IActionResult> EditAboutUs(Guid id, [FromBody] EditOrganizationAboutUsRequest request)
+        {
+            var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+            if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new EditOrganizationAboutUsCommand(organizationId, request.AboutUs));
+            return NewResult(response);
+        }
         #endregion
         #region Admin
         [Authorize(Roles = nameof(UserRole.Admin))]

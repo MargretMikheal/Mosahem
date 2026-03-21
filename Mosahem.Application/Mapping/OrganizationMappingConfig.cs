@@ -6,7 +6,6 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
-using Mosahem.Application.Features.Organizations.Commands.AddOrganizationField;
 using Mosahem.Application.Features.Organizations.Commands.EditOrganizationInfo;
 
 namespace mosahem.Application.Mapping
@@ -40,9 +39,6 @@ namespace mosahem.Application.Mapping
                 .Map(dest => dest.FieldId, src => src)
                 .Ignore(dest => dest.OrganizationId);
 
-            config.NewConfig<AddOrganizationFieldCommand, OrganizationField>()
-                .Map(dest => dest.OrganizationId, src => src.OrganizationId)
-                .Map(dest => dest.FieldId, src => src.FieldId);
 
             #region Edit Organization Info Mapping
             config.NewConfig<EditOrganizationInfoCommand, MosahmUser>()

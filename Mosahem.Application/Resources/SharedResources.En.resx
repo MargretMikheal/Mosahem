@@ -399,4 +399,34 @@
   <data name="Success_OpportunityResumed" xml:space="preserve">
     <value>Opportunity resumed successfully.</value>
   </data>
+  <data name="Validation_PasswordIsAlreadyUsed" xml:space="preserve">
+    <value>You are using this password </value>
+  </data>
+  <data name="Validation_FieldsMustNotExceedThree" xml:space="preserve">
+    <value>Number of fields must not exceed three</value>
+  </data>
+  <data name="Validation_SkillsMustNotExceedThree" xml:space="preserve">
+    <value>Number of skills must not exceed three</value>
+  </data>
+  <data name="Validation_FieldsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's fields only before 48 hours from the start date</value>
+  </data>
+  <data name="Validation_SkillsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's skills only before 48 hours from the start date</value>
+  </data>
+  <data name="DuplicatedData" xml:space="preserve">
+    <value>duplicated Data</value>
+  </data>
+  <data name="Validation_VacanciesCannotBeLessThanAcceptedApplicants" xml:space="preserve">
+    <value>The number of volunteers in this opportunity is greater than the Vacancies</value>
+  </data>
+  <data name="Validation_VacanciesMinimumValueIs10" xml:space="preserve">
+    <value>The minimum value for this field is 10</value>
+  </data>
+  <data name="Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation" xml:space="preserve">
+    <value>An onsite Opportunity must has at least one location.</value>
+  </data>
+  <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's location only before 48 hours from the start date</value>
+  </data>
 </root>
