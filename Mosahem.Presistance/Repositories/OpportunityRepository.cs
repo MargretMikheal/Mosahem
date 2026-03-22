@@ -27,34 +27,16 @@ namespace mosahem.Persistence.Repositories
 
             return await FindFirstAsync(spec, cancellationToken);
         }
-        public async Task<IReadOnlyList<Opportunity>> GetAcceptedOpportunitiesAsync(CancellationToken cancellationToken = default)
+        public async Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOpportunitiesByVerificationStatusPageAsync(VerficationStatus verficationStatus, int page, int pageSize, CancellationToken cancellationToken = default)
         {
-            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == VerficationStatus.Approved)
-                .NoTracking()
+            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == verficationStatus)
+             .NoTracking()
+            .OrderByDesc(opportunity => opportunity.CreatedAt);
+            var totalCount = await CountAsync(spec, cancellationToken);
+            spec = spec
                 .Include("Organization.User")
-                .OrderByDesc(opportunity => opportunity.CreatedAt);
-
-            return (await FindAllAsync(spec, cancellationToken)).ToList();
-        }
-
-        public async Task<IReadOnlyList<Opportunity>> GetRejectedOpportunitiesAsync(CancellationToken cancellationToken = default)
-        {
-            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == VerficationStatus.Rejected)
-                .NoTracking()
-                .Include("Organization.User")
-                .OrderByDesc(opportunity => opportunity.CreatedAt);
-
-            return (await FindAllAsync(spec, cancellationToken)).ToList();
-        }
-
-        public async Task<IReadOnlyList<Opportunity>> GetPendingOpportunitiesAsync(CancellationToken cancellationToken = default)
-        {
-            var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == VerficationStatus.Pending)
-                .NoTracking()
-                .Include("Organization.User")
-                .OrderByAsc(opportunity => opportunity.CreatedAt);
-
-            return (await FindAllAsync(spec, cancellationToken)).ToList();
+                .Page((page - 1) * pageSize, pageSize);
+            return ((await FindAllAsync(spec, cancellationToken)).ToList(), totalCount);
         }
         public async Task<bool> IsOwnedByOrganizationAsync(Guid opportunityId, Guid organizationId, CancellationToken cancellationToken = default)
         {

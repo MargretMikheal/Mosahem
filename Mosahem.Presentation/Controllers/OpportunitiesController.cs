@@ -14,10 +14,8 @@ using Mosahem.Application.Features.Opportunities.Commands.EditOpportunitySkills;
 using Mosahem.Application.Features.Opportunities.Commands.RejectOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.ResumeOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
@@ -55,29 +53,14 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetOpportunityByIdQuery { OpportunityId = id });
             return NewResult(response);
         }
-
         [Authorize(Roles = nameof(UserRole.Admin))]
-        [HttpGet(Router.OpportunityRouting.GetPending)]
-        public async Task<IActionResult> GetPending()
+        [HttpGet(Router.OpportunityRouting.GetByVerificationStatus)]
+        public async Task<IActionResult> GetByVerificationStatus([FromQuery] GetAllOpportunitiesByVerificationStatusQuery query)
         {
-            var response = await _mediator.Send(new GetAllPendingOpportunitiesQuery());
+            var response = await _mediator.Send(query);
             return NewResult(response);
         }
 
-        [Authorize(Roles = nameof(UserRole.Admin))]
-        [HttpGet(Router.OpportunityRouting.GetAccepted)]
-        public async Task<IActionResult> GetAccepted()
-        {
-            var response = await _mediator.Send(new GetAllAcceptedOpportunitiesQuery());
-            return NewResult(response);
-        }
-        [Authorize(Roles = nameof(UserRole.Admin))]
-        [HttpGet(Router.OpportunityRouting.GetRejected)]
-        public async Task<IActionResult> GetRejected()
-        {
-            var response = await _mediator.Send(new GetAllRejectedOpportunitiesQuery());
-            return NewResult(response);
-        }
 
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.OpportunityRouting.Approve)]

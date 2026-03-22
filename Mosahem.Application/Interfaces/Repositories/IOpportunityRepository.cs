@@ -7,11 +7,9 @@ namespace mosahem.Application.Interfaces.Repositories
     public interface IOpportunityRepository : IGenericRepository<Opportunity>
     {
         Task<Opportunity?> GetOpportunityWithDetailsAsync(Guid opportunityId, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<Opportunity>> GetPendingOpportunitiesAsync(CancellationToken cancellationToken = default);
         Task<bool> IsOwnedByOrganizationAsync(Guid opportunityId, Guid organizationId, CancellationToken cancellationToken = default);
         Task<string?> GetOpportunityPhotoKeyAsync(Guid opportunityId, CancellationToken cancellationToken);
-        Task<IReadOnlyList<Opportunity>> GetAcceptedOpportunitiesAsync(CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<Opportunity>> GetRejectedOpportunitiesAsync(CancellationToken cancellationToken = default);
+        Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOpportunitiesByVerificationStatusPageAsync(VerficationStatus verficationStatus, int page, int pageSize, CancellationToken cancellationToken = default);
         Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOrganizationOpportunitiesByVerificationStatusPageAsync(Guid organizationId, VerficationStatus verficationStatus, int page, int pageSize, CancellationToken cancellationToken);
         Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOrganizationOpportunitiesByStatusPageAsync(Guid organizationId, OpportunityStatus status, int page, int pageSize, CancellationToken cancellationToken);
         Task<(IReadOnlyList<Opportunity>, int totalCount)> GetAllOpportunitiesPageAsync(

@@ -6,10 +6,8 @@ using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
@@ -77,23 +75,12 @@ namespace Mosahem.Application.Mapping
                 .Ignore(dest => dest.OpportunityId)
                 .AfterMapping((src, dest) => dest.Options = BuildQuestionOptions(src.Options));
 
-            config.NewConfig<Opportunity, PendingOpportunityResponse>()
+            config.NewConfig<Opportunity, GetAllOpportunitiesByVerificationStatusResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
                 .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
-
-            config.NewConfig<Opportunity, AcceptedOpportunityResponse>()
-                .Map(dest => dest.OpportunityId, src => src.Id)
-                .Map(dest => dest.OpportunityName, src => src.Title)
-                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
-
-            config.NewConfig<Opportunity, RejectedOpportunityResponse>()
-                .Map(dest => dest.OpportunityId, src => src.Id)
-                .Map(dest => dest.OpportunityName, src => src.Title)
-                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
+                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey)
+                .Map(dest => dest.VerificationStatus, src => src.VerificationStatus.ToString());
 
             config.NewConfig<Opportunity, OpportunityDetailsResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)

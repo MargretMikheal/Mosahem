@@ -22,8 +22,8 @@ namespace mosahem.Presentation.Bases
                     return new OkObjectResult(response);
                 case HttpStatusCode.Created:
                     return new CreatedResult(string.Empty, response);
-                //case HttpStatusCode.Unauthorized:
-                //    return new UnauthorizedObjectResult(response);
+                case HttpStatusCode.Unauthorized:
+                    return new UnauthorizedObjectResult(response);
                 case HttpStatusCode.BadRequest:
                     return new BadRequestObjectResult(response);
                 case HttpStatusCode.NotFound:
