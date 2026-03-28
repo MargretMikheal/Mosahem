@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
@@ -30,17 +31,25 @@ namespace Mosahem.Presentation.Controllers
     public class OpportunitiesController : MosahmControllerBase
     {
         private IUnitOfWork _unitOfWork => HttpContext.RequestServices.GetService<IUnitOfWork>()!;
+        private ResponseHandler _responseHandler => HttpContext.RequestServices.GetService<ResponseHandler>()!;
+
         [Authorize(Roles = nameof(UserRole.Organization))]
         [HttpPost(Router.OpportunityRouting.Create)]
         public async Task<IActionResult> Create([FromBody] CreateOpportunityCommand command)
         {
+
             var organizationId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
                 ?? User.FindFirst("sub")?.Value;
 
             if (string.IsNullOrWhiteSpace(organizationId) || !Guid.TryParse(organizationId, out var organizationGuid))
-                return Unauthorized();
-
-            command.OrganizationId = organizationGuid;
+            {
+                var unauthorizedResponse = _responseHandler.Unauthorized<Guid>(
+                    errors: new Dictionary<string, List<string>>
+                    {
+                        { "OrganizationId", new List<string> { "OrganizationId is required and cannot be null." } }
+                    });
+                return NewResult(unauthorizedResponse);
+            }
 
             var response = await _mediator.Send(command);
             return NewResult(response);

@@ -106,7 +106,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 var refreshTokenEntity = new RefreshToken
                 {
                     Token = jwtResult.RefreshToken,
-                    ExpiresAt = DateTime.UtcNow.AddDays(7),
+                    ExpiresAt = DateTime.UtcNow.AddDays(30),
                     UserId = user.Id,
                     IsRevoked = false,
                 };
