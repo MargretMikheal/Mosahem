@@ -22,11 +22,11 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
                 .WithMessage(localizer[SharedResourcesKeys.Validation.OrganizationMustBeVerified]);
 
             RuleFor(x => x.Title)
-                .NotNull().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .MaximumLength(100).WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 100));
 
             RuleFor(x => x.Description)
-                .NotNull().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .MaximumLength(5000).WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 5000));
 
             RuleFor(x => x.PhotoKey)
