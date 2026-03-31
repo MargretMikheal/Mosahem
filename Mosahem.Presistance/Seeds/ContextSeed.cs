@@ -36,7 +36,8 @@ namespace mosahem.Persistence.Seeds
 
             if (!await context.Skills.AnyAsync())
             {
-                var skills = SeedHelper.GetSkills();
+                var fields = await context.Fields.AsNoTracking().ToListAsync();
+                var skills = SeedHelper.GetSkills(fields);
                 await context.Skills.AddRangeAsync(skills);
                 await context.SaveChangesAsync();
             }

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations;
-using Mosahem.Application.DTOs.Auth; 
+using Mosahem.Application.DTOs.Auth;
 
 namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration
 {
@@ -12,7 +12,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
 
-        public string LicenseUrl { get; set; }
+        public string? LicenseUrl { get; set; }
 
         public List<OrganizationAddressDto> Locations { get; set; }
 

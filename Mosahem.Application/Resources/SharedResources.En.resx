@@ -264,9 +264,6 @@
   <data name="Forbidden" xml:space="preserve">
     <value>Access forbidden</value>
   </data>
-  <data name="LoginSuccess" xml:space="preserve">
-    <value>Logged in successfully</value>
-  </data>
   <data name="LogoutSuccess" xml:space="preserve">
     <value>Logged out successfully</value>
   </data>
@@ -332,5 +329,104 @@
   </data>
   <data name="Success_PasswordChanged" xml:space="preserve">
     <value>Password Changed</value>
+  </data>
+  <data name="Validation_PasswordRequiresUpper" xml:space="preserve">
+    <value>Password must contain at least one uppercase letter ('A'-'Z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresLower" xml:space="preserve">
+    <value>Password must contain at least one lowercase letter ('a'-'z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresDigit" xml:space="preserve">
+    <value>Password must contain at least one digit ('0'-'9').</value>
+  </data>
+  <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>Password must contain at least one special character (e.g., !@#$%).</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added successfully</value>
+  </data>
+  <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
+    <value>Field can not be empty</value>
+  </data>
+  <data name="Success_OpportunityAdded" xml:space="preserve">
+    <value>Opportunity created successfully.</value>
+  </data>
+  <data name="Validation_EndDateAfterStartDate" xml:space="preserve">
+    <value>End date must be after start date.</value>
+  </data>
+  <data name="Validation_SkillCannotBeBothRequiredAndProvided" xml:space="preserve">
+    <value>A skill cannot be both required and provided.</value>
+  </data>
+  <data name="Validation_InvalidQuestionOptions" xml:space="preserve">
+    <value>Invalid question options for selected answer type.</value>
+  </data>
+  <data name="TransactionStartFailed" xml:space="preserve">
+    <value>Failed to start database transaction.</value>
+  </data>
+  <data name="TransactionCommitFailed" xml:space="preserve">
+    <value>Failed to commit database transaction.</value>
+  </data>
+  <data name="NoRowsAffected" xml:space="preserve">
+    <value>No records were saved.</value>
+  </data>
+  <data name="DatabaseUpdateFailed" xml:space="preserve">
+    <value>Database update failed.</value>
+  </data>
+  <data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
+    <value>Organization must be verified to create opportunities.</value>
+  </data>
+  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>Page number must be greater than zero</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Logged in successfully</value>
+  </data>
+  <data name="Validation_Pagination_PageSizeMustNotExceedMax" xml:space="preserve">
+    <value>Page size is too big</value>
+  </data>
+  <data name="Validation_OtpAlreadySent" xml:space="preserve">
+    <value>OTP already sent</value>
+  </data>
+  <data name="Success_OpportunityApproved" xml:space="preserve">
+    <value>Opportunity approved successfully.</value>
+  </data>
+  <data name="Success_OpportunityRejected" xml:space="preserve">
+    <value>Opportunity rejected successfully.</value>
+  </data>
+  <data name="Success_OpportunityStopped" xml:space="preserve">
+    <value>Opportunity stopped successfully.</value>
+  </data>
+  <data name="Success_OpportunityResumed" xml:space="preserve">
+    <value>Opportunity resumed successfully.</value>
+  </data>
+  <data name="Validation_PasswordIsAlreadyUsed" xml:space="preserve">
+    <value>You are using this password </value>
+  </data>
+  <data name="Validation_FieldsMustNotExceedThree" xml:space="preserve">
+    <value>Number of fields must not exceed three</value>
+  </data>
+  <data name="Validation_SkillsMustNotExceedThree" xml:space="preserve">
+    <value>Number of skills must not exceed three</value>
+  </data>
+  <data name="Validation_FieldsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's fields only before 48 hours from the start date</value>
+  </data>
+  <data name="Validation_SkillsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's skills only before 48 hours from the start date</value>
+  </data>
+  <data name="DuplicatedData" xml:space="preserve">
+    <value>duplicated Data</value>
+  </data>
+  <data name="Validation_VacanciesCannotBeLessThanAcceptedApplicants" xml:space="preserve">
+    <value>The number of volunteers in this opportunity is greater than the Vacancies</value>
+  </data>
+  <data name="Validation_VacanciesMinimumValueIs10" xml:space="preserve">
+    <value>The minimum value for this field is 10</value>
+  </data>
+  <data name="Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation" xml:space="preserve">
+    <value>An onsite Opportunity must has at least one location.</value>
+  </data>
+  <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>You can edit opportunity's location only before 48 hours from the start date</value>
   </data>
 </root>

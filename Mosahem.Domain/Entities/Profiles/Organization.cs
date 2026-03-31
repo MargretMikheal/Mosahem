@@ -10,8 +10,10 @@ namespace mosahem.Domain.Entities.Profiles
     {
         #region Properties
         public string Description { get; set; }
-        public string? LicenseUrl { get; set; }
+        public string? LogoKey { get; set; }
+        public string? LicenseKey { get; set; }
         public string? VerificationComment { get; set; }
+        public string? AboutUs { get; set; }
         public VerficationStatus VerificationStatus { get; set; }
         #endregion
         #region Navigations

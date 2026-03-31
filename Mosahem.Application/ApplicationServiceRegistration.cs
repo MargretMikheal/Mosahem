@@ -1,10 +1,11 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using MediatR;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using mosahem.Application.Common;
 using mosahem.Application.Behaviors;
+using mosahem.Application.Common;
+using Mosahem.Application.Behaviors;
 
 namespace mosahem.Application
 {
@@ -23,10 +24,12 @@ namespace mosahem.Application
 
             services.AddValidatorsFromAssembly(assembly);
 
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(StringTrimBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddScoped<ResponseHandler>();
 
+            services.AddHttpContextAccessor();
             return services;
         }
     }

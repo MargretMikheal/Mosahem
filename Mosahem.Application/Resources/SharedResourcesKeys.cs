@@ -20,6 +20,12 @@
             public const string PasswordReset = "Success_PasswordReset";
             public const string AdminAdded = "Success_AdminAdded";
             public const string PasswordChanged = "Success_PasswordChanged";
+            public const string OpportunityAdded = "Success_OpportunityAdded";
+            public const string OpportunityApproved = "Success_OpportunityApproved";
+            public const string OpportunityRejected = "Success_OpportunityRejected";
+            public const string OpportunityStopped = "Success_OpportunityStopped";
+            public const string Added = "Added";
+            public const string OpportunityResumed = "Success_OpportunityResumed";
         }
 
         public static class Validation
@@ -28,16 +34,41 @@
             public const string Invalid = "Invalid";
             public const string BadRequest = "BadRequest";
             public const string UnprocessableEntity = "UnprocessableEntity";
+            public const string DuplicatedData = "DuplicatedData";
             public const string CannotDeleteSelf = "Validation_CannotDeleteSelf";
-
+            public const string CannotBeEmptyOrWhitespace = "Validation_CannotBeEmptyOrWhitespace";
             public const string MinLength = "MinLength";
             public const string MaxLength = "MaxLength";
             public const string OutOfRange = "OutOfRange";
             public const string DuplicateEntry = "DuplicateEntry";
             public const string NotFound = "NotFound";
+            public const string OtpAlreadySent = "Validation_OtpAlreadySent";
             public const string OtpUsed = "Validation_OtpUsed";
             public const string OtpExpired = "Validation_OtpExpired";
             public const string PasswordResetFailed = "Validation_PasswordResetFailed";
+            public const string PasswordRequiresUpper = "Validation_PasswordRequiresUpper";
+            public const string PasswordRequiresLower = "Validation_PasswordRequiresLower";
+            public const string PasswordRequiresDigit = "Validation_PasswordRequiresDigit";
+            public const string PasswordRequiresNonAlphanumeric = "Validation_PasswordRequiresNonAlphanumeric";
+            public const string PasswordIsAlreadyUsed = "Validation_PasswordIsAlreadyUsed";
+            public const string EndDateAfterStartDate = "Validation_EndDateAfterStartDate";
+            public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
+            public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
+            public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
+            public const string FieldsMustNotExceedThree = "Validation_FieldsMustNotExceedThree";
+            public const string SkillsMustNotExceedThree = "Validation_SkillsMustNotExceedThree";
+
+            public const string FieldsCanBeEditedOnlyBefore48Houres = "Validation_FieldsCanBeEditedOnlyBefore48Houres";
+            public const string SkillsCanBeEditedOnlyBefore48Houres = "Validation_SkillsCanBeEditedOnlyBefore48Houres";
+            public const string LocationsCanBeEditedOnlyBefore48Houres = "Validation_LocationsCanBeEditedOnlyBefore48Houres";
+            public const string VacanciesCannotBeLessThanAcceptedApplicants = "Validation_VacanciesCannotBeLessThanAcceptedApplicants";
+            public const string VacanciesMinimumValueIs10 = "Validation_VacanciesMinimumValueIs10";
+            public const string AnOnSiteOpportunityMustHaveAtLeastOneLocation = "Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation";
+            public static class Pagination
+            {
+                public const string PageNumberMustBeGreaterThanZero = "Validation_Pagination_PageNumberMustBeGreaterThanZero";
+                public const string PageSizeMustNotExceedMax = "Validation_Pagination_PageSizeMustNotExceedMax";
+            }
         }
 
         public static class Auth
@@ -72,6 +103,10 @@
             public const string FailedToDelete = "FailedToDelete";
 
             public const string ConcurrencyConflict = "ConcurrencyConflict";
+            public const string TransactionStartFailed = "TransactionStartFailed";
+            public const string TransactionCommitFailed = "TransactionCommitFailed";
+            public const string NoRowsAffected = "NoRowsAffected";
+            public const string DatabaseUpdateFailed = "DatabaseUpdateFailed";
         }
 
         public static class Http

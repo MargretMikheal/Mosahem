@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 
 namespace mosahem.Api.Extensions
@@ -8,7 +7,12 @@ namespace mosahem.Api.Extensions
     {
         public static IServiceCollection AddApiServices(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+                });
 
             #region Localizations
             services.AddLocalization();

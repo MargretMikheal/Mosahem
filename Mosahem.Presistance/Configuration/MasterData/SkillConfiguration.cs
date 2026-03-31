@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.MasterData;
 
 public class SkillConfiguration
@@ -20,7 +19,14 @@ public class SkillConfiguration
                .IsRequired()
                .HasMaxLength(200);
 
-        builder.Property(s => s.Category)
-               .HasMaxLength(100);
+        builder.Property(s => s.FieldId)
+              .IsRequired();
+
+        builder.HasOne(s => s.Field)
+               .WithMany()
+               .HasForeignKey(s => s.FieldId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(s => s.FieldId);
     }
 }

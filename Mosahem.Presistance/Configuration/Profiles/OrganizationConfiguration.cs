@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Profiles;
 
 namespace mosahem.Persistence.Configurations.Profiles
@@ -19,9 +18,13 @@ namespace mosahem.Persistence.Configurations.Profiles
                    .IsRequired()
                    .HasMaxLength(2000);
 
-            builder.Property(o => o.LicenseUrl)
-                   .IsRequired()
+            builder.Property(o => o.LicenseKey)
                    .HasMaxLength(500);
+
+            builder.Property(o => o.AboutUs)
+                   .HasColumnType("nvarchar(max)");
+
+            builder.HasQueryFilter(o => !o.User.IsDeleted);
 
             builder.Property(o => o.VerificationStatus)
                    .HasConversion<string>();

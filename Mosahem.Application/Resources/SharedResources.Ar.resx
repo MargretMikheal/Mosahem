@@ -264,9 +264,6 @@
   <data name="Forbidden" xml:space="preserve">
     <value>لا تملك صلاحية الوصول</value>
   </data>
-  <data name="LoginSuccess" xml:space="preserve">
-    <value>تم تسجيل الدخول بنجاح</value>
-  </data>
   <data name="LogoutSuccess" xml:space="preserve">
     <value>تم تسجيل الخروج بنجاح</value>
   </data>
@@ -322,7 +319,7 @@
     <value>انتهت صلاحية كود التحقق، يرجى طلب كود جديد.</value>
   </data>
   <data name="Validation_PasswordResetFailed" xml:space="preserve">
-    <value>Password Reset Failed</value>
+    <value>فشل تغير الباسورد</value>
   </data>
   <data name="Validation_CannotDeleteSelf" xml:space="preserve">
     <value>لا تسطيع حذف نفسك</value>
@@ -332,5 +329,104 @@
   </data>
   <data name="Success_PasswordChanged" xml:space="preserve">
     <value>تم تغير كلمه المرور</value>
+  </data>
+  <data name="Validation_PasswordRequiresUpper" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ('A'-'Z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresLower" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل ('a'-'z').</value>
+  </data>
+  <data name="Validation_PasswordRequiresDigit" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على رقم واحد على الأقل ('0'-'9').</value>
+  </data>
+  <data name="Validation_PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل (مثلاً !@#$%).</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>تمت الاضافة بنجاح</value>
+  </data>
+  <data name="Validation_CannotBeEmptyOrWhitespace" xml:space="preserve">
+    <value>لا يمكن ترك العنصر فارغا</value>
+  </data>
+  <data name="Success_OpportunityAdded" xml:space="preserve">
+    <value>تم إنشاء الفرصة بنجاح.</value>
+  </data>
+  <data name="Validation_EndDateAfterStartDate" xml:space="preserve">
+    <value>يجب أن يكون تاريخ النهاية بعد تاريخ البداية.</value>
+  </data>
+  <data name="Validation_SkillCannotBeBothRequiredAndProvided" xml:space="preserve">
+    <value>لا يمكن أن تكون المهارة مطلوبة ومقدمة في نفس الوقت.</value>
+  </data>
+  <data name="Validation_InvalidQuestionOptions" xml:space="preserve">
+    <value>خيارات السؤال غير صالحة لنوع الإجابة المحدد.</value>
+  </data>
+  <data name="TransactionStartFailed" xml:space="preserve">
+    <value>فشل بدء معاملة قاعدة البيانات.</value>
+  </data>
+  <data name="TransactionCommitFailed" xml:space="preserve">
+    <value>فشل تأكيد معاملة قاعدة البيانات.</value>
+  </data>
+  <data name="NoRowsAffected" xml:space="preserve">
+    <value>لم يتم حفظ أي سجلات.</value>
+  </data>
+  <data name="DatabaseUpdateFailed" xml:space="preserve">
+    <value>فشل تحديث قاعدة البيانات.</value>
+  </data>
+  <data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
+    <value>يجب أن تكون المنظمة موثقة لإنشاء الفرص.</value>
+  </data>
+  <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>رقم الصفحة يجب ان يكون اكبر من الصفر</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح</value>
+  </data>
+  <data name="Validation_Pagination_PageSizeMustNotExceedMax" xml:space="preserve">
+    <value>حجم الصفحة كبير جدا</value>
+  </data>
+  <data name="Validation_OtpAlreadySent" xml:space="preserve">
+    <value>تم ارسال كود التحقق بالفعل</value>
+  </data>
+  <data name="Success_OpportunityApproved" xml:space="preserve">
+    <value>تم قبول الفرصة بنجاح.</value>
+  </data>
+  <data name="Success_OpportunityRejected" xml:space="preserve">
+    <value>تم رفض الفرصة بنجاح.</value>
+  </data>
+  <data name="Success_OpportunityStopped" xml:space="preserve">
+    <value>تم إيقاف الفرصة بنجاح.</value>
+  </data>
+  <data name="Success_OpportunityResumed" xml:space="preserve">
+    <value>تم استئناف الفرصة بنجاح.</value>
+  </data>
+  <data name="Validation_PasswordIsAlreadyUsed" xml:space="preserve">
+    <value>انت تستخدم كلمة المرور بالفعل</value>
+  </data>
+  <data name="Validation_FieldsMustNotExceedThree" xml:space="preserve">
+    <value>عدد المجلات يجب ان لا يتعدي 3</value>
+  </data>
+  <data name="Validation_SkillsMustNotExceedThree" xml:space="preserve">
+    <value>عدد المهارات يجب ان لا يتعدي 3</value>
+  </data>
+  <data name="Validation_FieldsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل مجالات الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
+  </data>
+  <data name="Validation_SkillsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل مهارات الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
+  </data>
+  <data name="DuplicatedData" xml:space="preserve">
+    <value>بيانات مكررة</value>
+  </data>
+  <data name="Validation_VacanciesCannotBeLessThanAcceptedApplicants" xml:space="preserve">
+    <value>لديك متطوعين في هذه الفرصة اكثر من عدد الاماكن الشغارة</value>
+  </data>
+  <data name="Validation_VacanciesMinimumValueIs10" xml:space="preserve">
+    <value>اقل قيمة يمكن ادخالها 10</value>
+  </data>
+  <data name="Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation" xml:space="preserve">
+    <value>هذه الفرصة يجب ان تحتوي علي موقع واحد علي الاقل</value>
+  </data>
+  <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
+    <value>تستطيع تعديل موقع الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
   </data>
 </root>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Interfaces.Repositories.Specifications;
-using mosahem.Domain.Entities;
 using mosahem.Persistence.Repositories.Specifications;
 
 namespace mosahem.Persistence.Repositories
@@ -105,6 +104,7 @@ namespace mosahem.Persistence.Repositories
         {
             return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
         }
+
         #endregion
     }
 }

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using mosahem.Presentation.Middleware;
 
 namespace mosahem.Api.Extensions
@@ -31,7 +28,7 @@ namespace mosahem.Api.Extensions
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseCors(ServiceCollectionExtensions.CorsPolicyName);
 
             app.UseAuthentication();

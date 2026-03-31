@@ -1,4 +1,4 @@
-﻿using mosahem.Domain.Entities;
+﻿using Mosahem.Application.Interfaces.Repositories;
 
 namespace mosahem.Application.Interfaces.Repositories
 {
@@ -12,6 +12,7 @@ namespace mosahem.Application.Interfaces.Repositories
         IOpportunityApplicationRepository OpportunityApplications { get; }
         IOpportunityCommentRepository OpportunityComments { get; }
         IFieldRepository Fields { get; }
+        IAddressRepository Addresses { get; }
         ISkillRepository Skills { get; }
         ICityRepository Cities { get; }
         IGovernorateRepository Governorates { get; }

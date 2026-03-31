@@ -3,15 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using mosahem.Application.Common;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace mosahem.Presentation.Bases
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class MosahmControllerBase : ControllerBase
     {
@@ -27,8 +22,8 @@ namespace mosahem.Presentation.Bases
                     return new OkObjectResult(response);
                 case HttpStatusCode.Created:
                     return new CreatedResult(string.Empty, response);
-                //case HttpStatusCode.Unauthorized:
-                //    return new UnauthorizedObjectResult(response);
+                case HttpStatusCode.Unauthorized:
+                    return new UnauthorizedObjectResult(response);
                 case HttpStatusCode.BadRequest:
                     return new BadRequestObjectResult(response);
                 case HttpStatusCode.NotFound:
@@ -37,6 +32,8 @@ namespace mosahem.Presentation.Bases
                     return new AcceptedResult(string.Empty, response);
                 case HttpStatusCode.UnprocessableEntity:
                     return new UnprocessableEntityObjectResult(response);
+                case HttpStatusCode.Forbidden:
+                    return new ObjectResult(response) { StatusCode = StatusCodes.Status403Forbidden };
                 default:
                     return new BadRequestObjectResult(response);
             }

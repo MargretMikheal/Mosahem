@@ -11,8 +11,9 @@ namespace mosahem.Domain.Entities.Profiles
     {
         #region Properties
         public string NationalId { get; set; }
-        public string? ProfileImgUrl { get; set; }
-        public string? CoverImgUrl { get; set; }
+        public string? ProfileImgKey { get; set; }
+        public string? CoverImgKey { get; set; }
+        public string? CVKey { get; set; }
         public int TotalHours { get; set; }
         public int CompleteOpportunities { get; set; }
         public Gender Gender { get; set; }

@@ -1,5 +1,6 @@
-﻿using MapsterMapper; 
+﻿using MapsterMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
@@ -10,6 +11,7 @@ using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using Mosahem.Application.DTOs.Auth;
 using Mosahem.Application.Interfaces.Security;
+using Mosahem.Domain.Entities;
 using Mosahem.Domain.Entities.Identity;
 
 namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration
@@ -21,7 +23,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly ResponseHandler _responseHandler;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
 
         public CompleteOrganizationRegistrationCommandHandler(
             IUnitOfWork unitOfWork,
@@ -42,7 +44,14 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
         public async Task<Response<AuthResponse>> Handle(CompleteOrganizationRegistrationCommand request, CancellationToken cancellationToken)
         {
             if (!await _unitOfWork.Users.IsEmailUniqueAsync(request.Email))
-                return _responseHandler.BadRequest<AuthResponse>(_localizer[SharedResourcesKeys.User.EmailAlreadyTaken]);
+            {
+                return _responseHandler.BadRequest<AuthResponse>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Email", new List<string> { _localizer[SharedResourcesKeys.User.EmailAlreadyTaken] } }
+                    });
+            }
 
             await _unitOfWork.BeginTransactionAsync(cancellationToken);
 
@@ -57,7 +66,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 await _unitOfWork.Users.AddAsync(user, cancellationToken);
 
                 var organization = _mapper.Map<Organization>(request);
-                organization.Id = userId; 
+                organization.Id = userId;
 
                 await _unitOfWork.Organizations.AddAsync(organization, cancellationToken);
 
@@ -66,7 +75,8 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     var addresses = _mapper.Map<List<Address>>(request.Locations);
                     addresses.ForEach(a => a.OrganizationId = userId);
 
-                    await _unitOfWork.Repository<Address>().AddRangeAsync(addresses, cancellationToken);
+                    await _unitOfWork.Addresses.AddRangeAsync(addresses, cancellationToken);
+
                 }
 
                 if (request.FieldIds != null && request.FieldIds.Any())
@@ -77,6 +87,17 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                     await _unitOfWork.Repository<OrganizationField>().AddRangeAsync(orgFields, cancellationToken);
                 }
 
+                var temporaryFiles = await _unitOfWork.Repository<TemporaryFileUpload>()
+                    .GetTableAsTracking()
+                    .Where(x => x.FileKey == request.LicenseUrl)
+                    .ToListAsync(cancellationToken);
+
+                if (temporaryFiles.Any())
+                {
+                    await _unitOfWork.Repository<TemporaryFileUpload>()
+                        .DeleteRangeAsync(temporaryFiles, cancellationToken);
+                }
+
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
                 await _unitOfWork.CommitTransactionAsync(cancellationToken);
 
@@ -85,7 +106,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 var refreshTokenEntity = new RefreshToken
                 {
                     Token = jwtResult.RefreshToken,
-                    ExpiresAt = DateTime.UtcNow.AddDays(7),
+                    ExpiresAt = DateTime.UtcNow.AddDays(30),
                     UserId = user.Id,
                     IsRevoked = false,
                 };
@@ -93,7 +114,6 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
                 await _unitOfWork.Repository<RefreshToken>().AddAsync(refreshTokenEntity, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                
                 var response = new AuthResponse
                 {
                     Id = user.Id,
@@ -111,7 +131,12 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-                return _responseHandler.BadRequest<AuthResponse>($"{_localizer[SharedResourcesKeys.General.OperationFailed]}: {ex.Message}");
+                return _responseHandler.BadRequest<AuthResponse>(
+                    _localizer[SharedResourcesKeys.General.OperationFailed],
+                    new Dictionary<string, List<string>>
+                    {
+                        { "Exception", new List<string> { ex.Message } }
+                    });
             }
         }
     }

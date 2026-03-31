@@ -6,6 +6,7 @@ using mosahem.Domain.Entities.MasterData;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Entities.Questions;
+using Mosahem.Domain.Entities;
 using Mosahem.Domain.Entities.Identity;
 using System.Reflection;
 
@@ -26,7 +27,7 @@ namespace mosahem.Persistence
         public DbSet<OneTimePassword> OneTimePasswords { get; set; }
         public DbSet<Volunteer> Volunteers => Set<Volunteer>();
         public DbSet<Organization> Organizations => Set<Organization>();
-
+        public DbSet<TemporaryFileUpload> TemporaryFileUploads => Set<TemporaryFileUpload>();
         // Location
         public DbSet<Governorate> Governorates => Set<Governorate>();
         public DbSet<City> Cities => Set<City>();

@@ -4,5 +4,6 @@
     {
         string GeneratePasswordResetEmail(string userName, string otpCode);
         string GenerateEmailVerificationEmail(string userName, string otpCode);
+        public string GenerateChangeEmailVerificationEmail(string userName, string otpCode);
     }
 }

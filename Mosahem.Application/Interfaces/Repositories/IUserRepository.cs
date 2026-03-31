@@ -1,11 +1,13 @@
-﻿using mosahem.Domain.Entities;
-using mosahem.Domain.Entities.Identity;
+﻿using mosahem.Domain.Entities.Identity;
+using mosahem.Domain.Enums;
 
 namespace mosahem.Application.Interfaces.Repositories
 {
-    public interface IUserRepository : IGenericRepository<MosahmUser> 
+    public interface IUserRepository : IGenericRepository<MosahmUser>
     {
         Task<bool> IsEmailUniqueAsync(string email);
         Task<bool> IsPhoneUniqueAsync(string phone);
+        Task<bool> IsNameUniqueExcludeSelfAsync(Guid id, string? name, CancellationToken cancellationToken);
+        Task<IReadOnlyList<MosahmUser>> GetUsersByRole(UserRole role, CancellationToken cancellationToken);
     }
 }

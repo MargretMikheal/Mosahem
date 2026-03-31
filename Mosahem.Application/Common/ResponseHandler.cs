@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
-using System.Collections.Generic;
 using System.Net;
 
 namespace mosahem.Application.Common
@@ -83,6 +82,16 @@ namespace mosahem.Application.Common
                 Message = message ?? _localizer[SharedResourcesKeys.Validation.UnprocessableEntity],
                 Errors = errors,
                 StatusCode = HttpStatusCode.BadRequest
+            };
+        }
+
+        public Response<T> Forbidden<T>(string? message = null)
+        {
+            return new Response<T>
+            {
+                Succeeded = false,
+                Message = message ?? _localizer[SharedResourcesKeys.Auth.Forbidden],
+                StatusCode = HttpStatusCode.Forbidden
             };
         }
     }

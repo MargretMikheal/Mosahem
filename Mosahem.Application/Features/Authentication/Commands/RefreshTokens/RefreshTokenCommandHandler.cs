@@ -33,14 +33,28 @@ namespace mosahem.Application.Features.Authentication.Commands.RefreshTokens
         public async Task<Response<AuthResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var storedToken = await _unitOfWork.Repository<RefreshToken>()
-                .GetTableNoTracking()
+                .GetTableAsTracking()
                 .Include(rt => rt.User)
                 .FirstOrDefaultAsync(rt => rt.Token == request.RefreshToken, cancellationToken);
 
-            if (storedToken == null || storedToken.IsRevoked || storedToken.IsExpired)
-                return _responseHandler.BadRequest<AuthResponse>(_localizer[SharedResourcesKeys.Validation.Invalid]);
+            var generalErrorMsg = _localizer[SharedResourcesKeys.General.OperationFailed].Value;
+            var detailedErrorMsg = _localizer[SharedResourcesKeys.Auth.InvalidToken].Value;
+
+            Dictionary<string, List<string>> GetErrorDict()
+            {
+                return new Dictionary<string, List<string>>
+                {
+                    { "RefreshToken", new List<string> { detailedErrorMsg } }
+                };
+            }
+
+            if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiresAt < DateTime.UtcNow)
+                return _responseHandler.BadRequest<AuthResponse>(generalErrorMsg, GetErrorDict());
 
             var user = storedToken.User;
+
+            if (user == null)
+                return _responseHandler.BadRequest<AuthResponse>(generalErrorMsg, GetErrorDict());
 
             storedToken.IsRevoked = true;
             storedToken.RevokedAt = DateTime.UtcNow;
@@ -52,8 +66,9 @@ namespace mosahem.Application.Features.Authentication.Commands.RefreshTokens
             {
                 Token = jwtResult.RefreshToken,
                 UserId = user.Id,
-                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                ExpiresAt = DateTime.UtcNow.AddDays(30),
                 IsRevoked = false,
+                CreatedByIp = "N/A"
             };
 
             await _unitOfWork.Repository<RefreshToken>().AddAsync(newRefreshToken, cancellationToken);

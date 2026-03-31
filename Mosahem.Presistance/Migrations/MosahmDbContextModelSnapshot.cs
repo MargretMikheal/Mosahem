@@ -47,6 +47,9 @@ namespace mosahem.Presistence.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Purpose")
                         .HasColumnType("int");
 
@@ -104,6 +107,32 @@ namespace mosahem.Presistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Mosahem.Domain.Entities.TemporaryFileUpload", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileKey")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<string>("FolderName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileKey");
+
+                    b.ToTable("TemporaryFileUploads", (string)null);
                 });
 
             modelBuilder.Entity("mosahem.Domain.Entities.Identity.MosahmUser", b =>
@@ -305,13 +334,11 @@ namespace mosahem.Presistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -324,6 +351,8 @@ namespace mosahem.Presistence.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FieldId");
 
                     b.ToTable("Skills", (string)null);
                 });
@@ -352,19 +381,17 @@ namespace mosahem.Presistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LogoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PhotoKey")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -559,6 +586,9 @@ namespace mosahem.Presistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -567,10 +597,12 @@ namespace mosahem.Presistence.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<string>("LicenseUrl")
-                        .IsRequired()
+                    b.Property<string>("LicenseKey")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LogoKey")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VerificationComment")
                         .HasColumnType("nvarchar(max)");
@@ -589,10 +621,13 @@ namespace mosahem.Presistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CVKey")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CompleteOpportunities")
                         .HasColumnType("int");
 
-                    b.Property<string>("CoverImgUrl")
+                    b.Property<string>("CoverImgKey")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -610,7 +645,7 @@ namespace mosahem.Presistence.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
-                    b.Property<string>("ProfileImgUrl")
+                    b.Property<string>("ProfileImgKey")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalHours")
@@ -804,6 +839,17 @@ namespace mosahem.Presistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Governorate");
+                });
+
+            modelBuilder.Entity("mosahem.Domain.Entities.MasterData.Skill", b =>
+                {
+                    b.HasOne("mosahem.Domain.Entities.MasterData.Field", "Field")
+                        .WithMany()
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Field");
                 });
 
             modelBuilder.Entity("mosahem.Domain.Entities.Opportunities.Opportunity", b =>

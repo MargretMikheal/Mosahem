@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using mosahem.Application.Common;
 using mosahem.Application.Exceptions;
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 
 namespace mosahem.Presentation.Middleware
@@ -69,7 +68,11 @@ namespace mosahem.Presentation.Middleware
                         responseModel.StatusCode = HttpStatusCode.BadRequest;
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
-
+                    case ArgumentNullException e:
+                        responseModel.Message = $"Invalid Value. (Parameter '{e.ParamName}')";
+                        responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
                     default:
                         responseModel.Message = error.Message;
                         if (error.InnerException != null)

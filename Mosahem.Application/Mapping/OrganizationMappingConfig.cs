@@ -6,6 +6,7 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
+using Mosahem.Application.Features.Organizations.Commands.EditOrganizationInfo;
 
 namespace mosahem.Application.Mapping
 {
@@ -25,18 +26,31 @@ namespace mosahem.Application.Mapping
 
             config.NewConfig<CompleteOrganizationRegistrationCommand, Organization>()
                 .Map(dest => dest.Description, src => src.Description ?? string.Empty)
-                .Map(dest => dest.LicenseUrl, src => src.LicenseUrl)
+                .Map(dest => dest.LicenseKey, src => src.LicenseUrl)
                 .Map(dest => dest.VerificationStatus, src => VerficationStatus.Pending);
 
             config.NewConfig<OrganizationAddressDto, Address>()
                 .Map(dest => dest.CityId, src => src.CityId)
-                .Map(dest => dest.Description, src => src.Details) 
+                .Map(dest => dest.Description, src => src.Details)
                 .Ignore(dest => dest.Id)
-                .Ignore(dest => dest.OrganizationId); 
+                .Ignore(dest => dest.OrganizationId);
 
             config.NewConfig<Guid, OrganizationField>()
                 .Map(dest => dest.FieldId, src => src)
-                .Ignore(dest => dest.OrganizationId); 
+                .Ignore(dest => dest.OrganizationId);
+
+
+            #region Edit Organization Info Mapping
+            config.NewConfig<EditOrganizationInfoCommand, MosahmUser>()
+                .Map(dest => dest.FullName, src => src.OrganizationName)
+                .Map(dest => dest.PhoneNumber, src => src.OrganizationPhoneNumber)
+                .IgnoreNullValues(true);
+
+            config.NewConfig<EditOrganizationInfoCommand, Organization>()
+                .Map(dest => dest.Description, src => src.OrganizationDescription)
+                .IgnoreNullValues(true);
+            #endregion
+
         }
     }
 }

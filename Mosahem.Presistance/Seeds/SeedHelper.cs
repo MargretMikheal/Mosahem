@@ -72,62 +72,73 @@ namespace mosahem.Persistence.Seeds
             };
         }
 
-        public static List<Skill> GetSkills()
+        public static List<Skill> GetSkills(IReadOnlyList<Field> fields)
         {
+            Guid ResolveFieldId(string fieldNameEn)
+            {
+                var field = fields.FirstOrDefault(f => f.NameEn == fieldNameEn);
+                if (field is null)
+                    throw new InvalidOperationException($"Field with english name '{fieldNameEn}' was not found in seed data.");
+
+                return field.Id;
+            }
+            var communicationFieldId = ResolveFieldId("Media & Public Relations");
+            var educationFieldId = ResolveFieldId("Education & Literacy");
+            var healthFieldId = ResolveFieldId("Medical & Health Services");
+            var digitalFieldId = ResolveFieldId("Technology & Digital Transformation");
+            var contentFieldId = ResolveFieldId("Digital Content Creation");
+            var eventFieldId = ResolveFieldId("Event Planning & Management");
+            var womenSupportFieldId = ResolveFieldId("Women & Family Support");
+            var economicFieldId = ResolveFieldId("Economic Empowerment");
             return new List<Skill>
             {
-                // Soft Skills (المهارات الناعمة)
-                new Skill { Id = Guid.NewGuid(), NameAr = "التواصل الفعال", NameEn = "Effective Communication", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "العمل الجماعي", NameEn = "Teamwork", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "القيادة وإدارة الفرق", NameEn = "Leadership", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "حل المشكلات", NameEn = "Problem Solving", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "إدارة الوقت", NameEn = "Time Management", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التفاوض والإقناع", NameEn = "Negotiation", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التفكير النقدي", NameEn = "Critical Thinking", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "المرونة والتكيف", NameEn = "Adaptability", Category = "Soft Skills" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الخطابة والعرض", NameEn = "Public Speaking", Category = "Soft Skills" },
+            new Skill { Id = Guid.NewGuid(), NameAr = "التواصل الفعال", NameEn = "Effective Communication", FieldId = communicationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "العمل الجماعي", NameEn = "Teamwork", FieldId = communicationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "القيادة وإدارة الفرق", NameEn = "Leadership", FieldId = eventFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "حل المشكلات", NameEn = "Problem Solving", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "إدارة الوقت", NameEn = "Time Management", FieldId = eventFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التفاوض والإقناع", NameEn = "Negotiation", FieldId = communicationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التفكير النقدي", NameEn = "Critical Thinking", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "المرونة والتكيف", NameEn = "Adaptability", FieldId = womenSupportFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الخطابة والعرض", NameEn = "Public Speaking", FieldId = communicationFieldId },
 
-                // Medical & Health (طبية)
-                new Skill { Id = Guid.NewGuid(), NameAr = "الإسعافات الأولية", NameEn = "First Aid", Category = "Medical" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التمريض", NameEn = "Nursing", Category = "Medical" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الطب العام", NameEn = "General Medicine", Category = "Medical" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "العلاج الطبيعي", NameEn = "Physical Therapy", Category = "Medical" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التغذية العلاجية", NameEn = "Clinical Nutrition", Category = "Medical" },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الإسعافات الأولية", NameEn = "First Aid", FieldId = healthFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التمريض", NameEn = "Nursing", FieldId = healthFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الطب العام", NameEn = "General Medicine", FieldId = healthFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "العلاج الطبيعي", NameEn = "Physical Therapy", FieldId = healthFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التغذية العلاجية", NameEn = "Clinical Nutrition", FieldId = healthFieldId },
 
-                // Tech & Design (تقنية وتصميم)
-                new Skill { Id = Guid.NewGuid(), NameAr = "البرمجة والتطوير", NameEn = "Programming & Development", Category = "Technology" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "تصميم الجرافيك", NameEn = "Graphic Design", Category = "Design" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "تصميم واجهة المستخدم (UI/UX)", NameEn = "UI/UX Design", Category = "Design" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التصوير الفوتوغرافي", NameEn = "Photography", Category = "Media" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "المونتاج وتحرير الفيديو", NameEn = "Video Editing", Category = "Media" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "إدارة حسابات التواصل الاجتماعي", NameEn = "Social Media Management", Category = "Marketing" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التسويق الرقمي", NameEn = "Digital Marketing", Category = "Marketing" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "تحليل البيانات", NameEn = "Data Analysis", Category = "Technology" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "صيانة الحاسب الآلي", NameEn = "IT Support", Category = "Technology" },
+                new Skill { Id = Guid.NewGuid(), NameAr = "البرمجة والتطوير", NameEn = "Programming & Development", FieldId = digitalFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "تصميم الجرافيك", NameEn = "Graphic Design", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "تصميم واجهة المستخدم (UI/UX)", NameEn = "UI/UX Design", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التصوير الفوتوغرافي", NameEn = "Photography", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "المونتاج وتحرير الفيديو", NameEn = "Video Editing", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "إدارة حسابات التواصل الاجتماعي", NameEn = "Social Media Management", FieldId = communicationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التسويق الرقمي", NameEn = "Digital Marketing", FieldId = digitalFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "تحليل البيانات", NameEn = "Data Analysis", FieldId = digitalFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "صيانة الحاسب الآلي", NameEn = "IT Support", FieldId = digitalFieldId },
 
-                // Content & Languages (محتوى ولغات)
-                new Skill { Id = Guid.NewGuid(), NameAr = "كتابة المحتوى", NameEn = "Content Writing", Category = "Content" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الترجمة", NameEn = "Translation", Category = "Languages" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التدقيق اللغوي", NameEn = "Proofreading", Category = "Languages" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "اللغة الإنجليزية", NameEn = "English Language", Category = "Languages" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "لغة الإشارة", NameEn = "Sign Language", Category = "Languages" },
+                new Skill { Id = Guid.NewGuid(), NameAr = "كتابة المحتوى", NameEn = "Content Writing", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الترجمة", NameEn = "Translation", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التدقيق اللغوي", NameEn = "Proofreading", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "اللغة الإنجليزية", NameEn = "English Language", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "لغة الإشارة", NameEn = "Sign Language", FieldId = womenSupportFieldId },
 
-                // Teaching & Training (تعليم)
-                new Skill { Id = Guid.NewGuid(), NameAr = "التدريس والتدريب", NameEn = "Teaching & Training", Category = "Education" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "إعداد الحقائب التدريبية", NameEn = "Curriculum Development", Category = "Education" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التعامل مع الأطفال", NameEn = "Child Care", Category = "Education" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "التعامل مع ذوي الاحتياجات الخاصة", NameEn = "Special Needs Care", Category = "Education" },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التدريس والتدريب", NameEn = "Teaching & Training", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "إعداد الحقائب التدريبية", NameEn = "Curriculum Development", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التعامل مع الأطفال", NameEn = "Child Care", FieldId = educationFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "التعامل مع ذوي الاحتياجات الخاصة", NameEn = "Special Needs Care", FieldId = womenSupportFieldId },
 
-                // Administrative & Manual (إداري ويدوي)
-                new Skill { Id = Guid.NewGuid(), NameAr = "إدخال البيانات", NameEn = "Data Entry", Category = "Admin" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الأرشفة وإدارة الملفات", NameEn = "Archiving", Category = "Admin" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الرسم والأعمال اليدوية", NameEn = "Painting & Crafts", Category = "Arts" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الطبخ وإعداد الوجبات", NameEn = "Cooking & Catering", Category = "Services" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "قيادة السيارات", NameEn = "Driving", Category = "Services" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "النجارة", NameEn = "Carpentry", Category = "Crafts" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "السباكة", NameEn = "Plumbing", Category = "Crafts" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الكهرباء", NameEn = "Electrical Work", Category = "Crafts" },
-                new Skill { Id = Guid.NewGuid(), NameAr = "الخياطة والتطريز", NameEn = "Sewing & Embroidery", Category = "Crafts" }
+                new Skill { Id = Guid.NewGuid(), NameAr = "إدخال البيانات", NameEn = "Data Entry", FieldId = digitalFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الأرشفة وإدارة الملفات", NameEn = "Archiving", FieldId = eventFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الرسم والأعمال اليدوية", NameEn = "Painting & Crafts", FieldId = contentFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الطبخ وإعداد الوجبات", NameEn = "Cooking & Catering", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "قيادة السيارات", NameEn = "Driving", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "النجارة", NameEn = "Carpentry", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "السباكة", NameEn = "Plumbing", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الكهرباء", NameEn = "Electrical Work", FieldId = economicFieldId },
+                new Skill { Id = Guid.NewGuid(), NameAr = "الخياطة والتطريز", NameEn = "Sewing & Embroidery", FieldId = economicFieldId }
+
             };
         }
     }
