@@ -11,7 +11,6 @@ using Mosahem.Application.Features.Authentication.Commands.RefreshTokens;
 using Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.ResetPassword;
 using Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.SendRestPasswordOtp;
 using Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.VerifyRestPasswordOtp;
-using Mosahem.Application.Features.Authentication.Commands.ValidateFields;
 using Mosahem.Domain.AppMetaData;
 
 namespace Mosahem.Api.Controllers
@@ -96,12 +95,7 @@ namespace Mosahem.Api.Controllers
             return NewResult(response);
         }
 
-        [HttpPost(Router.AuthRouting.OrganizationRegistration.ValidateFields)]
-        public async Task<IActionResult> ValidateFields([FromBody] ValidateFieldsCommand command)
-        {
-            var response = await _mediator.Send(command);
-            return NewResult(response);
-        }
+
 
         [HttpPost(Router.AuthRouting.OrganizationRegistration.RegisterOrganization)]
         public async Task<IActionResult> RegisterOrganization([FromBody] CompleteOrganizationRegistrationCommand command)

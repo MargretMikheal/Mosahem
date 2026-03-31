@@ -32,15 +32,21 @@
 
             public const string SendEmailVerification = $"{Prefix}/send-email-verification";
             public const string VerifyEmail = $"{Prefix}/verify-email";
+            public const string ValidateLocations = $"{Prefix}/validate-locations";
 
             public static class OrganizationRegistration
             {
                 public const string Path = $"{Prefix}/organization";
 
                 public const string ValidateBasicInfo = $"{Path}/validate-basic-info";
-                public const string ValidateLocations = $"{Path}/validate-locations";
-                public const string ValidateFields = $"{Path}/validate-fields";
                 public const string RegisterOrganization = $"{Path}/register-organization";
+            }
+            public static class VolunteerRegistration
+            {
+                public const string Path = $"{Prefix}/volunteer";
+
+                public const string ValidateBasicInfo = $"{Path}/validate-basic-info";
+                public const string RegisterVolunteer = $"{Path}";
             }
         }
         public static class OrganizationRouting
