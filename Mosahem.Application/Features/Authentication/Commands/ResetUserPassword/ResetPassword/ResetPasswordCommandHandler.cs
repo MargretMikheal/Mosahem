@@ -8,7 +8,7 @@ using Mosahem.Application.Interfaces;
 using Mosahem.Application.Interfaces.Security;
 using Mosahem.Domain.Enums;
 
-namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.ResetPassword
+namespace Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.ResetPassword
 {
     public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, Response<string>>
     {

@@ -10,14 +10,14 @@ namespace mosahem.Domain.Entities.Profiles
     public class Volunteer : GeneralLocalizableEntity
     {
         #region Properties
-        public string NationalId { get; set; }
+        public string? NationalId { get; set; }
         public string? ProfileImgKey { get; set; }
         public string? CoverImgKey { get; set; }
         public string? CVKey { get; set; }
         public int TotalHours { get; set; }
         public int CompleteOpportunities { get; set; }
-        public Gender Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public Gender? Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         #endregion
         #region Navigations
         public MosahmUser User { get; set; }

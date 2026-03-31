@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
 
-namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
+namespace Mosahem.Application.Features.Users.Commands.ChangePassword
 {
     public class ChangePasswordValidator : AbstractValidator<ChangePasswordCommand>
     {

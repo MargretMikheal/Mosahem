@@ -5,7 +5,7 @@ using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 using Mosahem.Application.Interfaces.Security;
 
-namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
+namespace Mosahem.Application.Features.Users.Commands.ChangePassword
 {
     public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, Response<string>>
     {

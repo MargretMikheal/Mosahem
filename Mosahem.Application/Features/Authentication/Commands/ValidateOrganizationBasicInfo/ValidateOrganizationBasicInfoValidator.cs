@@ -3,14 +3,14 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 
-namespace mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo
+namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizationBasicInfo
 {
-    public class ValidateBasicInfoValidator : AbstractValidator<ValidateBasicInfoCommand>
+    public class ValidateOrganizationBasicInfoValidator : AbstractValidator<ValidateOrganizationBasicInfoCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public ValidateBasicInfoValidator(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
+        public ValidateOrganizationBasicInfoValidator(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
         {
             _unitOfWork = unitOfWork;
             _localizer = localizer;

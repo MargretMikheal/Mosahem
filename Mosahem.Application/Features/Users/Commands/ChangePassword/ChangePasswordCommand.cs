@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 
-namespace mosahem.Application.Features.Authentication.Commands.ChangePassword
+namespace Mosahem.Application.Features.Users.Commands.ChangePassword
 {
     public class ChangePasswordCommand : IRequest<Response<string>>
     {

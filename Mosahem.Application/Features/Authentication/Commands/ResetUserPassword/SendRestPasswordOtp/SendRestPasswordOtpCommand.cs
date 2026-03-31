@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 
-namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.SendRestPasswordOtp
+namespace Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.SendRestPasswordOtp
 {
     public class SendRestPasswordOtpCommand : IRequest<Response<string>>
     {

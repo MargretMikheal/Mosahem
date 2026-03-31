@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using mosahem.Application.Features.Authentication.Commands.ChangePassword;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Users.Commands.ChangeEmail.ChangeEmailOtpVerification;
 using Mosahem.Application.Features.Users.Commands.ChangeEmail.SendChangeEmailOtp;
+using Mosahem.Application.Features.Users.Commands.ChangePassword;
 using Mosahem.Application.Features.Users.Commands.ChangeUserEmail.ChangeEmail;
 using Mosahem.Application.Features.Users.Queries.GetAllUsers;
 using Mosahem.Application.Features.Users.Queries.GetUserInfo;

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Users.Commands.ResetUserPassword.SendRestPasswordOtp
+namespace Mosahem.Application.Features.Authentication.Commands.ResetUserPassword.SendRestPasswordOtp
 {
     public class SendRestPasswordOtpValidator : AbstractValidator<SendRestPasswordOtpCommand>
     {

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
 
-namespace mosahem.Application.Features.Authentication.Commands.ValidateBasicInfo
+namespace mosahem.Application.Features.Authentication.Commands.ValidateOrganizationBasicInfo
 {
-    public class ValidateBasicInfoCommand : IRequest<Response<string>>
+    public class ValidateOrganizationBasicInfoCommand : IRequest<Response<string>>
     {
         public string OrganizationName { get; set; }
         public string Email { get; set; }
