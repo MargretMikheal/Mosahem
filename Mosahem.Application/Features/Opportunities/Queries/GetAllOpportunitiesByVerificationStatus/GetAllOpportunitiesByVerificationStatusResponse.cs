@@ -1,6 +1,6 @@
-﻿namespace Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities
+﻿namespace Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus
 {
-    public class AcceptedOpportunityResponse
+    public class GetAllOpportunitiesByVerificationStatusResponse
     {
         public Guid OpportunityId { get; set; }
         public string OpportunityName { get; set; } = string.Empty;
@@ -8,5 +8,6 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string? OrganizationLogoUrl { get; set; }
+        public string VerificationStatus { get; set; } = string.Empty;
     }
 }

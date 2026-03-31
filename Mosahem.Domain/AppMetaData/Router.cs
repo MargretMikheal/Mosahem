@@ -72,9 +72,7 @@
             public const string Create = "";
             public const string GetAll = "all";
             public const string GetById = SingleRoute;
-            public const string GetPending = "pending";
-            public const string GetAccepted = "accepted";
-            public const string GetRejected = "rejected";
+            public const string GetByVerificationStatus = "by-verification-status";
             public const string Approve = $"{SingleRoute}/approve";
             public const string Reject = $"{SingleRoute}/reject";
             public const string Stop = $"{SingleRoute}/stop";
