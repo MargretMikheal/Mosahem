@@ -14,7 +14,8 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
         public CreateOpportunityValidator(IUnitOfWork unitOfWork, IStringLocalizer<SharedResources> localizer)
         {
             RuleFor(x => x.OrganizationId)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .Cascade(CascadeMode.Stop)
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .MustAsync((id, ct) => unitOfWork.Organizations.ExistsAsync(id, ct))
                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound])
                 .MustAsync((id, ct) => unitOfWork.Organizations.IsVerifiedAsync(id, ct))
@@ -33,16 +34,18 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
                 .WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 500));
 
             RuleFor(x => x.WorkType)
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .IsInEnum().WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
 
             RuleFor(x => x.LocationType)
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .IsInEnum().WithMessage(localizer[SharedResourcesKeys.Validation.Invalid]);
 
             RuleFor(x => x.StartDate)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
             RuleFor(x => x.EndDate)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .GreaterThan(x => x.StartDate)
                 .WithMessage(localizer[SharedResourcesKeys.Validation.EndDateAfterStartDate]);
 
@@ -52,11 +55,17 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
 
 
             RuleFor(x => x.Addresses)
+                 .Cascade(CascadeMode.Stop)
                 .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .Must(addresses => addresses.Select(a => a.CityId).Distinct().Count() == addresses.Count)
+                .Must(addresses =>
+                    addresses is not null &&
+                    addresses.Select(a => a.CityId).Distinct().Count() == addresses.Count)
                 .WithMessage(localizer[SharedResourcesKeys.Validation.DuplicateEntry])
                 .MustAsync(async (addresses, ct) =>
                 {
+                    if (addresses is null)
+                        return false;
+
                     var cityGovernoratePairs = addresses.ToDictionary(a => a.CityId, a => a.GovernorateId);
                     return await unitOfWork.Cities.AreValidCityGovernoratePairsAsync(
                         cityGovernoratePairs.Keys.ToList(),
@@ -68,14 +77,15 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
             RuleForEach(x => x.Addresses).ChildRules(address =>
             {
                 address.RuleFor(x => x.GovernorateId)
-                    .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
+                    .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
                 address.RuleFor(x => x.CityId)
-                    .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
+                    .NotNull().NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
                 address.RuleFor(x => x.Description)
                     .MaximumLength(500).WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 500));
-            });
+            })
+            .When(x => x.Addresses is not null);
 
             RuleFor(x => x.ProvidedSkillIds)
                 .Must(skillIds => skillIds is null || (skillIds.All(id => id != Guid.Empty) && skillIds.Distinct().Count() == skillIds.Count))
@@ -131,7 +141,7 @@ namespace Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity
             RuleForEach(x => x.Questions!).ChildRules(question =>
             {
                 question.RuleFor(q => q.Description)
-                    .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
+                    .NotEmpty().NotNull().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                     .MaximumLength(1000).WithMessage(string.Format(localizer[SharedResourcesKeys.Validation.MaxLength], 1000));
 
                 question.RuleFor(q => q.AnswerType)

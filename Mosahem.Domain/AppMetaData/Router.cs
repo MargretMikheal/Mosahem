@@ -12,7 +12,6 @@
             public const string Prefix = $"{Base}/admins";
 
             public const string AddAdmin = Prefix;
-            public const string DeleteAdmin = $"{Prefix}/{SingleRoute}";
             public const string GetAdminById = $"{Prefix}/{SingleRoute}";
             public const string GetAllAdmins = Prefix;
             public const string EditAdminInfo = $"{Prefix}/me";
@@ -32,15 +31,21 @@
 
             public const string SendEmailVerification = $"{Prefix}/send-email-verification";
             public const string VerifyEmail = $"{Prefix}/verify-email";
+            public const string ValidateLocations = $"{Prefix}/validate-locations";
 
             public static class OrganizationRegistration
             {
                 public const string Path = $"{Prefix}/organization";
 
                 public const string ValidateBasicInfo = $"{Path}/validate-basic-info";
-                public const string ValidateLocations = $"{Path}/validate-locations";
-                public const string ValidateFields = $"{Path}/validate-fields";
                 public const string RegisterOrganization = $"{Path}/register-organization";
+            }
+            public static class VolunteerRegistration
+            {
+                public const string Path = $"{Prefix}/volunteer";
+
+                public const string ValidateBasicInfo = $"{Path}/validate-basic-info";
+                public const string RegisterVolunteer = $"{Path}";
             }
         }
         public static class OrganizationRouting
@@ -72,9 +77,7 @@
             public const string Create = "";
             public const string GetAll = "all";
             public const string GetById = SingleRoute;
-            public const string GetPending = "pending";
-            public const string GetAccepted = "accepted";
-            public const string GetRejected = "rejected";
+            public const string GetByVerificationStatus = "by-verification-status";
             public const string Approve = $"{SingleRoute}/approve";
             public const string Reject = $"{SingleRoute}/reject";
             public const string Stop = $"{SingleRoute}/stop";
@@ -93,6 +96,7 @@
             public const string ChangeEmailOtpVerification = "email/change/verify-otp";
             public const string ChangeEmail = "email/change";
             public const string ChangePassword = $"password";
+            public const string DeleteUser = SingleRoute;
         }
 
         public static class FileRouting

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using mosahem.Application.Common.Opportunities;
 using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
@@ -6,10 +7,8 @@ using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllAcceptedOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllPendingOpportunities;
-using Mosahem.Application.Features.Opportunities.Queries.GetAllRejectedOpportunities;
+using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
@@ -77,29 +76,18 @@ namespace Mosahem.Application.Mapping
                 .Ignore(dest => dest.OpportunityId)
                 .AfterMapping((src, dest) => dest.Options = BuildQuestionOptions(src.Options));
 
-            config.NewConfig<Opportunity, PendingOpportunityResponse>()
+            config.NewConfig<Opportunity, GetAllOpportunitiesByVerificationStatusResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
                 .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
-
-            config.NewConfig<Opportunity, AcceptedOpportunityResponse>()
-                .Map(dest => dest.OpportunityId, src => src.Id)
-                .Map(dest => dest.OpportunityName, src => src.Title)
-                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
-
-            config.NewConfig<Opportunity, RejectedOpportunityResponse>()
-                .Map(dest => dest.OpportunityId, src => src.Id)
-                .Map(dest => dest.OpportunityName, src => src.Title)
-                .Map(dest => dest.OrganizationName, src => src.Organization.User != null ? src.Organization.User.FullName : string.Empty)
-                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey);
+                .Map(dest => dest.OrganizationLogoUrl, src => src.Organization.LogoKey)
+                .Map(dest => dest.VerificationStatus, src => src.VerificationStatus.ToString());
 
             config.NewConfig<Opportunity, OpportunityDetailsResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
                 .Map(dest => dest.OpportunityDescription, src => src.Descripition)
-                .Map(dest => dest.OpportunityStatus, src => BuildOpportunityStatuses(src))
+                .Map(dest => dest.OpportunityStatus, src => OpportunityStatusCalculator.ToNames(src.Status))
                 .Map(dest => dest.VerificationStatus, src => src.VerificationStatus.ToString())
                 .Map(dest => dest.WorkType, src => src.WorkType.ToString())
                 .Map(dest => dest.LocationType, src => src.LocationType.ToString())
@@ -172,7 +160,7 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OpportunityDescription, src => src.Descripition)
                 .Map(dest => dest.WorkType, src => src.WorkType.ToString())
                 .Map(dest => dest.LocationType, src => src.LocationType.ToString())
-                .Map(dest => dest.OpportunityStatus, src => BuildOpportunityStatuses(src))
+                .Map(dest => dest.OpportunityStatus, src => OpportunityStatusCalculator.ToNames(src.Status))
                 .Map(dest => dest.StartDate, src => src.StartDate)
                 .Map(dest => dest.EndDate, src => src.EndDate)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)
@@ -192,7 +180,7 @@ namespace Mosahem.Application.Mapping
                  .Map(dest => dest.OpportunityDescription, src => src.Descripition)
                  .Map(dest => dest.WorkType, src => src.WorkType.ToString())
                  .Map(dest => dest.LocationType, src => src.LocationType.ToString())
-                 .Map(dest => dest.OpportunityStatus, src => BuildOpportunityStatuses(src))
+                 .Map(dest => dest.OpportunityStatus, src => OpportunityStatusCalculator.ToNames(src.Status))
                  .Map(dest => dest.StartDate, src => src.StartDate)
                  .Map(dest => dest.EndDate, src => src.EndDate)
                  .Map(dest => dest.CreatedAt, src => src.CreatedAt)
@@ -215,46 +203,6 @@ namespace Mosahem.Application.Mapping
                 .IgnoreNullValues(true);
         }
 
-        private static List<string> BuildOpportunityStatuses(Opportunity opportunity)
-        {
-            var statuses = Enum.GetValues<OpportunityStatus>()
-                .Where(status => opportunity.Status.HasFlag(status))
-                .Select(status => status.ToString())
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-            var now = DateTime.UtcNow;
-            var hasVacancy = opportunity.ApplicantsCount < opportunity.Vacancies;
-
-            if (now < opportunity.StartDate)
-            {
-                statuses.Add(OpportunityStatus.Open.ToString());
-                statuses.Remove(OpportunityStatus.Active.ToString());
-                statuses.Remove(OpportunityStatus.Ended.ToString());
-            }
-            else if (now >= opportunity.StartDate && now < opportunity.EndDate)
-            {
-                statuses.Add(OpportunityStatus.Active.ToString());
-                if (hasVacancy)
-                {
-                    statuses.Add(OpportunityStatus.Open.ToString());
-                    statuses.Remove(OpportunityStatus.Closed.ToString());
-                }
-                else
-                {
-                    statuses.Add(OpportunityStatus.Closed.ToString());
-                    statuses.Remove(OpportunityStatus.Open.ToString());
-                }
-            }
-            else if (now >= opportunity.EndDate)
-            {
-                statuses.Add(OpportunityStatus.Closed.ToString());
-                statuses.Add(OpportunityStatus.Ended.ToString());
-                statuses.Remove(OpportunityStatus.Open.ToString());
-                statuses.Remove(OpportunityStatus.Active.ToString());
-            }
-
-            return statuses.ToList();
-        }
 
         private static JsonDocument? BuildQuestionOptions(List<string>? options)
         {

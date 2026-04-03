@@ -66,7 +66,7 @@ namespace mosahem.Application.Features.Authentication.Commands.RefreshTokens
             {
                 Token = jwtResult.RefreshToken,
                 UserId = user.Id,
-                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                ExpiresAt = DateTime.UtcNow.AddDays(30),
                 IsRevoked = false,
                 CreatedByIp = "N/A"
             };

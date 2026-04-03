@@ -18,15 +18,11 @@ namespace mosahem.Persistence.Configurations.Profiles
             builder.HasIndex(v => v.NationalId).IsUnique();
 
             builder.Property(v => v.NationalId)
-                   .IsRequired()
                    .HasMaxLength(14);
 
             builder.Property(v => v.Gender)
-                   .IsRequired()
                    .HasConversion<string>();
 
-            builder.Property(v => v.DateOfBirth)
-                   .IsRequired();
 
             builder.HasQueryFilter(v => !v.User.IsDeleted);
 
