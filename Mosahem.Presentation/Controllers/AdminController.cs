@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Application.Features.Admin.Commands.AddAdmin;
-using mosahem.Application.Features.Admin.Commands.DeleteAdmin;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Admin.Commands.EditBasicInfo;
@@ -25,24 +24,7 @@ namespace Mosahem.Api.Controllers
             return NewResult(response);
         }
 
-        [HttpDelete(Router.AdminRouting.DeleteAdmin)]
-        [ValidateModelId]
-        public async Task<IActionResult> DeleteAdmin(Guid id)
-        {
-            var currentUserIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-                return Unauthorized();
-
-            var command = new DeleteAdminCommand
-            {
-                AdminId = id,
-                CurrentUserId = currentUserId
-            };
-
-            var response = await _mediator.Send(command);
-            return NewResult(response);
-        }
         [HttpPut(Router.AdminRouting.EditAdminInfo)]
         [ValidateModelId]
         public async Task<IActionResult> EditAdminInfo([FromBody] EditAdminInfoCommandRequest request)
