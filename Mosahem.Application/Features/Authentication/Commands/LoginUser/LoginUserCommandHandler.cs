@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
+using mosahem.Domain.Enums;
 using Mosahem.Application.DTOs.Auth;
 using Mosahem.Application.Interfaces.Security;
 using Mosahem.Domain.Entities.Identity;
@@ -67,14 +68,19 @@ namespace mosahem.Application.Features.Authentication.Commands.LoginUser
 
             await _unitOfWork.Repository<RefreshToken>().AddAsync(refreshToken, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-
+            var isVerified = false;
+            if (user.Role == UserRole.Organization)
+            {
+                var organization = await _unitOfWork.Organizations.GetByIdAsync(user.Id, cancellationToken);
+                isVerified = organization?.VerificationStatus == VerficationStatus.Approved;
+            }
             var response = new AuthResponse
             {
                 Id = user.Id,
                 Email = user.Email,
                 FullName = user.FullName,
                 Role = user.Role.ToString(),
-                IsVerified = false,
+                IsVerified = isVerified,
                 AccessToken = jwtResult.AccessToken,
                 RefreshToken = jwtResult.RefreshToken,
                 AccessTokenExpiration = jwtResult.ExpireAt
