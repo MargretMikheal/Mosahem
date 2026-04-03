@@ -71,6 +71,13 @@
             public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
             public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
         }
+        public static class VolunteerRouting
+        {
+            public const string Prefix = $"{Base}/volunteers";
+            public const string EditVolunteerAddress = $"{Prefix}/addresses/{SingleRoute}";
+
+
+        }
         public static class OpportunityRouting
         {
             public const string Prefix = $"{Base}/opportunities";
