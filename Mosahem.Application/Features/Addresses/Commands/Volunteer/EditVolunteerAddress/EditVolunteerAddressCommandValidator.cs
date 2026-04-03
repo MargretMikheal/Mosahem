@@ -14,9 +14,6 @@ namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
             RuleFor(x => x.VolunteerId)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
-            RuleFor(x => x.AddressId)
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
-
             RuleFor(x => x.CityId)
                 .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
                 .When(x => x.GovernateId.HasValue);

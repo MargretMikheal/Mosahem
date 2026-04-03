@@ -31,8 +31,8 @@ namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
                 return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.User.NotFound]);
 
             //check the address exists
-            var address = await _unitOfWork.Addresses.GetByIdAsync(request.AddressId, cancellationToken);
-            if (address is null || address.VolunteerId != request.VolunteerId)
+            var address = await _unitOfWork.Addresses.GetVolunteerAddressAsync(request.VolunteerId, cancellationToken);
+            if (address is null)
                 return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
 
             #region city check
