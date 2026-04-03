@@ -429,4 +429,7 @@
   <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
     <value>You can edit opportunity's location only before 48 hours from the start date</value>
   </data>
+  <data name="Validation_NationalIdMustBe14Digits" xml:space="preserve">
+    <value>National ID must be exactly 14 digits.</value>
+  </data>
 </root>

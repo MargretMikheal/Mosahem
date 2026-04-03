@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using mosahem.Application.Common;
-using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations;
+using mosahem.Application.Features.Authentication.Commands.ValidateLocations;
 using Mosahem.Application.DTOs.Auth;
 
 namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration
@@ -14,7 +14,7 @@ namespace mosahem.Application.Features.Authentication.Commands.CompleteOrganizat
 
         public string? LicenseUrl { get; set; }
 
-        public List<OrganizationAddressDto> Locations { get; set; }
+        public List<AddressDto> Locations { get; set; }
 
         public List<Guid> FieldIds { get; set; }
         public string? Description { get; set; }

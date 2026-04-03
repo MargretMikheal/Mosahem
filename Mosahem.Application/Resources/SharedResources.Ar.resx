@@ -429,4 +429,7 @@
   <data name="Validation_LocationsCanBeEditedOnlyBefore48Houres" xml:space="preserve">
     <value>تستطيع تعديل موقع الفرصة فقط قبل 48 ساعة من موعد بداية الفرصة </value>
   </data>
+  <data name="Validation_NationalIdMustBe14Digits" xml:space="preserve">
+    <value>الرقم القومي يجب أن يتكون من 14 رقمًا بالضبط.</value>
+  </data>
 </root>
