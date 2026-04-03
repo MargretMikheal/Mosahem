@@ -12,7 +12,6 @@
             public const string Prefix = $"{Base}/admins";
 
             public const string AddAdmin = Prefix;
-            public const string DeleteAdmin = $"{Prefix}/{SingleRoute}";
             public const string GetAdminById = $"{Prefix}/{SingleRoute}";
             public const string GetAllAdmins = Prefix;
             public const string EditAdminInfo = $"{Prefix}/me";
@@ -97,6 +96,7 @@
             public const string ChangeEmailOtpVerification = "email/change/verify-otp";
             public const string ChangeEmail = "email/change";
             public const string ChangePassword = $"password";
+            public const string DeleteUser = SingleRoute;
         }
 
         public static class FileRouting
