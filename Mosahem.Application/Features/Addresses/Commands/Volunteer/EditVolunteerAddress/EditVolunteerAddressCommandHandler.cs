@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
+using mosahem.Domain.Entities.Location;
 
 namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
 {
@@ -32,8 +33,6 @@ namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
 
             //check the address exists
             var address = await _unitOfWork.Addresses.GetVolunteerAddressAsync(request.VolunteerId, cancellationToken);
-            if (address is null)
-                return _responseHandler.NotFound<string>(_localizer[SharedResourcesKeys.Validation.NotFound]);
 
             #region city check
             if (request.GovernateId.HasValue)
@@ -61,7 +60,14 @@ namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
             }
             #endregion
 
-            request.Adapt(address);
+            if (address is null)
+            {
+                address = request.Adapt<Address>();
+                await _unitOfWork.Addresses.AddAsync(address, cancellationToken);
+            }
+            else
+                request.Adapt(address);
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return _responseHandler.Success<string>(null!, _localizer[SharedResourcesKeys.General.Updated]);

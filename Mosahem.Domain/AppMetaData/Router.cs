@@ -74,8 +74,9 @@
         public static class VolunteerRouting
         {
             public const string Prefix = $"{Base}/volunteers";
-            public const string EditVolunteerAddress = $"{Prefix}/address/me";
-            public const string DeleteVolunteerAddress = $"{Prefix}/address/me";
+            public const string EditAddress = $"{Prefix}/address/me";
+            public const string DeleteAddress = $"{Prefix}/address/me";
+            public const string EditFields = $"{Prefix}/fields/me";
         }
         public static class OpportunityRouting
         {

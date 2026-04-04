@@ -2,12 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
-using Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.AddOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.DeleteOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.EditOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations;
-using Mosahem.Application.Features.Volunteers.Commands.DeleteVolunteerAddress;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
@@ -83,42 +81,6 @@ namespace Mosahem.Presentation.Controllers
                 CityId = request.CityId,
                 Description = request.Description,
             });
-            return NewResult(response);
-        }
-        #endregion
-        #region Volunteer
-        [Authorize(Roles = nameof(UserRole.Volunteer))]
-        [HttpPut(Router.VolunteerRouting.EditVolunteerAddress)]
-        [ValidateModelId]
-        public async Task<IActionResult> EditVolunteerAddress([FromBody] EditVolunteerAddressRequest request)
-        {
-            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("sub")?.Value;
-
-            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
-                return Unauthorized();
-
-            var response = await _mediator.Send(new EditVolunteerAddressCommand
-            {
-                VolunteerId = volunteerId,
-                GovernateId = request.GovernateId,
-                CityId = request.CityId,
-                Description = request.Description,
-            });
-            return NewResult(response);
-        }
-        [Authorize(Roles = nameof(UserRole.Volunteer))]
-        [HttpDelete(Router.VolunteerRouting.DeleteVolunteerAddress)]
-        [ValidateModelId]
-        public async Task<IActionResult> DeleteVolunteerAddress()
-        {
-            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("sub")?.Value;
-
-            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
-                return Unauthorized();
-
-            var response = await _mediator.Send(new DeleteVolunteerAddressCommand(volunteerId));
             return NewResult(response);
         }
         #endregion
