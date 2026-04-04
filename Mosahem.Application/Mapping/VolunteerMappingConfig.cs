@@ -4,6 +4,7 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
+using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
 
 namespace Mosahem.Application.Mapping
 {
@@ -28,6 +29,11 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.TotalHours, src => 0)
                 .Map(dest => dest.CompleteOpportunities, src => 0)
                 .Map(dest => dest.CVKey, src => src.CvUrl);
+
+            config.NewConfig<Volunteer, GetAllVolunteersQueryResponse>()
+                .Map(dest => dest.ProfileImage, src => src.ProfileImgKey)
+                .Map(dest => dest.FullName, src => src.User.FullName)
+                .Map(dest => dest.Bio, src => (string?)null);
 
             config.NewConfig<Guid, VolunteerField>()
                 .Map(dest => dest.FieldId, src => src)
