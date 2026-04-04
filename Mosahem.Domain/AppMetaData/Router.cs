@@ -59,6 +59,9 @@
             public const string ApproveOrganization = "approve";
             public const string RejectOrganization = "reject";
 
+            public const string GetVerificationComment = $"{SingleRoute}/verification-comment";
+            public const string EditVerificationComment = "verification-comment";
+
             public const string Fields = $"{Prefix}/{SingleRoute}/fields";
 
             public const string Locations = $"{Prefix}/{SingleRoute}/locations";
