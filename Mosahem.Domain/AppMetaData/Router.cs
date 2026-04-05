@@ -53,6 +53,8 @@
             public const string Prefix = $"{Base}/organizations";
             public const string OrganizationData = "me";
             public const string AllOrganizations = "";
+            public const string OrganizationFollowers = $"{SingleRoute}/followers";
+
             public const string GetPendingOrganizations = "pending";
             public const string GetOrganizationLisence = $"{SingleRoute}/license";
             public const string EditOrganizationInfo = "me";
@@ -73,6 +75,13 @@
 
             public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
             public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
+        }
+        public static class VolunteerRouting
+        {
+            public const string Prefix = $"{Base}/volunteers";
+            public const string FollowOrganization = "follow/{organizationId}";
+            public const string GetAllVolunteers = $"";
+            public const string VolunteerFollowedOrganizations = "me/followed-organizations";
         }
         public static class OpportunityRouting
         {
