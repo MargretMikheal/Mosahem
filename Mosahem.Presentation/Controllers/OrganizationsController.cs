@@ -9,6 +9,7 @@ using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.A
 using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.RejectOrganization;
 using Mosahem.Application.Features.Organizations.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationData;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationFollowers;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationLicense;
 using Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizations;
 using Mosahem.Domain.AppMetaData;
@@ -28,7 +29,14 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetAllOrganizationsQuery());
             return NewResult(response);
         }
-
+        [HttpGet(Router.OrganizationRouting.OrganizationFollowers)]
+        [AllowAnonymous]
+        [ValidateModelId]
+        public async Task<IActionResult> GetOrganizationFollowers([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetOrganizationFollowersQuery { OrganizationId = id });
+            return NewResult(response);
+        }
         #endregion
         #region Organization Authorized Endpoints
         [Authorize(Roles = nameof(UserRole.Organization))]

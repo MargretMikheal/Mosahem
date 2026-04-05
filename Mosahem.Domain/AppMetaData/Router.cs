@@ -53,6 +53,8 @@
             public const string Prefix = $"{Base}/organizations";
             public const string OrganizationData = "me";
             public const string AllOrganizations = "";
+            public const string OrganizationFollowers = $"{SingleRoute}/followers";
+
             public const string GetPendingOrganizations = "pending";
             public const string GetOrganizationLisence = $"{SingleRoute}/license";
             public const string EditOrganizationInfo = "me";
