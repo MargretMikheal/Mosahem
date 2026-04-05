@@ -4,6 +4,7 @@ using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Volunteers.Commands.FollowOrganization;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
+using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
@@ -37,6 +38,20 @@ namespace Mosahem.Presentation.Controllers
         public async Task<IActionResult> GetAllVolunteers()
         {
             var response = await _mediator.Send(new GetAllVolunteersQuery());
+            return NewResult(response);
+        }
+
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpGet(Router.VolunteerRouting.VolunteerFollowedOrganizations)]
+        public async Task<IActionResult> GetVolunteerFollowedOrganizations()
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new GetVolunteerFollowedOrganizationsQuery { VolunteerId = volunteerId });
             return NewResult(response);
         }
     }

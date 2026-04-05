@@ -5,6 +5,7 @@ using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
+using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
 
 namespace Mosahem.Application.Mapping
 {
@@ -42,6 +43,12 @@ namespace Mosahem.Application.Mapping
             config.NewConfig<Guid, VolunteerSkill>()
                 .Map(dest => dest.SkillId, src => src)
                 .Ignore(dest => dest.VolunteerId);
+
+            config.NewConfig<OrganizationFollower, GetVolunteerFollowedOrganizationsResponse>()
+                .Map(dest => dest.OrganizationId, src => src.OrganizationId)
+                .Map(dest => dest.OrganizationName, src => src.Organization.User.FullName)
+                .Map(dest => dest.OrganizationDescription, src => src.Organization.Description)
+                .Map(dest => dest.OrganizationLogo, src => src.Organization.LogoKey);
         }
     }
 }
