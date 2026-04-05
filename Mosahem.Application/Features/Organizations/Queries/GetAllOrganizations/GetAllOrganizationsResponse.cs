@@ -4,6 +4,7 @@
     {
         public Guid OrganizationId { get; set; }
         public string OrganizationName { get; set; } = string.Empty;
+        public string Status { get; set; }
         public string OrganizationDescription { get; set; } = string.Empty;
         public string? OrganizationLogo { get; set; }
     }
