@@ -2,5 +2,8 @@
 
 namespace mosahem.Application.Interfaces.Repositories
 {
-    public interface IVolunteerRepository : IGenericRepository<Volunteer> { }
+    public interface IVolunteerRepository : IGenericRepository<Volunteer>
+    {
+        Task<IReadOnlyList<Volunteer>> GetVolunteersWithProfilesAsync(CancellationToken cancellationToken);
+    }
 }
