@@ -1,10 +1,9 @@
-﻿namespace Mosahem.Application.Features.Organizations.Queries.GetAllOrganizations
+﻿namespace Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations
 {
-    public class GetAllOrganizationsResponse
+    public class GetVolunteerFollowedOrganizationsResponse
     {
         public Guid OrganizationId { get; set; }
         public string OrganizationName { get; set; } = string.Empty;
-        public string Status { get; set; }
         public string OrganizationDescription { get; set; } = string.Empty;
         public string? OrganizationLogo { get; set; }
     }

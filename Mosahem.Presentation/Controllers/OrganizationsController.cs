@@ -5,11 +5,14 @@ using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Organizations.Commands.EditOrganizationAboutUs;
 using Mosahem.Application.Features.Organizations.Commands.EditOrganizationFields;
 using Mosahem.Application.Features.Organizations.Commands.EditOrganizationInfo;
+using Mosahem.Application.Features.Organizations.Commands.EditOrganizationVerificationComment;
 using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.ApproveOrganization;
 using Mosahem.Application.Features.Organizations.Commands.ValidateOrganization.RejectOrganization;
 using Mosahem.Application.Features.Organizations.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationData;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationFollowers;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationLicense;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVerificationComment;
 using Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizations;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
@@ -22,13 +25,21 @@ namespace Mosahem.Presentation.Controllers
     public class OrganizationsController : MosahmControllerBase
     {
         #region Public 
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpGet(Router.OrganizationRouting.AllOrganizations)]
         public async Task<IActionResult> GetAllOrganizations()
         {
             var response = await _mediator.Send(new GetAllOrganizationsQuery());
             return NewResult(response);
         }
-
+        [HttpGet(Router.OrganizationRouting.OrganizationFollowers)]
+        [AllowAnonymous]
+        [ValidateModelId]
+        public async Task<IActionResult> GetOrganizationFollowers([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetOrganizationFollowersQuery { OrganizationId = id });
+            return NewResult(response);
+        }
         #endregion
         #region Organization Authorized Endpoints
         [Authorize(Roles = nameof(UserRole.Organization))]
@@ -64,7 +75,25 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetOrganizationLicenseQuery(organizationId: id));
             return NewResult(response);
         }
+        [Authorize(Roles = $"{nameof(UserRole.Organization)},{nameof(UserRole.Admin)}")]
+        [HttpGet(Router.OrganizationRouting.GetVerificationComment)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetRejectionReason([FromRoute] Guid id)
+        {
+            if (User.IsInRole(nameof(UserRole.Organization)))
+            {
+                var orgIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    ?? User.FindFirst("sub")?.Value;
+                if (string.IsNullOrEmpty(orgIdString) || !Guid.TryParse(orgIdString, out Guid organizationId))
+                    return Unauthorized();
 
+                if (!organizationId.Equals(id))
+                    return Forbid();
+            }
+
+            var response = await _mediator.Send(new GetOrganizationVerificationCommentQuery { OrganizationId = id });
+            return NewResult(response);
+        }
         [Authorize(Roles = nameof(UserRole.Organization))]
         [HttpPut(Router.OrganizationRouting.EditOrganizationInfo)]
         [ValidateModelId]
@@ -119,6 +148,15 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(query);
             return NewResult(response);
 
+        }
+
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        [HttpPut(Router.OrganizationRouting.EditVerificationComment)]
+        [ValidateModelId]
+        public async Task<IActionResult> EditVerificationComment([FromBody] EditOrganizationVerificationCommentCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return NewResult(response);
         }
         #region Organization Validation
         [Authorize(Roles = nameof(UserRole.Admin))]

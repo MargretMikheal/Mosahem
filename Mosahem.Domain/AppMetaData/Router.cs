@@ -53,11 +53,16 @@
             public const string Prefix = $"{Base}/organizations";
             public const string OrganizationData = "me";
             public const string AllOrganizations = "";
+            public const string OrganizationFollowers = $"{SingleRoute}/followers";
+
             public const string GetPendingOrganizations = "pending";
             public const string GetOrganizationLisence = $"{SingleRoute}/license";
             public const string EditOrganizationInfo = "me";
             public const string ApproveOrganization = "approve";
             public const string RejectOrganization = "reject";
+
+            public const string GetVerificationComment = $"{SingleRoute}/verification-comment";
+            public const string EditVerificationComment = "verification-comment";
 
             public const string Fields = $"{Prefix}/{SingleRoute}/fields";
 
@@ -78,6 +83,10 @@
             public const string DeleteAddress = $"{Prefix}/address/me";
             public const string EditFields = $"{Prefix}/fields/me";
             public const string EditSkills = $"{Prefix}/skills/me";
+            public const string FollowOrganization = "follow/{organizationId}";
+            public const string UnfollowOrganization = "unfollow/{organizationId}";
+            public const string GetAllVolunteers = $"";
+            public const string VolunteerFollowedOrganizations = "me/followed-organizations";
         }
         public static class OpportunityRouting
         {
