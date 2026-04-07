@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using mosahem.Application.Features.Authentication.Commands.ChangePassword;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Users.Commands.ChangeEmail.ChangeEmailOtpVerification;
 using Mosahem.Application.Features.Users.Commands.ChangeEmail.SendChangeEmailOtp;
+using Mosahem.Application.Features.Users.Commands.ChangePassword;
 using Mosahem.Application.Features.Users.Commands.ChangeUserEmail.ChangeEmail;
+using Mosahem.Application.Features.Users.Commands.DeleteUser;
 using Mosahem.Application.Features.Users.Queries.GetAllUsers;
 using Mosahem.Application.Features.Users.Queries.GetUserInfo;
 using Mosahem.Domain.AppMetaData;
@@ -24,6 +25,15 @@ namespace Mosahem.Presentation.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var response = await _mediator.Send(new GetAllUsersQuery());
+            return NewResult(response);
+        }
+
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        [ValidateModelId]
+        [HttpDelete(Router.UserRouting.DeleteUser)]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new DeleteUserCommand { UserId = id });
             return NewResult(response);
         }
 

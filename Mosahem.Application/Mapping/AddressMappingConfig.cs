@@ -2,6 +2,7 @@
 using mosahem.Domain.Entities.Location;
 using Mosahem.Application.Features.Addresses.Commands.Organization.AddOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.EditOrganizationAddress;
+using Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress;
 
 namespace Mosahem.Application.Mapping
 {
@@ -21,6 +22,15 @@ namespace Mosahem.Application.Mapping
             config.NewConfig<EditOrganizationAddressCommand, Address>()
                 .Map(dest => dest.CityId, src => src.CityId)
                 .Map(dest => dest.Description, src => src.Description)
+                .Map(dest => dest.OrganizationId, src => src.OrganizationId)
+                .IgnoreNonMapped(true)
+                .IgnoreNullValues(true);
+
+            config.NewConfig<EditVolunteerAddressCommand, Address>()
+                .Map(dest => dest.CityId, src => src.CityId)
+                .Map(dest => dest.Description, src => src.Description)
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .IgnoreNonMapped(true)
                 .IgnoreNullValues(true);
             #endregion
         }

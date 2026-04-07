@@ -633,15 +633,13 @@ namespace mosahem.Presistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalId")
-                        .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
@@ -654,7 +652,8 @@ namespace mosahem.Presistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NationalId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[NationalId] IS NOT NULL");
 
                     b.ToTable("Volunteers", (string)null);
                 });

@@ -6,6 +6,7 @@ using Mosahem.Application.Features.Addresses.Queries.GetOrganizationLocations;
 using Mosahem.Application.Features.Fields.Queries.GetOrganizationFields;
 using Mosahem.Application.Features.Organizations.Queries.GetAllOrganizations;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationData;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationFollowers;
 using Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizations;
 
 namespace Mosahem.Application.Mapping
@@ -39,6 +40,7 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OrganizationId, src => src.Id)
                 .Map(dest => dest.OrganizationName, src => src.User != null ? src.User.FullName : string.Empty)
                 .Map(dest => dest.OrganizationDescription, src => src.Description)
+                .Map(dest => dest.Status, src => src.VerificationStatus.ToString())
                 .Map(dest => dest.OrganizationLogo, src => src.LogoKey);
 
             config.NewConfig<Organization, GetOrganizationDataResponse>()
@@ -57,6 +59,13 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OrganizationId, src => src.Id)
                 .Map(dest => dest.OrganizationName, src => src.User != null ? src.User.FullName : string.Empty)
                 .Map(dest => dest.OrganizationLogo, src => src.LogoKey);
+
+            config.NewConfig<OrganizationFollower, GetOrganizationFollowersResponse>()
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.Name, src => src.Volunteer.User.FullName)
+                .Map(dest => dest.ProfileImage, src => src.Volunteer.ProfileImgKey)
+                .Map(dest => dest.Bio, src => string.Empty);
+
 
         }
     }

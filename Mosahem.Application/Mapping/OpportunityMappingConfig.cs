@@ -4,6 +4,7 @@ using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
 using mosahem.Domain.Enums;
+using Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
@@ -201,6 +202,13 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Vacancies, src => src.Vacancies)
                 .IgnoreNonMapped(true)
                 .IgnoreNullValues(true);
+
+            #region Apply to opportunity
+            config.NewConfig<ApplyToOpportunityCommand, OpportunityApplication>()
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.OpportunityId, src => src.OpportunityId)
+                .Map(dest => dest.ApplicantStatus, src => ApplicantStatus.Pending);
+            #endregion
         }
 
 

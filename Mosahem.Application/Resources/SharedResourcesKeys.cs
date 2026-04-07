@@ -57,7 +57,7 @@
             public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
             public const string FieldsMustNotExceedThree = "Validation_FieldsMustNotExceedThree";
             public const string SkillsMustNotExceedThree = "Validation_SkillsMustNotExceedThree";
-
+            public const string NationalIdMustBe14Digits = "Validation_NationalIdMustBe14Digits";
             public const string FieldsCanBeEditedOnlyBefore48Houres = "Validation_FieldsCanBeEditedOnlyBefore48Houres";
             public const string SkillsCanBeEditedOnlyBefore48Houres = "Validation_SkillsCanBeEditedOnlyBefore48Houres";
             public const string LocationsCanBeEditedOnlyBefore48Houres = "Validation_LocationsCanBeEditedOnlyBefore48Houres";
@@ -127,6 +127,12 @@
             public const string AlreadyExists = "AlreadyExists";
             public const string AlreadyProcessed = "AlreadyProcessed";
             public const string OperationNotAllowed = "OperationNotAllowed";
+        }
+        public static class Application
+        {
+            public const string AlreadyApplied = "Volunteer_AlreadyApplied";
+            public const string InvalidQuestions = "Application_InvalidQuestions";
+            public const string AppliedSuccessfully = "Application_AppliedSuccessfully";
         }
     }
 }

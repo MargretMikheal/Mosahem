@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using mosahem.Application.Features.Authentication.Commands.CompleteOrganizationRegistration;
-using mosahem.Application.Features.Authentication.Commands.ValidateOrganizationLocations;
+using mosahem.Application.Features.Authentication.Commands.ValidateLocations;
 using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Location;
@@ -29,7 +29,7 @@ namespace mosahem.Application.Mapping
                 .Map(dest => dest.LicenseKey, src => src.LicenseUrl)
                 .Map(dest => dest.VerificationStatus, src => VerficationStatus.Pending);
 
-            config.NewConfig<OrganizationAddressDto, Address>()
+            config.NewConfig<AddressDto, Address>()
                 .Map(dest => dest.CityId, src => src.CityId)
                 .Map(dest => dest.Description, src => src.Details)
                 .Ignore(dest => dest.Id)
