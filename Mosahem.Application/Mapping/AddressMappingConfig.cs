@@ -1,8 +1,8 @@
 ﻿using Mapster;
 using mosahem.Domain.Entities.Location;
-using Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.AddOrganizationAddress;
 using Mosahem.Application.Features.Addresses.Commands.Organization.EditOrganizationAddress;
+using Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress;
 
 namespace Mosahem.Application.Mapping
 {

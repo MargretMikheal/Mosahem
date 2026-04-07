@@ -2,7 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.Localization;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Volunteers.Commands.DeleteVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.DeleteVolunteerAddress
 {
     public class DeleteVolunteerAddressCommandValidator : AbstractValidator<DeleteVolunteerAddressCommand>
     {

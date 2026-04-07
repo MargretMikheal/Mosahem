@@ -77,6 +77,7 @@
             public const string EditAddress = $"{Prefix}/address/me";
             public const string DeleteAddress = $"{Prefix}/address/me";
             public const string EditFields = $"{Prefix}/fields/me";
+            public const string EditSkills = $"{Prefix}/skills/me";
         }
         public static class OpportunityRouting
         {
@@ -93,6 +94,8 @@
             public const string EditSkills = $"{SingleRoute}/skills";
             public const string EditQuestions = $"{SingleRoute}/questions";
             public const string EditInfo = $"{SingleRoute}/info";
+
+            public const string Apply = $"{SingleRoute}/apply";
         }
         public static class UserRouting
         {

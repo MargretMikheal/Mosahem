@@ -6,7 +6,7 @@ using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 using mosahem.Domain.Entities.Location;
 
-namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress
 {
     public class EditVolunteerAddressCommandHandler : IRequestHandler<EditVolunteerAddressCommand, Response<string>>
     {

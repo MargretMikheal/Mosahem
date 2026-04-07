@@ -432,4 +432,13 @@
   <data name="Validation_NationalIdMustBe14Digits" xml:space="preserve">
     <value>الرقم القومي يجب أن يتكون من 14 رقمًا بالضبط.</value>
   </data>
+  <data name="Volunteer_AlreadyApplied" xml:space="preserve">
+    <value>تم التقديم بالفعل علي هذه الفرصة</value>
+  </data>
+  <data name="Application_InvalidQuestions" xml:space="preserve">
+    <value>خطا في اسئلة التقديم</value>
+  </data>
+  <data name="Application_AppliedSuccessfully" xml:space="preserve">
+    <value>!تم التقديم بنجاح</value>
+  </data>
 </root>

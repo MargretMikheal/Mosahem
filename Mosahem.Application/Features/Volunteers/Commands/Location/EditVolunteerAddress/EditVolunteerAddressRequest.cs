@@ -1,4 +1,4 @@
-namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress
 {
     public class EditVolunteerAddressRequest
     {

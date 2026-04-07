@@ -36,6 +36,8 @@ namespace Mosahem.Application.Mapping
             config.NewConfig<Guid, VolunteerSkill>()
                 .Map(dest => dest.SkillId, src => src)
                 .Ignore(dest => dest.VolunteerId);
+
+
         }
     }
 }

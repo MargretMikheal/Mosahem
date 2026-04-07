@@ -3,7 +3,7 @@ using Microsoft.Extensions.Localization;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress
 {
     public class EditVolunteerAddressCommandValidator : AbstractValidator<EditVolunteerAddressCommand>
     {

@@ -4,7 +4,7 @@ using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Application.Resources;
 
-namespace Mosahem.Application.Features.Volunteers.Commands.DeleteVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.DeleteVolunteerAddress
 {
     public class DeleteVolunteerAddressCommandHandler : IRequestHandler<DeleteVolunteerAddressCommand, Response<string>>
     {

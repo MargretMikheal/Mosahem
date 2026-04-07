@@ -1,7 +1,7 @@
 using MediatR;
 using mosahem.Application.Common;
 
-namespace Mosahem.Application.Features.Addresses.Commands.EditVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.EditVolunteerAddress
 {
     public class EditVolunteerAddressCommand : IRequest<Response<string>>
     {

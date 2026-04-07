@@ -16,5 +16,13 @@ namespace mosahem.Persistence.Repositories
 
             return await CountAsync(spec, cancellationToken);
         }
+
+        public async Task<bool> IsExist(Guid volunteerId, Guid opportunityId, CancellationToken cancellationToken)
+        {
+            var spec = new Specification<OpportunityApplication>(oa => oa.VolunteerId == volunteerId && oa.OpportunityId == opportunityId)
+                .NoTracking();
+
+            return (await FindFirstAsync(spec, cancellationToken)) is not null;
+        }
     }
 }

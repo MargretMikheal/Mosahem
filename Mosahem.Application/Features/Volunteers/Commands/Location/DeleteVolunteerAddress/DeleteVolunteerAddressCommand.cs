@@ -1,7 +1,7 @@
 using MediatR;
 using mosahem.Application.Common;
 
-namespace Mosahem.Application.Features.Volunteers.Commands.DeleteVolunteerAddress
+namespace Mosahem.Application.Features.Volunteers.Commands.Location.DeleteVolunteerAddress
 {
     public class DeleteVolunteerAddressCommand : IRequest<Response<string>>
     {
