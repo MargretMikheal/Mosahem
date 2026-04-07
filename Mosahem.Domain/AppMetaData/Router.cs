@@ -80,6 +80,7 @@
         {
             public const string Prefix = $"{Base}/volunteers";
             public const string FollowOrganization = "follow/{organizationId}";
+            public const string UnfollowOrganization = "unfollow/{organizationId}";
             public const string GetAllVolunteers = $"";
             public const string VolunteerFollowedOrganizations = "me/followed-organizations";
         }
