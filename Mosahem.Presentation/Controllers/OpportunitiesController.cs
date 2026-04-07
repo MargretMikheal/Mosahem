@@ -6,6 +6,7 @@ using mosahem.Application.Common;
 using mosahem.Application.Interfaces.Repositories;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.ApproveOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityFields;
@@ -139,6 +140,30 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new ResumeOpportunityCommand { OpportunityId = id });
             return NewResult(response);
         }
+
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpPost(Router.OpportunityRouting.Apply)]
+        [ValidateModelId]
+        public async Task<IActionResult> ApplyToOpportunity(
+            [FromRoute] Guid id,
+            [FromBody] ApplyToOpportunityRequest request)
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new ApplyToOpportunityCommand
+            {
+                VolunteerId = volunteerId,
+                OpportunityId = id,
+                Answers = request.Answers
+            });
+
+            return NewResult(response);
+        }
+
         [HttpGet(Router.OpportunityRouting.GetAll)]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] GetAllOpportunitiesQuery query)
@@ -230,7 +255,7 @@ namespace Mosahem.Presentation.Controllers
                 return Unauthorized();
 
             var response = await _mediator.Send(new EditOpportunityQuestionsCommand(
-                request.OpportunityId,
+                id,
                 organizationGuid,
                 request.Questions
                 ));

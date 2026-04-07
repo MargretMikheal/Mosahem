@@ -34,6 +34,15 @@ namespace Mosahem.Persistence.Repositories
 
             return (await FindAllAsync(spec, cancellationToken)).ToList();
         }
+
+        #endregion
+        #region Volunteer
+        public async Task<Address?> GetVolunteerAddressAsync(Guid volunteerId, CancellationToken cancellationToken)
+        {
+            var spec = new Specification<Address>(address => address.VolunteerId == volunteerId);
+
+            return (await FindFirstAsync(spec, cancellationToken));
+        }
         #endregion
     }
 }

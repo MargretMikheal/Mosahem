@@ -128,5 +128,11 @@
             public const string AlreadyProcessed = "AlreadyProcessed";
             public const string OperationNotAllowed = "OperationNotAllowed";
         }
+        public static class Application
+        {
+            public const string AlreadyApplied = "Volunteer_AlreadyApplied";
+            public const string InvalidQuestions = "Application_InvalidQuestions";
+            public const string AppliedSuccessfully = "Application_AppliedSuccessfully";
+        }
     }
 }

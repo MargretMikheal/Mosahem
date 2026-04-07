@@ -38,7 +38,7 @@ namespace mosahem.Application.Common
 
         public Response<T> NotFound<T>(string message = null, Dictionary<string, List<string>> errors = null)
         {
-            return new Response<T>(message ?? _localizer[SharedResourcesKeys.User.NotFound])
+            return new Response<T>(message ?? _localizer[SharedResourcesKeys.Validation.NotFound])
             {
                 Errors = errors,
                 StatusCode = HttpStatusCode.NotFound

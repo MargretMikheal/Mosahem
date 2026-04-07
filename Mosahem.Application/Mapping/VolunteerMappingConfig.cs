@@ -44,6 +44,7 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.SkillId, src => src)
                 .Ignore(dest => dest.VolunteerId);
 
+
             config.NewConfig<OrganizationFollower, GetVolunteerFollowedOrganizationsResponse>()
                 .Map(dest => dest.OrganizationId, src => src.OrganizationId)
                 .Map(dest => dest.OrganizationName, src => src.Organization.User.FullName)
