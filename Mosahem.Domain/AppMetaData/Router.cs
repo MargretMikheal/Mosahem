@@ -61,6 +61,9 @@
             public const string ApproveOrganization = "approve";
             public const string RejectOrganization = "reject";
 
+            public const string GetVerificationComment = $"{SingleRoute}/verification-comment";
+            public const string EditVerificationComment = "verification-comment";
+
             public const string Fields = $"{Prefix}/{SingleRoute}/fields";
 
             public const string Locations = $"{Prefix}/{SingleRoute}/locations";
@@ -76,6 +79,10 @@
         public static class VolunteerRouting
         {
             public const string Prefix = $"{Base}/volunteers";
+            public const string EditAddress = $"{Prefix}/address/me";
+            public const string DeleteAddress = $"{Prefix}/address/me";
+            public const string EditFields = $"{Prefix}/fields/me";
+            public const string EditSkills = $"{Prefix}/skills/me";
             public const string FollowOrganization = "follow/{organizationId}";
             public const string UnfollowOrganization = "unfollow/{organizationId}";
             public const string GetAllVolunteers = $"";
@@ -96,6 +103,8 @@
             public const string EditSkills = $"{SingleRoute}/skills";
             public const string EditQuestions = $"{SingleRoute}/questions";
             public const string EditInfo = $"{SingleRoute}/info";
+
+            public const string Apply = $"{SingleRoute}/apply";
         }
         public static class UserRouting
         {

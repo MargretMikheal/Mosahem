@@ -8,5 +8,6 @@ namespace Mosahem.Application.Interfaces.Repositories
         Task<IReadOnlyList<Address>> GetOrganizationAddressesAsync(Guid organizationId, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<Address>> GetOpportunityAddressAsync(Guid OpportunityId, CancellationToken cancellationToken);
         Task<Address?> GetByIdAndOrganizationId(Guid addressId, Guid organizationId, CancellationToken cancellationToken);
+        Task<Address?> GetVolunteerAddressAsync(Guid volunteerId, CancellationToken cancellationToken);
     }
 }

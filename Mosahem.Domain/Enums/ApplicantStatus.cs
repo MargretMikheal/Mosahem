@@ -1,4 +1,4 @@
 ﻿namespace mosahem.Domain.Enums
 {
-    public enum ApplicantStatus { Accepted, Rejected, Withdrawn }
+    public enum ApplicantStatus { Accepted, Pending, Rejected, Withdrawn }
 }
