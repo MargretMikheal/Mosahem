@@ -432,4 +432,13 @@
   <data name="Validation_NationalIdMustBe14Digits" xml:space="preserve">
     <value>National ID must be exactly 14 digits.</value>
   </data>
+  <data name="Volunteer_AlreadyApplied" xml:space="preserve">
+    <value>Already applied for this opportunity</value>
+  </data>
+  <data name="Application_InvalidQuestions" xml:space="preserve">
+    <value>Invalid application questions</value>
+  </data>
+  <data name="Application_AppliedSuccessfully" xml:space="preserve">
+    <value>Applied successfully!</value>
+  </data>
 </root>
