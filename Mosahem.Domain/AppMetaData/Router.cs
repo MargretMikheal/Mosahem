@@ -109,6 +109,9 @@
             public const string Like = $"{SingleRoute}/like";
             public const string Save = $"{SingleRoute}/save";
             public const string Comment = $"{SingleRoute}/comment";
+            public const string GetLikes = $"{SingleRoute}/likes";
+            public const string GetSaves = $"{SingleRoute}/saves";
+            public const string GetComments = $"{SingleRoute}/comments";
         }
         public static class UserRouting
         {

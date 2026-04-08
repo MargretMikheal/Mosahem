@@ -22,6 +22,9 @@ using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
+using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityComments;
+using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityLikes;
+using Mosahem.Application.Features.Opportunities.Queries.GetOpportunitySaves;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
 using Mosahem.Domain.AppMetaData;
@@ -138,6 +141,32 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
+        [AllowAnonymous]
+        [HttpGet(Router.OpportunityRouting.GetLikes)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetOpportunityLikes([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetOpportunityLikesQuery { OpportunityId = id });
+            return NewResult(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet(Router.OpportunityRouting.GetSaves)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetOpportunitySaves([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetOpportunitySavesQuery { OpportunityId = id });
+            return NewResult(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet(Router.OpportunityRouting.GetComments)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetOpportunityComments([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetOpportunityCommentsQuery { OpportunityId = id });
+            return NewResult(response);
+        }
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.OpportunityRouting.Approve)]
         [ValidateModelId]
