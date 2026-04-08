@@ -105,6 +105,10 @@
             public const string EditInfo = $"{SingleRoute}/info";
 
             public const string Apply = $"{SingleRoute}/apply";
+
+            public const string Like = $"{SingleRoute}/like";
+            public const string Save = $"{SingleRoute}/save";
+            public const string Comment = $"{SingleRoute}/comment";
         }
         public static class UserRouting
         {

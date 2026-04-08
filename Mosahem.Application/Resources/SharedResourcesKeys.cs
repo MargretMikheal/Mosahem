@@ -55,6 +55,7 @@
             public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
             public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
             public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
+            public const string OpportunityMustBeVerified = "Validation_OpportunityMustBeVerified";
             public const string FieldsMustNotExceedThree = "Validation_FieldsMustNotExceedThree";
             public const string SkillsMustNotExceedThree = "Validation_SkillsMustNotExceedThree";
             public const string NationalIdMustBe14Digits = "Validation_NationalIdMustBe14Digits";

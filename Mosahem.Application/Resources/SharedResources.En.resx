@@ -373,6 +373,9 @@
     <value>Database update failed.</value>
   </data>
   <data name="Validation_OrganizationMustBeVerified" xml:space="preserve">
+    <value>Opportunity must be verified to create opportunities.</value>
+  </data>
+  <data name="Validation_OpportunityMustBeVerified" xml:space="preserve">
     <value>Organization must be verified to create opportunities.</value>
   </data>
   <data name="Validation_Pagination_PageNumberMustBeGreaterThanZero" xml:space="preserve">

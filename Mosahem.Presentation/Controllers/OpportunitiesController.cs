@@ -8,13 +8,16 @@ using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
 using Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.ApproveOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.CommentOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityFields;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunitySkills;
+using Mosahem.Application.Features.Opportunities.Commands.LikeOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.RejectOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.ResumeOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.SaveOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.StopOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
@@ -71,6 +74,69 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
         }
 
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpPost(Router.OpportunityRouting.Like)]
+        [ValidateModelId]
+        public async Task<IActionResult> LikeOpportunity([FromRoute] Guid id)
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var command = new
+            {
+                VolunteerId = volunteerId,
+                OpportunityId = id
+            }.Adapt<LikeOpportunityCommand>();
+
+            var response = await _mediator.Send(command);
+
+            return NewResult(response);
+        }
+
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpPost(Router.OpportunityRouting.Save)]
+        [ValidateModelId]
+        public async Task<IActionResult> SaveOpportunity([FromRoute] Guid id)
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var command = new
+            {
+                VolunteerId = volunteerId,
+                OpportunityId = id
+            }.Adapt<SaveOpportunityCommand>();
+
+            var response = await _mediator.Send(command);
+
+            return NewResult(response);
+        }
+
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpPost(Router.OpportunityRouting.Comment)]
+        [ValidateModelId]
+        public async Task<IActionResult> CommentOpportunity([FromRoute] Guid id, [FromBody] CommentOpportunityRequest request)
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var command = request.Adapt<CommentOpportunityCommand>();
+            command.VolunteerId = volunteerId;
+            command.OpportunityId = id;
+
+            var response = await _mediator.Send(command);
+
+            return NewResult(response);
+        }
 
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost(Router.OpportunityRouting.Approve)]
