@@ -82,5 +82,96 @@ namespace mosahem.Infrastructure.Services
                     </div>
                 </div>";
         }
+        public string GenerateVolunteerAcceptedEmail(string volunteerName, string opportunityName, string opportunityUrl, string? imageUrl)
+        {
+            string imageSection = string.IsNullOrEmpty(imageUrl)
+                ? ""
+                : $@"
+            <div style=""text-align: center;"">
+                <img src=""{imageUrl}"" alt=""Opportunity Image"" 
+                     style=""width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin: 20px 0;"" />
+            </div>";
+
+            string content = $@"
+        <p style=""color: #666666; font-size: 16px;"">
+            Congratulations <strong>{volunteerName}</strong>! 🎉
+        </p>
+
+        <p style=""color: #666666; font-size: 16px;"">
+            You have been <strong>accepted</strong> for this opportunity:
+        </p>
+
+        {imageSection}
+
+        <div style=""text-align: center; margin: 20px 0;"">
+            <p style=""font-size: 18px; font-weight: bold; color: #333;"">
+                {opportunityName}
+            </p>
+        </div>
+
+        <div style=""text-align: center; margin: 30px 0;"">
+            <a href=""{opportunityUrl}"" 
+               style=""background-color: #4A90E2; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px;"">
+                View Opportunity
+            </a>
+        </div>
+
+        <p style=""color: #666666; font-size: 14px;"">
+            Click the button above to view full details and next steps.
+        </p>
+    ";
+
+            return GenerateGeneralLayout("You're Accepted! 🎉", content);
+        }
+
+        public string GenerateVolunteerRejectionEmail(string volunteerName, string opportunityName, string opportunitiesUrl, string? imageUrl)
+        {
+            string imageSection = string.IsNullOrEmpty(imageUrl)
+       ? ""
+       : $@"
+            <div style=""text-align: center;"">
+                <img src=""{imageUrl}"" alt=""Opportunity Image"" 
+                     style=""width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin: 20px 0;"" />
+            </div>";
+
+            string content = $@"
+        <p style=""color: #666666; font-size: 16px;"">
+            Hello <strong>{volunteerName}</strong>,
+        </p>
+
+        <p style=""color: #666666; font-size: 16px;"">
+            Thank you for applying to the following opportunity:
+        </p>
+
+        {imageSection}
+
+        <div style=""text-align: center; margin: 20px 0;"">
+            <p style=""font-size: 18px; font-weight: bold; color: #333;"">
+                {opportunityName}
+            </p>
+        </div>
+
+        <p style=""color: #666666; font-size: 16px;"">
+            After careful review, we regret to inform you that you were not selected for this opportunity.
+        </p>
+
+        <p style=""color: #666666; font-size: 16px;"">
+            We truly appreciate your interest and encourage you to explore other opportunities that match your skills and passions.
+        </p>
+
+        <div style=""text-align: center; margin: 30px 0;"">
+            <a href=""{opportunitiesUrl}"" 
+               style=""background-color: #4A90E2; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px;"">
+                Browse Opportunities
+            </a>
+        </div>
+
+        <p style=""color: #666666; font-size: 14px;"">
+            We wish you the best of luck in your volunteering journey 💙
+        </p>
+    ";
+
+            return GenerateGeneralLayout("Application Update", content);
+        }
     }
 }

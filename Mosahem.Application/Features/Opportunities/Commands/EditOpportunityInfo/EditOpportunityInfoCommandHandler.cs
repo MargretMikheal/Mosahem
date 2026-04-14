@@ -38,7 +38,7 @@ namespace Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInf
             var transaction = await _unitOfWork.BeginTransactionAsync(cancellationToken);
             try
             {
-                var AcceptedApplicantsCount = await _unitOfWork.OpportunityApplications.GetAcceptedApplicantsCount(request.OpportunityId, cancellationToken);
+                var AcceptedApplicantsCount = await _unitOfWork.OpportunityApplications.GetAcceptedApplicantsCountAsync(request.OpportunityId, cancellationToken);
                 if (request.Vacancies.HasValue && request.Vacancies < AcceptedApplicantsCount)
                 {
                     return _responseHandler.BadRequest<string>(

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using mosahem.Domain.Enums;
 using mosahem.Presentation.Bases;
+using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfo;
+using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfoCommand;
 using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerFields;
 using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerSkills;
 using Mosahem.Application.Features.Volunteers.Commands.Location.DeleteVolunteerAddress;
@@ -79,6 +81,27 @@ namespace Mosahem.Presentation.Controllers
             return NewResult(response);
 
         }
+        [Authorize(Roles = nameof(UserRole.Volunteer))]
+        [HttpPut(Router.VolunteerRouting.EditBasicInfo)]
+        [ValidateModelId]
+        public async Task<IActionResult> EditBasicInfo([FromBody] EditVolunteerBasicInfoRequest request)
+        {
+            var volunteerIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
 
+            if (string.IsNullOrEmpty(volunteerIdString) || !Guid.TryParse(volunteerIdString, out Guid volunteerId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new EditVolunteerBasicInfoCommand
+            {
+                VolunteerId = volunteerId,
+                NationalId = request.NationalId,
+                Bio = request.Bio,
+                DateOfBirth = request.DateOfBirth,
+                Gender = request.Gender
+            });
+
+            return NewResult(response);
+        }
     }
 }
