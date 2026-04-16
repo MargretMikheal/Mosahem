@@ -109,6 +109,7 @@
             public const string GetApplicantsByStatus = $"{SingleRoute}/applicants";
             public const string AcceptApplicant = $"{SingleRoute}/applicants/accept/{{applicantId}}";
             public const string RejectApplicant = $"{SingleRoute}/applicants/reject/{{applicantId}}";
+            public const string GetApplication = $"{SingleRoute}/volunteers/{{volunteerId}}/application";
         }
         public static class UserRouting
         {

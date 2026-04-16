@@ -22,6 +22,7 @@ using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
+using Mosahem.Application.Features.Opportunities.Queries.GetQuestionsAnswers;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
 using Mosahem.Domain.AppMetaData;
@@ -337,6 +338,32 @@ namespace Mosahem.Presentation.Controllers
                 Title = request.Title,
                 Vacancies = request.Vacancies,
                 Addresses = request.Addresses
+            });
+            return NewResult(response);
+        }
+        #endregion
+        #region Organization and Volunteer Authorized
+        [Authorize(Roles = $"{nameof(UserRole.Organization)},{nameof(UserRole.Volunteer)}")]
+        [HttpGet(Router.OpportunityRouting.GetApplication)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetApplication([FromRoute] Guid id, [FromRoute] Guid volunteerId)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+                return Unauthorized();
+
+            if (User.IsInRole(nameof(UserRole.Volunteer)) && userId != volunteerId)
+                return Forbid();
+
+            Guid? organizationId = User.IsInRole(nameof(UserRole.Organization)) ? userId : null;
+
+            var response = await _mediator.Send(new GetQuestionAnswersQuery
+            {
+                OrganizationId = organizationId,
+                OpportunityId = id,
+                VolunteerId = volunteerId
             });
             return NewResult(response);
         }
