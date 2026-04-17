@@ -208,9 +208,11 @@ namespace Mosahem.Application.Mapping
 
             #region Apply to opportunity
             config.NewConfig<ApplyToOpportunityCommand, OpportunityApplication>()
+                .Map(dest => dest.Id, src => Guid.NewGuid())
                 .Map(dest => dest.VolunteerId, src => src.VolunteerId)
                 .Map(dest => dest.OpportunityId, src => src.OpportunityId)
-                .Map(dest => dest.ApplicantStatus, src => ApplicantStatus.Pending);
+                .Map(dest => dest.ApplicantStatus, src => ApplicantStatus.Pending)
+                .Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
             #endregion
 
 

@@ -444,4 +444,22 @@
   <data name="Application_AppliedSuccessfully" xml:space="preserve">
     <value>!تم التقديم بنجاح</value>
   </data>
+  <data name="Success_ApplicantAcceptedSuccessfully" xml:space="preserve">
+    <value>تم قبول المتقدم بنجاح</value>
+  </data>
+  <data name="Application_ApplicationNotFound" xml:space="preserve">
+    <value>التقديم غير موجود</value>
+  </data>
+  <data name="Volunteer_AlreadyAccepted" xml:space="preserve">
+    <value>تم قبول هذا المتقدم بالفعل</value>
+  </data>
+  <data name="Volunteer_AlreadyRejected" xml:space="preserve">
+    <value>تم رفض هذا المتقدم بالفعل</value>
+  </data>
+  <data name="Success_ApplicantRejectedSuccessfully" xml:space="preserve">
+    <value>تم رفض المتقدم بنجاح</value>
+  </data>
+  <data name="Validation_CannotEditThisField" xml:space="preserve">
+    <value>لا يمكن تعديل هذا الحقل</value>
+  </data>
 </root>
