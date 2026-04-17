@@ -106,6 +106,13 @@
             public const string EditInfo = $"{SingleRoute}/info";
 
             public const string Apply = $"{SingleRoute}/apply";
+
+            public const string Like = $"{SingleRoute}/like";
+            public const string Save = $"{SingleRoute}/save";
+            public const string Comment = $"{SingleRoute}/comment";
+            public const string GetLikes = $"{SingleRoute}/likes";
+            public const string GetSaves = $"{SingleRoute}/saves";
+            public const string GetComments = $"{SingleRoute}/comments";
             public const string GetApplicantsByStatus = $"{SingleRoute}/applicants";
             public const string AcceptApplicant = $"{SingleRoute}/applicants/accept/{{applicantId}}";
             public const string RejectApplicant = $"{SingleRoute}/applicants/reject/{{applicantId}}";
