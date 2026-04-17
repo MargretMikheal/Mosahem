@@ -441,4 +441,22 @@
   <data name="Application_AppliedSuccessfully" xml:space="preserve">
     <value>Applied successfully!</value>
   </data>
+  <data name="Success_ApplicantAcceptedSuccessfully" xml:space="preserve">
+    <value>Applicant accepted successfully</value>
+  </data>
+  <data name="Application_ApplicationNotFound" xml:space="preserve">
+    <value>Application not found!</value>
+  </data>
+  <data name="Volunteer_AlreadyAccepted" xml:space="preserve">
+    <value>This applicant has been already accepted</value>
+  </data>
+  <data name="Volunteer_AlreadyRejected" xml:space="preserve">
+    <value>This applicant has been already rejected</value>
+  </data>
+  <data name="Success_ApplicantRejectedSuccessfully" xml:space="preserve">
+    <value>Applicant rejected successfully</value>
+  </data>
+  <data name="Validation_CannotEditThisField" xml:space="preserve">
+    <value>You cann't edit this field</value>
+  </data>
 </root>

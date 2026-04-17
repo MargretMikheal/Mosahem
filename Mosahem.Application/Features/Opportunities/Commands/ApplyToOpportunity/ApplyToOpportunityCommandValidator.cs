@@ -24,8 +24,7 @@ namespace Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity
                 .WithMessage(localizer[SharedResourcesKeys.Validation.NotFound]);
 
             RuleFor(x => x.Answers)
-                .NotNull().WithMessage(localizer[SharedResourcesKeys.Validation.Required])
-                .NotEmpty().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
+                .NotNull().WithMessage(localizer[SharedResourcesKeys.Validation.Required]);
 
             RuleForEach(x => x.Answers)
                 .SetValidator(new QuestionAnswerDtoValidator(localizer, unitOfWork));

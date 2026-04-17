@@ -36,7 +36,7 @@ namespace Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity
 
             // Check if the volunteer has already applied to this opportunity
             var applicationExists = await _unitOfWork.OpportunityApplications
-                .IsExist(request.VolunteerId, request.OpportunityId, cancellationToken);
+                .IsExistAsync(request.VolunteerId, request.OpportunityId, cancellationToken);
 
             if (applicationExists)
                 return _responseHandler.BadRequest<string>(_localizer[SharedResourcesKeys.Application.AlreadyApplied]);

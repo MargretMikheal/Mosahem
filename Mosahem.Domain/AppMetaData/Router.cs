@@ -83,6 +83,7 @@
             public const string DeleteAddress = $"{Prefix}/address/me";
             public const string EditFields = $"{Prefix}/fields/me";
             public const string EditSkills = $"{Prefix}/skills/me";
+            public const string EditBasicInfo = $"{Prefix}/basic-info/me";
             public const string FollowOrganization = "follow/{organizationId}";
             public const string UnfollowOrganization = "unfollow/{organizationId}";
             public const string GetAllVolunteers = $"";
@@ -105,6 +106,10 @@
             public const string EditInfo = $"{SingleRoute}/info";
 
             public const string Apply = $"{SingleRoute}/apply";
+            public const string GetApplicantsByStatus = $"{SingleRoute}/applicants";
+            public const string AcceptApplicant = $"{SingleRoute}/applicants/accept/{{applicantId}}";
+            public const string RejectApplicant = $"{SingleRoute}/applicants/reject/{{applicantId}}";
+            public const string GetApplication = $"{SingleRoute}/volunteers/{{volunteerId}}/application";
         }
         public static class UserRouting
         {
