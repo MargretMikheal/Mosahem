@@ -9,6 +9,7 @@ namespace mosahem.Application.Interfaces.Repositories
         Task<int> GetAcceptedApplicantsCountAsync(Guid opportunityId, CancellationToken cancellationToken);
         Task<bool> IsExistAsync(Guid volunteerId, Guid opportunityId, CancellationToken cancellationToken);
         Task<(IReadOnlyList<Volunteer>, int totalCount)> GetApplicantsByStatusPageAsync(Guid opportunityId, ApplicantStatus status, int page, int pageSize, CancellationToken cancellationToken);
+        Task<(IReadOnlyList<Volunteer>, int totalCount)> GetOrganizationVolunteersByStatusPageAsync(Guid organizationId, ApplicantStatus status, int page, int pageSize, CancellationToken cancellationToken);
         Task<OpportunityApplication?> GetByVolunteerAndOpportunityIdAsync(Guid volunteerId, Guid opportunityId, CancellationToken cancellationToken);
     }
 }

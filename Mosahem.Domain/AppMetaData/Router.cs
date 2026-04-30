@@ -72,7 +72,7 @@
             public const string EditOrganizationAddress = $"{Prefix}/addresses/{SingleRoute}";
             public const string EditFields = $"{SingleRoute}/fields";
             public const string EditAboutUs = $"{SingleRoute}/about-us";
-
+            public const string GetVolunteersByVerificationStatus = "me/volunteers/by-verification-status";
             public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
             public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
         }
