@@ -5,6 +5,7 @@ using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
 using Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus;
 using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfoCommand;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
 using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
@@ -60,6 +61,19 @@ namespace Mosahem.Application.Mapping
                          ? (int?)null
                          : CalculateApplicantAge(src.DateOfBirth.Value))
                 .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .Map(dest => dest.Bio, src => src.Bio)
+                .IgnoreNonMapped(true);
+
+            config.NewConfig<Volunteer, GetOrganizationVolunteersByVerificationStatusResponse>()
+                .Map(dest => dest.VolunteerId, src => src.Id)
+                .Map(dest => dest.Name, src => src.User.FullName ?? "")
+                .Map(dest => dest.ProfileImgUrl, src => src.ProfileImgKey)
+                .Map(dest => dest.Age,
+                     src => src.DateOfBirth == null
+                         ? (int?)null
+                         : CalculateApplicantAge(src.DateOfBirth.Value))
+                .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .Map(dest => dest.Bio, src => src.Bio)
                 .IgnoreNonMapped(true);
 
             config.NewConfig<EditVolunteerBasicInfoCommand, Volunteer>()
