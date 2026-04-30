@@ -4,6 +4,8 @@ using mosahem.Domain.Entities.Identity;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
+using Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus;
+using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfoCommand;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
 using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
 
@@ -44,11 +46,36 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.SkillId, src => src)
                 .Ignore(dest => dest.VolunteerId);
 
+
             config.NewConfig<OrganizationFollower, GetVolunteerFollowedOrganizationsResponse>()
                 .Map(dest => dest.OrganizationId, src => src.OrganizationId)
                 .Map(dest => dest.OrganizationName, src => src.Organization.User.FullName)
                 .Map(dest => dest.OrganizationDescription, src => src.Organization.Description)
                 .Map(dest => dest.OrganizationLogo, src => src.Organization.LogoKey);
+
+            config.NewConfig<Volunteer, GetApplicantsByStatusResponse>()
+                .Map(dest => dest.Name, src => src.User.FullName ?? "")
+                .Map(dest => dest.Age,
+                     src => src.DateOfBirth == null
+                         ? (int?)null
+                         : CalculateApplicantAge(src.DateOfBirth.Value))
+                .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .IgnoreNonMapped(true);
+
+            config.NewConfig<EditVolunteerBasicInfoCommand, Volunteer>()
+                .Map(dest => dest.NationalId, src => src.NationalId)
+                .Map(dest => dest.DateOfBirth, src => src.DateOfBirth)
+                .Map(dest => dest.Gender, src => src.Gender)
+                .Map(dest => dest.Bio, src => src.Bio)
+                .IgnoreNonMapped(true)
+                .IgnoreNullValues(true);
+        }
+        private static int CalculateApplicantAge(DateTime dateOfBirth)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - dateOfBirth.Year;
+            if (dateOfBirth.Date > today.AddYears(-age)) age--;
+            return age;
         }
     }
 }

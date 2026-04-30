@@ -20,8 +20,8 @@
     <PackageReference Include="Mapster.DependencyInjection" Version="9.0.0-pre01" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="3.0.0-beta1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
-      <PrivateAssets>all</PrivateAssets>
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2">
+	  <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3" />

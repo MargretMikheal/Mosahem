@@ -2,7 +2,6 @@
 {
     public class EditOpportunityQuestionsRequest
     {
-        public Guid OpportunityId { get; set; }
         public List<EditOpportunityQuestionDto> Questions { get; set; }
     }
 }

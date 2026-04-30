@@ -4,9 +4,13 @@ using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Questions;
 using mosahem.Domain.Enums;
+using Mosahem.Application.Features.Opportunities.Commands.ApplyToOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.CommentOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.CreateOpportunity;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityInfo;
 using Mosahem.Application.Features.Opportunities.Commands.EditOpportunityQuestions;
+using Mosahem.Application.Features.Opportunities.Commands.LikeOpportunity;
+using Mosahem.Application.Features.Opportunities.Commands.SaveOpportunity;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunities;
 using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVerificationStatus;
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
@@ -201,6 +205,30 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Vacancies, src => src.Vacancies)
                 .IgnoreNonMapped(true)
                 .IgnoreNullValues(true);
+
+            #region Apply to opportunity
+            config.NewConfig<ApplyToOpportunityCommand, OpportunityApplication>()
+                .Map(dest => dest.Id, src => Guid.NewGuid())
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.OpportunityId, src => src.OpportunityId)
+                .Map(dest => dest.ApplicantStatus, src => ApplicantStatus.Pending)
+                .Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
+            #endregion
+
+
+            config.NewConfig<LikeOpportunityCommand, OpportunityLike>()
+                   .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                   .Map(dest => dest.OpportunityId, src => src.OpportunityId);
+
+            config.NewConfig<SaveOpportunityCommand, OpportunitySave>()
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.OpportunityId, src => src.OpportunityId);
+
+            config.NewConfig<CommentOpportunityCommand, OpportunityComment>()
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.OpportunityId, src => src.OpportunityId)
+                .Map(dest => dest.Text, src => src.Text.Trim())
+                .Map(dest => dest.IsHidden, src => false);
         }
 
 

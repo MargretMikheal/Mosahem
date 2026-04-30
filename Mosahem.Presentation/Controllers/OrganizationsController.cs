@@ -25,6 +25,7 @@ namespace Mosahem.Presentation.Controllers
     public class OrganizationsController : MosahmControllerBase
     {
         #region Public 
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpGet(Router.OrganizationRouting.AllOrganizations)]
         public async Task<IActionResult> GetAllOrganizations()
         {

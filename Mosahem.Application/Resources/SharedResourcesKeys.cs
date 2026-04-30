@@ -26,6 +26,9 @@
             public const string OpportunityStopped = "Success_OpportunityStopped";
             public const string Added = "Added";
             public const string OpportunityResumed = "Success_OpportunityResumed";
+
+            public const string ApplicantAcceptedSuccessfully = "Success_ApplicantAcceptedSuccessfully";
+            public const string ApplicantRejectedSuccessfully = "Success_ApplicantRejectedSuccessfully";
         }
 
         public static class Validation
@@ -55,6 +58,7 @@
             public const string SkillCannotBeBothRequiredAndProvided = "Validation_SkillCannotBeBothRequiredAndProvided";
             public const string InvalidQuestionOptions = "Validation_InvalidQuestionOptions";
             public const string OrganizationMustBeVerified = "Validation_OrganizationMustBeVerified";
+            public const string OpportunityMustBeVerified = "Validation_OpportunityMustBeVerified";
             public const string FieldsMustNotExceedThree = "Validation_FieldsMustNotExceedThree";
             public const string SkillsMustNotExceedThree = "Validation_SkillsMustNotExceedThree";
             public const string NationalIdMustBe14Digits = "Validation_NationalIdMustBe14Digits";
@@ -64,6 +68,7 @@
             public const string VacanciesCannotBeLessThanAcceptedApplicants = "Validation_VacanciesCannotBeLessThanAcceptedApplicants";
             public const string VacanciesMinimumValueIs10 = "Validation_VacanciesMinimumValueIs10";
             public const string AnOnSiteOpportunityMustHaveAtLeastOneLocation = "Validation_AnOnSiteOpportunityMustHaveAtLeastOneLocation";
+            public const string CannotEditThisField = "Validation_CannotEditThisField";
             public static class Pagination
             {
                 public const string PageNumberMustBeGreaterThanZero = "Validation_Pagination_PageNumberMustBeGreaterThanZero";
@@ -127,6 +132,15 @@
             public const string AlreadyExists = "AlreadyExists";
             public const string AlreadyProcessed = "AlreadyProcessed";
             public const string OperationNotAllowed = "OperationNotAllowed";
+        }
+        public static class Application
+        {
+            public const string AlreadyApplied = "Volunteer_AlreadyApplied";
+            public const string AlreadyAccepted = "Volunteer_AlreadyAccepted";
+            public const string AlreadyRejected = "Volunteer_AlreadyRejected";
+            public const string InvalidQuestions = "Application_InvalidQuestions";
+            public const string AppliedSuccessfully = "Application_AppliedSuccessfully";
+            public const string ApplicationNotFound = "Application_ApplicationNotFound";
         }
     }
 }

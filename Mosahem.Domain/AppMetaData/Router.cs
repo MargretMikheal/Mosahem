@@ -79,7 +79,13 @@
         public static class VolunteerRouting
         {
             public const string Prefix = $"{Base}/volunteers";
+            public const string EditAddress = $"{Prefix}/address/me";
+            public const string DeleteAddress = $"{Prefix}/address/me";
+            public const string EditFields = $"{Prefix}/fields/me";
+            public const string EditSkills = $"{Prefix}/skills/me";
+            public const string EditBasicInfo = $"{Prefix}/basic-info/me";
             public const string FollowOrganization = "follow/{organizationId}";
+            public const string UnfollowOrganization = "unfollow/{organizationId}";
             public const string GetAllVolunteers = $"";
             public const string VolunteerFollowedOrganizations = "me/followed-organizations";
         }
@@ -98,6 +104,19 @@
             public const string EditSkills = $"{SingleRoute}/skills";
             public const string EditQuestions = $"{SingleRoute}/questions";
             public const string EditInfo = $"{SingleRoute}/info";
+
+            public const string Apply = $"{SingleRoute}/apply";
+
+            public const string Like = $"{SingleRoute}/like";
+            public const string Save = $"{SingleRoute}/save";
+            public const string Comment = $"{SingleRoute}/comment";
+            public const string GetLikes = $"{SingleRoute}/likes";
+            public const string GetSaves = $"{SingleRoute}/saves";
+            public const string GetComments = $"{SingleRoute}/comments";
+            public const string GetApplicantsByStatus = $"{SingleRoute}/applicants";
+            public const string AcceptApplicant = $"{SingleRoute}/applicants/accept/{{applicantId}}";
+            public const string RejectApplicant = $"{SingleRoute}/applicants/reject/{{applicantId}}";
+            public const string GetApplication = $"{SingleRoute}/volunteers/{{volunteerId}}/application";
         }
         public static class UserRouting
         {

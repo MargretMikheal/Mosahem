@@ -16,6 +16,7 @@ namespace mosahem.Domain.Entities.Profiles
         public string? CVKey { get; set; }
         public int TotalHours { get; set; }
         public int CompleteOpportunities { get; set; }
+        public string? Bio { get; set; }
         public Gender? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         #endregion

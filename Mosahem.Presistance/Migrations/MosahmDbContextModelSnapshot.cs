@@ -621,6 +621,9 @@ namespace mosahem.Presistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CVKey")
                         .HasColumnType("nvarchar(max)");
 

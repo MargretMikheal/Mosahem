@@ -40,6 +40,7 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OrganizationId, src => src.Id)
                 .Map(dest => dest.OrganizationName, src => src.User != null ? src.User.FullName : string.Empty)
                 .Map(dest => dest.OrganizationDescription, src => src.Description)
+                .Map(dest => dest.Status, src => src.VerificationStatus.ToString())
                 .Map(dest => dest.OrganizationLogo, src => src.LogoKey);
 
             config.NewConfig<Organization, GetOrganizationDataResponse>()
