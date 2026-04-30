@@ -32,6 +32,7 @@ namespace mosahem.Persistence.Repositories
         }
         public async Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOpportunitiesByVerificationStatusPageAsync(VerficationStatus verficationStatus, int page, int pageSize, CancellationToken cancellationToken = default)
         {
+            await RefreshStatusesAsync(opportunity => opportunity.VerificationStatus == verficationStatus, cancellationToken);
             var spec = new Specification<Opportunity>(opportunity => opportunity.VerificationStatus == verficationStatus)
              .NoTracking()
              .OrderByDesc(opportunity => opportunity.CreatedAt);
@@ -79,6 +80,7 @@ namespace mosahem.Persistence.Repositories
 
         public async Task<(IReadOnlyList<Opportunity>, int totalCount)> GetOrganizationOpportunitiesByStatusPageAsync(Guid organizationId, OpportunityStatus status, int page, int pageSize, CancellationToken cancellationToken = default)
         {
+            await RefreshStatusesAsync(o => o.OrganizationId == organizationId, cancellationToken);
             var spec = new Specification<Opportunity>(o => o.OrganizationId == organizationId && o.Status.HasFlag(status))
                 .NoTracking()
                 .OrderByAsc(o => o.CreatedAt);
