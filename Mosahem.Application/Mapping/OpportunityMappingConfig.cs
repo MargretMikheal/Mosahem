@@ -111,6 +111,16 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.LikesCount, src => src.OpportunityLikes != null ? src.OpportunityLikes.Count : 0)
                 .Map(dest => dest.CommentsCount, src => src.OpportunityComments != null ? src.OpportunityComments.Count : 0)
                 .Map(dest => dest.SavesCount, src => src.OpportunitySaves != null ? src.OpportunitySaves.Count : 0)
+                .Map(dest => dest.ApplicantsCount, src => src.OpportunityApplications.Count())
+                .Map(dest => dest.AcceptedApplicantsCount,
+                    src => (src.OpportunityApplications ?? new List<OpportunityApplication>())
+                        .Count(application => application.ApplicantStatus == ApplicantStatus.Accepted))
+                .Map(dest => dest.RejectedApplicantsCount,
+                    src => (src.OpportunityApplications ?? new List<OpportunityApplication>())
+                        .Count(application => application.ApplicantStatus == ApplicantStatus.Rejected))
+                .Map(dest => dest.PendingApplicantsCount,
+                    src => (src.OpportunityApplications ?? new List<OpportunityApplication>())
+                        .Count(application => application.ApplicantStatus == ApplicantStatus.Pending))
                 .Map(dest => dest.Questions,
                     src => (src.Questions ?? new List<Question>())
                         .OrderBy(question => question.Order)

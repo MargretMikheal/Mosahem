@@ -26,6 +26,7 @@ namespace mosahem.Persistence.Repositories
                 .Include("OpportunityLikes")
                 .Include("OpportunityComments")
                 .Include("OpportunitySaves")
+                .Include("OpportunityApplications")
                 .Include("Questions");
 
             return await FindFirstAsync(spec, cancellationToken);
