@@ -14,6 +14,9 @@
         public DateTime EndDate { get; set; }
         public int NumberOfVolunteers { get; set; }
         public int ApplicantsCount { get; set; }
+        public int AcceptedApplicantsCount { get; set; }
+        public int RejectedApplicantsCount { get; set; }
+        public int PendingApplicantsCount { get; set; }
         public OpportunityOrganizationResponse Organization { get; set; } = new();
         public List<OpportunityLocationResponse> Locations { get; set; } = new();
         public List<OpportunitySkillResponse> RequiredSkills { get; set; } = new();
