@@ -44,12 +44,17 @@ namespace Mosahem.Application.Features.Volunteers.Queries.GetVolunteerProfile
 
             response.ProfilePhoto = _fileService.GetFileUrl(response.ProfilePhoto, isPrivate: true);
             response.CoverPhoto = _fileService.GetFileUrl(response.CoverPhoto, isPrivate: true);
-
             foreach (var opportunity in response.CompletedOpportunities)
+            {
                 opportunity.OpportunityPhotoUrl = _fileService.GetFileUrl(opportunity.OpportunityPhotoUrl, isPrivate: true);
+                opportunity.Organization.OrganizationLogoUrl = _fileService.GetFileUrl(opportunity.Organization.OrganizationLogoUrl, isPrivate: true);
+            }
 
             foreach (var opportunity in response.SavedOpportunities)
+            {
                 opportunity.OpportunityPhotoUrl = _fileService.GetFileUrl(opportunity.OpportunityPhotoUrl, isPrivate: true);
+                opportunity.Organization.OrganizationLogoUrl = _fileService.GetFileUrl(opportunity.Organization.OrganizationLogoUrl, isPrivate: true);
+            }
 
             return _responseHandler.Success(response);
         }
