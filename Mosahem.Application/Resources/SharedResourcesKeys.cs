@@ -138,6 +138,10 @@
             public const string AlreadyApplied = "Volunteer_AlreadyApplied";
             public const string AlreadyAccepted = "Volunteer_AlreadyAccepted";
             public const string AlreadyRejected = "Volunteer_AlreadyRejected";
+            public const string AlreadyRated = "Volunteer_AlreadyRated";
+            public const string ApplicantCanBeRatedOnlyAfterTheOpportunityEnds = "Volunteer_ApplicantCanBeRatedOnlyAfterTheOpportunityEnds";
+            public const string CannotRateUnacceptedApplicant = "Volunteer_CannotRateUnacceptedApplicant";
+            public const string ApplicantRatedSuccessfully = "Volunteer_ApplicantRatedSuccessfully";
             public const string InvalidQuestions = "Application_InvalidQuestions";
             public const string AppliedSuccessfully = "Application_AppliedSuccessfully";
             public const string ApplicationNotFound = "Application_ApplicationNotFound";

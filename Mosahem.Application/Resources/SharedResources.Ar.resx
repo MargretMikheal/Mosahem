@@ -462,4 +462,16 @@
   <data name="Validation_CannotEditThisField" xml:space="preserve">
     <value>لا يمكن تعديل هذا الحقل</value>
   </data>
+  <data name="Volunteer_CannotRateUnacceptedApplicant" xml:space="preserve">
+    <value>لا تستطيع تقييم متقدم غير مقبول</value>
+  </data>
+  <data name="Volunteer_ApplicantCanBeRatedOnlyAfterTheOpportunityEnds" xml:space="preserve">
+    <value>تستطيع تقييم المتقدم فقط بعد انتهاء الفرصة</value>
+  </data>
+  <data name="Volunteer_ApplicantRatedSuccessfully" xml:space="preserve">
+    <value>تم تقييم المتقدم بنجاح</value>
+  </data>
+  <data name="Volunteer_AlreadyRated" xml:space="preserve">
+    <value>تم تقييم هذا المتطوع بالفعل</value>
+  </data>
 </root>
