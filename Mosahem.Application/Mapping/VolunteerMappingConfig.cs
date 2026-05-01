@@ -2,11 +2,13 @@
 using mosahem.Application.Common.Opportunities;
 using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Identity;
+using mosahem.Domain.Entities.Location;
 using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
 using Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus;
+using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus;
 using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfoCommand;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
@@ -95,6 +97,19 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Id, src => src.FieldId)
                 .Map(dest => dest.Name, src => src.Field.Localize(src.Field.NameAr, src.Field.NameEn));
 
+
+            config.NewConfig<Organization, OpportunityOrganizationResponse>()
+              .Map(dest => dest.OrganizationId, src => src.Id)
+              .Map(dest => dest.OrganizationName, src => src.User.FullName)
+              .Map(dest => dest.OrganizationLogoUrl, src => src.LogoKey);
+
+            config.NewConfig<Address, OpportunityLocationResponse>()
+              .Map(dest => dest.CityId, src => src.CityId)
+              .Map(dest => dest.CityName, src => src.City.Localize(src.City.NameAr, src.City.NameEn))
+              .Map(dest => dest.GovernorateId, src => src.City.GovernorateId)
+              .Map(dest => dest.GovernorateName, src => src.City.Governorate.Localize(src.City.Governorate.NameAr, src.City.Governorate.NameEn))
+              .Map(dest => dest.Description, src => src.Description);
+
             config.NewConfig<Opportunity, VolunteerOpportunityResponse>()
                 .Map(dest => dest.OpportunityId, src => src.Id)
                 .Map(dest => dest.OpportunityName, src => src.Title)
@@ -127,11 +142,22 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Gender, src => src.Gender != null ? src.Gender.ToString() : null)
                 .Map(dest => dest.DateOfBirth, src => src.DateOfBirth)
                 .Map(dest => dest.TotalHours, src => src.TotalHours)
-                .Map(dest => dest.CompletedOpportunitiesCount, src => src.CompleteOpportunities)
                 .Map(dest => dest.Skills, src => src.VolunteerSkills)
                 .Map(dest => dest.Fields, src => src.VolunteerFields)
-                .Map(dest => dest.CompletedOpportunities, src => src.OpportunityApplications == null ? new List<OpportunityApplication>() : src.OpportunityApplications.Where(x => x.ApplicantStatus == ApplicantStatus.Accepted).ToList())
-                .Map(dest => dest.SavedOpportunities, src => src.OpportunitySaves);
+                .Map(dest => dest.CompletedOpportunities, src => src.OpportunityApplications != null
+                   ? src.OpportunityApplications
+                       .Where(x => x.ApplicantStatus == ApplicantStatus.Accepted && x.Opportunity.Status.HasFlag(OpportunityStatus.Ended))
+                       .Select(x => x.Opportunity).ToList()
+                   : new List<Opportunity>())
+
+               .Map(dest => dest.CompletedOpportunitiesCount, src => src.OpportunityApplications != null
+                   ? src.OpportunityApplications.Count(x => x.ApplicantStatus == ApplicantStatus.Accepted && x.Opportunity.Status.HasFlag(OpportunityStatus.Ended))
+                   : 0)
+
+               .Map(dest => dest.SavedOpportunities, src => src.OpportunitySaves != null
+                   ? src.OpportunitySaves.Select(s => s.Opportunity).ToList()
+                   : new List<Opportunity>());
+
 
         }
 
