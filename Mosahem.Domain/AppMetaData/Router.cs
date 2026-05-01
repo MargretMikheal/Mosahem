@@ -88,6 +88,7 @@
             public const string UnfollowOrganization = "unfollow/{organizationId}";
             public const string GetAllVolunteers = $"";
             public const string VolunteerFollowedOrganizations = "me/followed-organizations";
+            public const string VolunteerProfileById = "{id}/profile";
         }
         public static class OpportunityRouting
         {

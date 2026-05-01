@@ -6,6 +6,7 @@ using Mosahem.Application.Features.Volunteers.Commands.FollowOrganization;
 using Mosahem.Application.Features.Volunteers.Commands.UnfollowOrganization;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
 using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
+using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerProfile;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
@@ -53,7 +54,13 @@ namespace Mosahem.Presentation.Controllers
             });
             return NewResult(response);
         }
-
+        [HttpGet(Router.VolunteerRouting.VolunteerProfileById)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetVolunteerProfileById([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new GetVolunteerProfileQuery { VolunteerId = id });
+            return NewResult(response);
+        }
 
         [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpGet(Router.VolunteerRouting.GetAllVolunteers)]
