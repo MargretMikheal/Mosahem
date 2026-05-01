@@ -1,7 +1,8 @@
-﻿namespace Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus
+﻿namespace Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus
 {
-    public class GetApplicantsByStatusResponse
+    public class GetOrganizationVolunteersByVerificationStatusResponse
     {
+        public Guid VolunteerId { get; set; }
         public string Name { get; set; }
         public string? ProfileImgUrl { get; set; }
         public int? Age { get; set; }

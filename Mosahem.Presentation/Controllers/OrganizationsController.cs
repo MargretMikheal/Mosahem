@@ -13,6 +13,7 @@ using Mosahem.Application.Features.Organizations.Queries.GetOrganizationData;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationFollowers;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationLicense;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVerificationComment;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus;
 using Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizations;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
@@ -94,6 +95,28 @@ namespace Mosahem.Presentation.Controllers
             var response = await _mediator.Send(new GetOrganizationVerificationCommentQuery { OrganizationId = id });
             return NewResult(response);
         }
+
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpGet(Router.OrganizationRouting.GetVolunteersByVerificationStatus)]
+        public async Task<IActionResult> GetVolunteersByVerificationStatus([FromQuery] string verificationStatus, [FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+        {
+            var organizationIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(organizationIdString) || !Guid.TryParse(organizationIdString, out Guid organizationId))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new GetOrganizationVolunteersByVerificationStatusQuery
+            {
+                OrganizationId = organizationId,
+                VerificationStatus = verificationStatus,
+                Page = page,
+                PageSize = pageSize
+            });
+
+            return NewResult(response);
+        }
+
         [Authorize(Roles = nameof(UserRole.Organization))]
         [HttpPut(Router.OrganizationRouting.EditOrganizationInfo)]
         [ValidateModelId]

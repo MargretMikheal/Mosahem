@@ -1,13 +1,19 @@
 ﻿using Mapster;
+using mosahem.Application.Common.Opportunities;
 using mosahem.Domain.Entities;
 using mosahem.Domain.Entities.Identity;
+using mosahem.Domain.Entities.Location;
+using mosahem.Domain.Entities.Opportunities;
 using mosahem.Domain.Entities.Profiles;
 using mosahem.Domain.Enums;
 using Mosahem.Application.Features.Authentication.Commands.CompleteVolunteerRegistration;
 using Mosahem.Application.Features.Opportunities.Queries.GetApplicantsByStatus;
+using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
+using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus;
 using Mosahem.Application.Features.Volunteers.Commands.EditVolunteerBasicInfoCommand;
 using Mosahem.Application.Features.Volunteers.Queries.GetAllVolunteers;
 using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerFollowedOrganizations;
+using Mosahem.Application.Features.Volunteers.Queries.GetVolunteerProfile;
 
 namespace Mosahem.Application.Mapping
 {
@@ -60,6 +66,19 @@ namespace Mosahem.Application.Mapping
                          ? (int?)null
                          : CalculateApplicantAge(src.DateOfBirth.Value))
                 .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .Map(dest => dest.Bio, src => src.Bio)
+                .IgnoreNonMapped(true);
+
+            config.NewConfig<Volunteer, GetOrganizationVolunteersByVerificationStatusResponse>()
+                .Map(dest => dest.VolunteerId, src => src.Id)
+                .Map(dest => dest.Name, src => src.User.FullName ?? "")
+                .Map(dest => dest.ProfileImgUrl, src => src.ProfileImgKey)
+                .Map(dest => dest.Age,
+                     src => src.DateOfBirth == null
+                         ? (int?)null
+                         : CalculateApplicantAge(src.DateOfBirth.Value))
+                .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .Map(dest => dest.Bio, src => src.Bio)
                 .IgnoreNonMapped(true);
 
             config.NewConfig<EditVolunteerBasicInfoCommand, Volunteer>()
@@ -69,7 +88,80 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.Bio, src => src.Bio)
                 .IgnoreNonMapped(true)
                 .IgnoreNullValues(true);
+
+            config.NewConfig<VolunteerSkill, VolunteerMasterDataResponse>()
+                .Map(dest => dest.Id, src => src.SkillId)
+                .Map(dest => dest.Name, src => src.Skill.Localize(src.Skill.NameAr, src.Skill.NameEn));
+
+            config.NewConfig<VolunteerField, VolunteerMasterDataResponse>()
+                .Map(dest => dest.Id, src => src.FieldId)
+                .Map(dest => dest.Name, src => src.Field.Localize(src.Field.NameAr, src.Field.NameEn));
+
+
+            config.NewConfig<Organization, OpportunityOrganizationResponse>()
+              .Map(dest => dest.OrganizationId, src => src.Id)
+              .Map(dest => dest.OrganizationName, src => src.User.FullName)
+              .Map(dest => dest.OrganizationLogoUrl, src => src.LogoKey);
+
+            config.NewConfig<Address, OpportunityLocationResponse>()
+              .Map(dest => dest.CityId, src => src.CityId)
+              .Map(dest => dest.CityName, src => src.City.Localize(src.City.NameAr, src.City.NameEn))
+              .Map(dest => dest.GovernorateId, src => src.City.GovernorateId)
+              .Map(dest => dest.GovernorateName, src => src.City.Governorate.Localize(src.City.Governorate.NameAr, src.City.Governorate.NameEn))
+              .Map(dest => dest.Description, src => src.Description);
+
+            config.NewConfig<Opportunity, VolunteerOpportunityResponse>()
+                .Map(dest => dest.OpportunityId, src => src.Id)
+                .Map(dest => dest.OpportunityName, src => src.Title)
+                .Map(dest => dest.OpportunityDescription, src => src.Descripition)
+                .Map(dest => dest.OpportunityPhotoUrl, src => src.PhotoKey)
+                .Map(dest => dest.WorkType, src => src.WorkType.ToString())
+                .Map(dest => dest.LocationType, src => src.LocationType.ToString())
+                .Map(dest => dest.OpportunityStatus, src => OpportunityStatusCalculator.ToNames(src.Status))
+                .Map(dest => dest.StartDate, src => src.StartDate)
+                .Map(dest => dest.EndDate, src => src.EndDate)
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                .Map(dest => dest.Vacancies, src => src.Vacancies)
+                .Map(dest => dest.ApplicantsCount, src => src.ApplicantsCount)
+                .Map(dest => dest.Organization, src => src.Organization)
+                .Map(dest => dest.Locations, src => src.Address);
+
+            config.NewConfig<OpportunityApplication, VolunteerOpportunityResponse>()
+                .Map(dest => dest, src => src.Opportunity);
+
+            config.NewConfig<OpportunitySave, VolunteerOpportunityResponse>()
+                .Map(dest => dest, src => src.Opportunity);
+
+            config.NewConfig<Volunteer, GetVolunteerProfileResponse>()
+                .Map(dest => dest.VolunteerId, src => src.Id)
+                .Map(dest => dest.Name, src => src.User.FullName)
+                .Map(dest => dest.ProfilePhoto, src => src.ProfileImgKey)
+                .Map(dest => dest.CoverPhoto, src => src.CoverImgKey)
+                .Map(dest => dest.Bio, src => src.Bio)
+                .Map(dest => dest.PhoneNumber, src => src.User.PhoneNumber)
+                .Map(dest => dest.Gender, src => src.Gender != null ? src.Gender.ToString() : null)
+                .Map(dest => dest.DateOfBirth, src => src.DateOfBirth)
+                .Map(dest => dest.TotalHours, src => src.TotalHours)
+                .Map(dest => dest.Skills, src => src.VolunteerSkills)
+                .Map(dest => dest.Fields, src => src.VolunteerFields)
+                .Map(dest => dest.CompletedOpportunities, src => src.OpportunityApplications != null
+                   ? src.OpportunityApplications
+                       .Where(x => x.ApplicantStatus == ApplicantStatus.Accepted && x.Opportunity.Status.HasFlag(OpportunityStatus.Ended))
+                       .Select(x => x.Opportunity).ToList()
+                   : new List<Opportunity>())
+
+               .Map(dest => dest.CompletedOpportunitiesCount, src => src.OpportunityApplications != null
+                   ? src.OpportunityApplications.Count(x => x.ApplicantStatus == ApplicantStatus.Accepted && x.Opportunity.Status.HasFlag(OpportunityStatus.Ended))
+                   : 0)
+
+               .Map(dest => dest.SavedOpportunities, src => src.OpportunitySaves != null
+                   ? src.OpportunitySaves.Select(s => s.Opportunity).ToList()
+                   : new List<Opportunity>());
+
+
         }
+
+
         private static int CalculateApplicantAge(DateTime dateOfBirth)
         {
             var today = DateTime.Today;
