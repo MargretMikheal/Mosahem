@@ -75,6 +75,8 @@
             public const string GetVolunteersByVerificationStatus = "me/volunteers/by-verification-status";
             public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
             public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
+
+            public const string GetUnratedVolunteers = $"volunteers/unrated";
         }
         public static class VolunteerRouting
         {
