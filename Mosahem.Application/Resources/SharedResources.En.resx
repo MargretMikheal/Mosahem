@@ -462,4 +462,16 @@
   <data name="Validation_CannotEditThisField" xml:space="preserve">
     <value>You cann't edit this field</value>
   </data>
+  <data name="Volunteer_CannotRateUnacceptedApplicant" xml:space="preserve">
+    <value>Cannot rate unaccepted applicant</value>
+  </data>
+  <data name="Volunteer_ApplicantCanBeRatedOnlyAfterTheOpportunityEnds" xml:space="preserve">
+    <value>You can rate an applicant only after the opportunity ends</value>
+  </data>
+  <data name="Volunteer_ApplicantRatedSuccessfully" xml:space="preserve">
+    <value>Applicant rated successfully</value>
+  </data>
+  <data name="Volunteer_AlreadyRated" xml:space="preserve">
+    <value>This applicant has already been rated</value>
+  </data>
 </root>

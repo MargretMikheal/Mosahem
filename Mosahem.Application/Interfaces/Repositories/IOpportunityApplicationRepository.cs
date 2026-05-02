@@ -11,5 +11,6 @@ namespace mosahem.Application.Interfaces.Repositories
         Task<(IReadOnlyList<Volunteer>, int totalCount)> GetApplicantsByStatusPageAsync(Guid opportunityId, ApplicantStatus status, int page, int pageSize, CancellationToken cancellationToken);
         Task<(IReadOnlyList<Volunteer>, int totalCount)> GetOrganizationVolunteersByStatusPageAsync(Guid organizationId, ApplicantStatus status, int page, int pageSize, CancellationToken cancellationToken);
         Task<OpportunityApplication?> GetByVolunteerAndOpportunityIdAsync(Guid volunteerId, Guid opportunityId, CancellationToken cancellationToken);
+        Task<(IReadOnlyList<OpportunityApplication>, int totalCount)> GetApplicationsWithUnratedVolunteersByOrganizationIdAsync(Guid organizationId, int page, int pageSize, CancellationToken cancellationToken);
     }
 }

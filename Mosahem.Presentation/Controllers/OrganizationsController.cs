@@ -15,6 +15,7 @@ using Mosahem.Application.Features.Organizations.Queries.GetOrganizationLicense;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVerificationComment;
 using Mosahem.Application.Features.Organizations.Queries.GetOrganizationVolunteersByVerificationStatus;
 using Mosahem.Application.Features.Organizations.Queries.GetPendingOrganizations;
+using Mosahem.Application.Features.Volunteers.Queries.GetUnratedVolunteers;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
@@ -160,6 +161,24 @@ namespace Mosahem.Presentation.Controllers
                 return Unauthorized();
 
             var response = await _mediator.Send(new EditOrganizationAboutUsCommand(organizationId, request.AboutUs));
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpGet(Router.OrganizationRouting.GetUnratedVolunteers)]
+        [ValidateModelId]
+        public async Task<IActionResult> GetUnratedVolunteers([FromQuery] GetUnratedVolunteersRequest request)
+        {
+            var organizationId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+            if (string.IsNullOrWhiteSpace(organizationId) || !Guid.TryParse(organizationId, out var organizationGuid))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new GetUnratedVolunteersQuery
+            {
+                OrganizationId = organizationGuid,
+                Page = request.Page,
+                PageSize = request.PageSize
+            });
             return NewResult(response);
         }
         #endregion

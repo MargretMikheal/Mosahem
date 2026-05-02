@@ -75,6 +75,8 @@
             public const string GetVolunteersByVerificationStatus = "me/volunteers/by-verification-status";
             public const string GetOpportunitiesByVerificationStatus = $"{Prefix}/{{organizationId}}/opportunities/by-verification-status";
             public const string GetOpportunitiesByStatus = $"{Prefix}/{{organizationId}}/opportunities/by-status";
+
+            public const string GetUnratedVolunteers = $"volunteers/unrated";
         }
         public static class VolunteerRouting
         {
@@ -115,8 +117,9 @@
             public const string GetSaves = $"{SingleRoute}/saves";
             public const string GetComments = $"{SingleRoute}/comments";
             public const string GetApplicantsByStatus = $"{SingleRoute}/applicants";
-            public const string AcceptApplicant = $"{SingleRoute}/applicants/accept/{{applicantId}}";
-            public const string RejectApplicant = $"{SingleRoute}/applicants/reject/{{applicantId}}";
+            public const string AcceptApplicant = $"{SingleRoute}/applicants/{{applicantId}}/accept";
+            public const string RejectApplicant = $"{SingleRoute}/applicants/{{applicantId}}/reject";
+            public const string RateApplicant = $"{SingleRoute}/applicants/{{applicantId}}/rating";
             public const string GetApplication = $"{SingleRoute}/volunteers/{{volunteerId}}/application";
         }
         public static class UserRouting

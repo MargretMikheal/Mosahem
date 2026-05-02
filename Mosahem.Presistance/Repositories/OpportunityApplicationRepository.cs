@@ -121,5 +121,24 @@ namespace mosahem.Persistence.Repositories
             if (hasChanges)
                 await _dbContext.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<(IReadOnlyList<OpportunityApplication>, int totalCount)> GetApplicationsWithUnratedVolunteersByOrganizationIdAsync(Guid organizationId, int page, int pageSize, CancellationToken cancellationToken = default)
+        {
+            var spec = new Specification<OpportunityApplication>(oa =>
+                oa.Opportunity.OrganizationId == organizationId &&
+                oa.ApplicantStatus == ApplicantStatus.Accepted &&
+                !oa.Rating.HasValue)
+                .NoTracking();
+
+            var total = await CountAsync(spec, cancellationToken);
+
+            spec = spec
+               .Include(oa => oa.Volunteer)
+               .Include("Volunteer.User")
+               .Include(oa => oa.Opportunity)
+               .Page((page - 1) * pageSize, pageSize);
+
+            return ((await FindAllAsync(spec, cancellationToken)).ToList(), total);
+        }
     }
 }

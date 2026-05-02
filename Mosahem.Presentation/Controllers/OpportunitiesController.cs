@@ -31,6 +31,7 @@ using Mosahem.Application.Features.Opportunities.Queries.GetOpportunitySaves;
 using Mosahem.Application.Features.Opportunities.Queries.GetQuestionsAnswers;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
+using Mosahem.Application.Features.Volunteers.Commands.RateApplicant;
 using Mosahem.Domain.AppMetaData;
 using Mosahem.Presentation.Filters;
 using System.Security.Claims;
@@ -70,6 +71,26 @@ namespace Mosahem.Presentation.Controllers
                 return Unauthorized();
 
             var response = await _mediator.Send(new RejectApplicantCommand(organizationGuid, opportunityId: id, applicantId));
+            return NewResult(response);
+        }
+        [Authorize(Roles = nameof(UserRole.Organization))]
+        [HttpPut(Router.OpportunityRouting.RateApplicant)]
+        [ValidateModelId]
+        public async Task<IActionResult> RateApplicant([FromRoute] Guid id, [FromRoute] Guid applicantId, [FromBody] RateApplicantRequest request)
+        {
+            var organizationId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrWhiteSpace(organizationId) || !Guid.TryParse(organizationId, out var organizationGuid))
+                return Unauthorized();
+
+            var response = await _mediator.Send(new RateApplicantCommand
+            {
+                OrganizationId = organizationGuid,
+                OpportunityId = id,
+                VolunteerId = applicantId,
+                Rate = request.Rate
+            });
             return NewResult(response);
         }
         #endregion

@@ -16,6 +16,7 @@ using Mosahem.Application.Features.Opportunities.Queries.GetAllOpportunitiesByVe
 using Mosahem.Application.Features.Opportunities.Queries.GetOpportunityById;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByStatus;
 using Mosahem.Application.Features.Opportunities.Queries.OrganizationOpportunities.GetOpportunitiesByVerificationStatus;
+using Mosahem.Application.Features.Volunteers.Queries.GetUnratedVolunteers;
 using System.Text.Json;
 
 namespace Mosahem.Application.Mapping
@@ -239,6 +240,14 @@ namespace Mosahem.Application.Mapping
                 .Map(dest => dest.OpportunityId, src => src.OpportunityId)
                 .Map(dest => dest.Text, src => src.Text.Trim())
                 .Map(dest => dest.IsHidden, src => false);
+
+            config.NewConfig<OpportunityApplication, GetUnratedVolunteersResponse>()
+                .Map(dest => dest.VolunteerId, src => src.VolunteerId)
+                .Map(dest => dest.FullName, src => src.Volunteer.User != null ? src.Volunteer.User.FullName : string.Empty)
+                .Map(dest => dest.Bio, src => src.Volunteer.Bio)
+                .Map(dest => dest.OpportunityId, src => src.OpportunityId)
+                .IgnoreNonMapped(true)
+                .IgnoreNullValues(true);
         }
 
 
